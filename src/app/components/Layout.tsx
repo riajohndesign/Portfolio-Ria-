@@ -2,12 +2,12 @@ import { useState, useEffect } from "react";
 import { Link, Outlet, useLocation } from "react-router";
 import { ArrowUpRight } from "lucide-react";
 import { CustomCursor } from "./CustomCursor";
-import { useTheme, THEMES } from "../contexts/ThemeContext";
+import { useTheme } from "../contexts/ThemeContext";
 
 export function Layout() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-  const { theme, setTheme } = useTheme();
+  const { theme } = useTheme();
   const location = useLocation();
 
   useEffect(() => {
@@ -80,50 +80,10 @@ export function Layout() {
               Resume <ArrowUpRight className="w-3 h-3" />
             </a>
 
-            {/* Theme Switcher */}
-            <div
-              className="flex items-center gap-1.5 rounded-full px-1.5 py-1.5"
-              style={{ background: "var(--bg-2)", border: "1px solid var(--divider)" }}
-            >
-              {THEMES.map((t) => (
-                <button
-                  key={t.id}
-                  onClick={() => setTheme(t.id)}
-                  title={t.label}
-                  className="relative w-5 h-5 rounded-full transition-all duration-200 hover:scale-110"
-                  style={{
-                    background: t.swatch,
-                    border:
-                      theme === t.id
-                        ? "2px solid var(--fg)"
-                        : "2px solid transparent",
-                    boxShadow:
-                      theme === t.id
-                        ? "0 0 0 1px var(--bg)"
-                        : "none",
-                  }}
-                  aria-label={`Switch to ${t.label} theme`}
-                />
-              ))}
-            </div>
           </div>
 
-          {/* Mobile: theme + hamburger */}
+          {/* Mobile: hamburger */}
           <div className="flex items-center gap-3 md:hidden">
-            <div className="flex items-center gap-1.5 rounded-full px-1.5 py-1.5"
-              style={{ background: "var(--bg-2)", border: "1px solid var(--divider)" }}>
-              {THEMES.map((t) => (
-                <button
-                  key={t.id}
-                  onClick={() => setTheme(t.id)}
-                  className="w-4 h-4 rounded-full transition-all"
-                  style={{
-                    background: t.swatch,
-                    border: theme === t.id ? "2px solid var(--fg)" : "2px solid transparent",
-                  }}
-                />
-              ))}
-            </div>
             <button
               onClick={() => setMenuOpen(!menuOpen)}
               className="flex flex-col gap-1.5 p-1"
@@ -180,7 +140,7 @@ export function Layout() {
       </nav>
 
       {/* ─── Page Content ─── */}
-      <main>
+      <main className={isHome ? "theme-noir" : "theme-sand"} style={{ background: "var(--bg)", minHeight: "100vh" }}>
         <Outlet />
       </main>
 
