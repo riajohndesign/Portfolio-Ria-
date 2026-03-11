@@ -37,7 +37,7 @@ export function Layout() {
           boxShadow: scrolled ? "0 1px 0 0 color-mix(in srgb, var(--fg) 8%, transparent)" : "none",
         }}
       >
-        <div className="max-w-7xl mx-auto px-6 md:px-12 h-16 flex items-center justify-between">
+        <div className="w-full px-6 md:px-12 lg:px-20 h-16 flex items-center justify-between">
           {/* Logo */}
           <Link
             to="/"
