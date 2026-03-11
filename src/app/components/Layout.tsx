@@ -64,7 +64,7 @@ export function Layout() {
               About Me
             </a>
             <a
-              href="https://linkedin.com/in/riajohn"
+              href="https://www.linkedin.com/in/riaannjohn/"
               target="_blank"
               rel="noopener noreferrer"
               className="text-sm transition-opacity hover:opacity-60 inline-flex items-center gap-1"
@@ -129,7 +129,7 @@ export function Layout() {
             <a href="/#about" className="text-sm" style={{ color: "var(--fg-2)" }}>
               About Me
             </a>
-            <a href="https://linkedin.com/in/riajohn" className="text-sm" style={{ color: "var(--fg-2)" }}>
+            <a href="https://www.linkedin.com/in/riaannjohn/" className="text-sm" style={{ color: "var(--fg-2)" }}>
               LinkedIn
             </a>
             <a href="#" className="text-sm inline-flex items-center gap-1" style={{ color: "var(--fg-2)" }}>
@@ -174,7 +174,7 @@ export function Layout() {
                 Say Hello <ArrowUpRight className="w-3.5 h-3.5" />
               </a>
               <a
-                href="https://linkedin.com/in/riajohn"
+                href="https://www.linkedin.com/in/riaannjohn/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-sm font-medium transition-all"
