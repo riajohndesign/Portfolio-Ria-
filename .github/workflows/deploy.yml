@@ -1,4 +1,5 @@
-# Build and deploy to GitHub Pages (https://riajohndesign.github.io/Portfolio-Ria-/)
+# Build and deploy to GitHub Pages
+# Site: https://riajohn.com (custom domain) — build uses base "/" so assets load correctly at domain root
 name: Deploy to GitHub Pages
 
 on:
@@ -34,7 +35,8 @@ jobs:
       - name: Build
         run: npm run build
         env:
-          VITE_APP_BASE: "/Portfolio-Ria-/"
+          # Use "/" so the site works at custom domain root (riajohn.com). Do not use /Portfolio-Ria-/ when using a custom domain.
+          VITE_APP_BASE: "/"
 
       - name: Add 404 page for client-side routing
         run: cp dist/index.html dist/404.html
