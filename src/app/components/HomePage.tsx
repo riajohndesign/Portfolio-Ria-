@@ -7,109 +7,75 @@ import { ImageWithFallback } from "./figma/ImageWithFallback";
 import { Marquee } from "./Marquee";
 import caseStudiesImg from "../../assets/00deef985cfe35fb96a17572f3dbdf2570884359.png";
 
-/* ─── Gradient blob background (matches actual riajohn.design aesthetic) ─── */
+/* ─── Gradient blob background — follows cursor via rAF ─── */
 function GradientBlobs({ opacity = 1 }: { opacity?: number }) {
+  const b1 = useRef<HTMLDivElement>(null);
+  const b2 = useRef<HTMLDivElement>(null);
+  const b3 = useRef<HTMLDivElement>(null);
+  const b4 = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    let tx = 0.65, ty = 0.3;
+    let cx = 0.65, cy = 0.3;
+    let raf: number;
+
+    const onMove = (e: MouseEvent) => {
+      tx = e.clientX / window.innerWidth;
+      ty = e.clientY / window.innerHeight;
+    };
+
+    const tick = () => {
+      cx += (tx - cx) * 0.06;
+      cy += (ty - cy) * 0.06;
+      const vw = window.innerWidth;
+      const vh = window.innerHeight;
+      // Map cursor position across full viewport
+      const dx = (cx - 0.5) * vw;
+      const dy = (cy - 0.5) * vh;
+      if (b1.current) b1.current.style.transform = `translate(${dx * 0.8}px, ${dy * 0.8}px)`;
+      if (b2.current) b2.current.style.transform = `translate(${dx * 0.55}px, ${dy * 0.55}px)`;
+      if (b3.current) b3.current.style.transform = `translate(${dx * 0.35}px, ${dy * 0.35}px)`;
+      if (b4.current) b4.current.style.transform = `translate(${dx * 0.2}px, ${dy * 0.2}px)`;
+      raf = requestAnimationFrame(tick);
+    };
+
+    window.addEventListener("mousemove", onMove);
+    raf = requestAnimationFrame(tick);
+    return () => {
+      window.removeEventListener("mousemove", onMove);
+      cancelAnimationFrame(raf);
+    };
+  }, []);
+
   return (
     <div
       className="absolute inset-0 overflow-hidden pointer-events-none select-none"
       style={{ opacity }}
     >
-      <style>{`
-        @keyframes blob-drift-1 {
-          0%   { transform: translate(0px, 0px) scale(1); }
-          25%  { transform: translate(-40px, 30px) scale(1.08); }
-          50%  { transform: translate(30px, -20px) scale(0.95); }
-          75%  { transform: translate(-20px, 40px) scale(1.05); }
-          100% { transform: translate(0px, 0px) scale(1); }
-        }
-        @keyframes blob-drift-2 {
-          0%   { transform: translate(0px, 0px) scale(1); }
-          30%  { transform: translate(50px, -40px) scale(1.1); }
-          60%  { transform: translate(-30px, 20px) scale(0.92); }
-          100% { transform: translate(0px, 0px) scale(1); }
-        }
-        @keyframes blob-drift-3 {
-          0%   { transform: translate(0px, 0px) scale(1); }
-          40%  { transform: translate(-35px, -30px) scale(1.12); }
-          70%  { transform: translate(25px, 35px) scale(0.94); }
-          100% { transform: translate(0px, 0px) scale(1); }
-        }
-        @keyframes blob-drift-4 {
-          0%   { transform: translate(0px, 0px) scale(1); }
-          35%  { transform: translate(30px, 40px) scale(1.06); }
-          65%  { transform: translate(-40px, -25px) scale(0.96); }
-          100% { transform: translate(0px, 0px) scale(1); }
-        }
-      `}</style>
-
-      {/* Burgundy / crimson — upper-right main blob */}
-      <div
-        className="absolute"
-        style={{
-          top: "-15%",
-          right: "-5%",
-          width: "65vw",
-          height: "65vw",
-          maxWidth: "700px",
-          maxHeight: "700px",
-          borderRadius: "50%",
-          background:
-            "radial-gradient(circle at 40% 40%, rgba(155, 28, 55, 0.85) 0%, rgba(120, 18, 40, 0.5) 40%, transparent 70%)",
-          filter: "blur(60px)",
-          animation: "blob-drift-1 14s ease-in-out infinite",
-        }}
-      />
-      {/* Deep purple — overlapping */}
-      <div
-        className="absolute"
-        style={{
-          top: "0%",
-          right: "8%",
-          width: "55vw",
-          height: "55vw",
-          maxWidth: "600px",
-          maxHeight: "600px",
-          borderRadius: "50%",
-          background:
-            "radial-gradient(circle at 50% 50%, rgba(68, 18, 120, 0.75) 0%, rgba(45, 10, 90, 0.4) 45%, transparent 70%)",
-          filter: "blur(80px)",
-          animation: "blob-drift-2 18s ease-in-out infinite",
-        }}
-      />
-      {/* Magenta accent — small, far right */}
-      <div
-        className="absolute"
-        style={{
-          top: "15%",
-          right: "-8%",
-          width: "30vw",
-          height: "30vw",
-          maxWidth: "320px",
-          maxHeight: "320px",
-          borderRadius: "50%",
-          background:
-            "radial-gradient(circle at 50% 50%, rgba(180, 50, 100, 0.45) 0%, transparent 70%)",
-          filter: "blur(50px)",
-          animation: "blob-drift-3 11s ease-in-out infinite",
-        }}
-      />
-      {/* Dark blue-purple — lower right edge */}
-      <div
-        className="absolute"
-        style={{
-          top: "35%",
-          right: "-15%",
-          width: "40vw",
-          height: "40vw",
-          maxWidth: "420px",
-          maxHeight: "420px",
-          borderRadius: "50%",
-          background:
-            "radial-gradient(circle at 50% 50%, rgba(30, 12, 80, 0.55) 0%, transparent 70%)",
-          filter: "blur(70px)",
-          animation: "blob-drift-4 16s ease-in-out infinite",
-        }}
-      />
+      <div ref={b1} className="absolute" style={{
+        top: "-15%", right: "-5%", width: "65vw", height: "65vw",
+        maxWidth: "700px", maxHeight: "700px", borderRadius: "50%",
+        background: "radial-gradient(circle at 40% 40%, rgba(155, 28, 55, 0.85) 0%, rgba(120, 18, 40, 0.5) 40%, transparent 70%)",
+        filter: "blur(60px)",
+      }} />
+      <div ref={b2} className="absolute" style={{
+        top: "0%", right: "8%", width: "55vw", height: "55vw",
+        maxWidth: "600px", maxHeight: "600px", borderRadius: "50%",
+        background: "radial-gradient(circle at 50% 50%, rgba(68, 18, 120, 0.75) 0%, rgba(45, 10, 90, 0.4) 45%, transparent 70%)",
+        filter: "blur(80px)",
+      }} />
+      <div ref={b3} className="absolute" style={{
+        top: "15%", right: "-8%", width: "30vw", height: "30vw",
+        maxWidth: "320px", maxHeight: "320px", borderRadius: "50%",
+        background: "radial-gradient(circle at 50% 50%, rgba(180, 50, 100, 0.45) 0%, transparent 70%)",
+        filter: "blur(50px)",
+      }} />
+      <div ref={b4} className="absolute" style={{
+        top: "35%", right: "-15%", width: "40vw", height: "40vw",
+        maxWidth: "420px", maxHeight: "420px", borderRadius: "50%",
+        background: "radial-gradient(circle at 50% 50%, rgba(30, 12, 80, 0.55) 0%, transparent 70%)",
+        filter: "blur(70px)",
+      }} />
     </div>
   );
 }
