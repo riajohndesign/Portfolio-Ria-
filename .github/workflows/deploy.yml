@@ -34,7 +34,7 @@ jobs:
       - name: Build
         run: npm run build
         env:
-          VITE_APP_BASE: "/Portfolio-Ria/"
+          VITE_APP_BASE: "/Portfolio-Ria-/"
 
       - name: Add 404 page for client-side routing
         run: cp dist/index.html dist/404.html
