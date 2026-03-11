@@ -3,6 +3,8 @@ import { Layout } from "./components/Layout";
 import { HomePage } from "./components/HomePage";
 import { ProjectPage } from "./components/ProjectPage";
 
+const basename = (import.meta.env.BASE_URL ?? '/').replace(/\/$/, '') || '/';
+
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -12,4 +14,4 @@ export const router = createBrowserRouter([
       { path: "project/:id", Component: ProjectPage },
     ],
   },
-]);
+], { basename });
