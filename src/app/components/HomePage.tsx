@@ -5,7 +5,7 @@ import { ArrowUpRight, ArrowDown } from "lucide-react";
 import { projects } from "../data/projects";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 import { Marquee } from "./Marquee";
-import caseStudiesImg from "figma:asset/00deef985cfe35fb96a17572f3dbdf2570884359.png";
+import caseStudiesImg from "../../assets/00deef985cfe35fb96a17572f3dbdf2570884359.png";
 
 /* ─── Gradient blob background (matches actual riajohn.design aesthetic) ─── */
 function GradientBlobs({ opacity = 1 }: { opacity?: number }) {
@@ -743,7 +743,7 @@ export function HomePage() {
                         {exp.company}
                       </p>
                     </div>
-                    <p className="text-xs flex-shrink-0 ml-4 mt-0.5" style={{ color: "var(--fg-3)" }}>
+                    <p className="text-xs flex-shrink-0 ml-4 mt-0.5" style={{ color: "var(--fg-2)" }}>
                       {exp.year}
                     </p>
                   </div>
