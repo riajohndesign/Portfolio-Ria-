@@ -389,9 +389,10 @@ export function HomePage() {
                 initial={{ y: "108%" }}
                 animate={{ y: 0 }}
                 transition={{ duration: 1, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-                className="font-syne font-bold block"
+                className="font-bold block"
                 style={{
                   fontSize: "165px",
+                  fontFamily: "'DM Sans', sans-serif",
                   color: "#FFFFFF",
                   letterSpacing: "-0.02em",
                   lineHeight: 1.05,
