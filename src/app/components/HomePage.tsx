@@ -376,7 +376,7 @@ export function HomePage() {
         {/* Stacked hero type — positioned at bottom of screen */}
         <motion.div
           style={{ opacity: heroOpacity, scale: heroScale, y: heroY }}
-          className="relative z-20 flex-1 flex flex-col justify-center items-start px-6 md:px-12 lg:px-20 pb-14 pt-32 max-w-[100vw]"
+          className="relative z-20 flex-1 flex flex-col justify-center items-start px-6 md:px-12 lg:px-20 pb-32 pt-32 max-w-[100vw]"
         >
           <motion.div
             initial={{ opacity: 0, y: 40 }}
