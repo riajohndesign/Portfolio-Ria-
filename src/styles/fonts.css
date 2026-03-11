@@ -1,0 +1,133 @@
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300;1,9..40,400&display=swap');
+
+/* ─── Custom Cursor ─── */
+@media (pointer: fine) {
+  * { cursor: none !important; }
+}
+
+/* ─── Smooth Scroll ─── */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'DM Sans', system-ui, sans-serif;
+  transition: background 0.4s ease;
+}
+
+/* ─── Font Utilities ─── */
+.font-syne {
+  font-family: 'Syne', sans-serif;
+}
+
+/* ─── Theme: Sand (Default) ─── */
+:root,
+.theme-sand {
+  --bg:         #F5F3EE;
+  --bg-2:       #EDECE6;
+  --fg:         #111111;
+  --fg-2:       #888888;
+  --fg-3:       #C4BFB9;
+  --divider:    #E0DDD6;
+  --surface:    #FFFFFF;
+  --surface-2:  #F0EDE7;
+  --nav-bg:     rgba(245, 243, 238, 0.95);
+  --footer-bg:  #111111;
+  --footer-fg:  #FFFFFF;
+  --pill-bg:    rgba(0,0,0,0.06);
+  --pill-text:  #444444;
+  --badge-bg:   #E8F5EE;
+  --badge-text: #2D7A52;
+}
+
+/* ─── Theme: Noir ─── */
+.theme-noir {
+  --bg:         #0A0A0A;
+  --bg-2:       #141414;
+  --fg:         #F0F0F0;
+  --fg-2:       #777777;
+  --fg-3:       #333333;
+  --divider:    #222222;
+  --surface:    #141414;
+  --surface-2:  #1C1C1C;
+  --nav-bg:     rgba(10, 10, 10, 0.95);
+  --footer-bg:  #000000;
+  --footer-fg:  #F0F0F0;
+  --pill-bg:    rgba(255,255,255,0.08);
+  --pill-text:  #CCCCCC;
+  --badge-bg:   rgba(45, 122, 82, 0.2);
+  --badge-text: #5DBF8A;
+}
+
+/* ─── Theme: Forest ─── */
+.theme-forest {
+  --bg:         #0D1A12;
+  --bg-2:       #142118;
+  --fg:         #E8F0EC;
+  --fg-2:       #7A9A85;
+  --fg-3:       #2E4A38;
+  --divider:    #1E3225;
+  --surface:    #152119;
+  --surface-2:  #1C2D21;
+  --nav-bg:     rgba(13, 26, 18, 0.95);
+  --footer-bg:  #080F0A;
+  --footer-fg:  #E8F0EC;
+  --pill-bg:    rgba(120, 200, 150, 0.12);
+  --pill-text:  #A0C8AE;
+  --badge-bg:   rgba(80, 180, 120, 0.2);
+  --badge-text: #6BC99A;
+}
+
+/* ─── Marquee Animation ─── */
+@keyframes marquee-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+.marquee-track {
+  animation: marquee-scroll 32s linear infinite;
+  will-change: transform;
+}
+
+.marquee-track:hover {
+  animation-play-state: paused;
+}
+
+/* ─── Gradient blob drift animations ─── */
+@keyframes blob-1 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33%       { transform: translate(-30px, 20px) scale(1.05); }
+  66%       { transform: translate(20px, -15px) scale(0.97); }
+}
+@keyframes blob-2 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33%       { transform: translate(20px, -30px) scale(1.08); }
+  66%       { transform: translate(-15px, 25px) scale(0.95); }
+}
+@keyframes blob-3 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50%       { transform: translate(-25px, 15px) scale(1.1); }
+}
+
+.blob-1 { animation: blob-1 14s ease-in-out infinite; }
+.blob-2 { animation: blob-2 18s ease-in-out infinite; }
+.blob-3 { animation: blob-3 11s ease-in-out infinite; }
+
+/* ─── Floating dot pulse ─── */
+@keyframes dot-pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.4; }
+}
+
+.dot-pulse {
+  animation: dot-pulse 2s ease-in-out infinite;
+}
+
+/* ─── Page transition overlay ─── */
+.page-enter {
+  animation: page-fade-in 0.5s ease forwards;
+}
+@keyframes page-fade-in {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
