@@ -396,7 +396,7 @@ function ApproachCard({ item, delay }: { item: (typeof APPROACH)[0]; delay: numb
     >
       <p
         className="font-syne font-bold mb-5 leading-none"
-        style={{ fontSize: "56px", color: "var(--divider)" }}
+        style={{ fontSize: "56px", color: "var(--fg-2)" }}
       >
         {item.number}
       </p>
