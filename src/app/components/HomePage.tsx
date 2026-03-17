@@ -5,7 +5,6 @@ import { ArrowUpRight, ArrowDown } from "lucide-react";
 import { projects } from "../data/projects";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 import { Marquee } from "./Marquee";
-import caseStudiesImg from "../../assets/00deef985cfe35fb96a17572f3dbdf2570884359.png";
 
 /* ─── Gradient blob background — follows cursor via rAF ─── */
 function GradientBlobs({ opacity = 1 }: { opacity?: number }) {
@@ -177,6 +176,190 @@ function TypingWord() {
         }
       `}</style>
     </span>
+  );
+}
+
+/* ─── & More — accordion ─── */
+const MORE_ITEMS = [
+  {
+    title: "Case Studies",
+    description: "Deep-dive documents and process writeups from key projects.",
+    attachments: [
+      { label: "ARPA-H · Mobile Medical Van", href: "#" },
+      { label: "Validose · Medication Adherence Device", href: "#" },
+      { label: "ET Tube · Medical Device Research", href: "#" },
+    ],
+  },
+  {
+    title: "Facilitation",
+    description: "Workshop planning, session guides, and facilitation artefacts.",
+    attachments: [
+      { label: "Design Sprint Playbook", href: "#" },
+      { label: "Journey Mapping Workshop Deck", href: "#" },
+    ],
+  },
+  {
+    title: "Writing",
+    description: "Articles and essays on design, systems thinking, and research.",
+    attachments: [
+      { label: "On designing for ambiguity", href: "#" },
+      { label: "Why 0→1 needs more designers", href: "#" },
+    ],
+  },
+  {
+    title: "Speaking",
+    description: "Talks, panels, and conference appearances.",
+    attachments: [
+      { label: "Figma Config 2024 — Lightning Talk", href: "#" },
+    ],
+  },
+];
+
+function MoreAccordionItem({
+  item,
+  index,
+  open,
+  onToggle,
+}: {
+  item: (typeof MORE_ITEMS)[0];
+  index: number;
+  open: boolean;
+  onToggle: () => void;
+}) {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: "-40px" });
+
+  return (
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, y: 20 }}
+      animate={inView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.5, delay: index * 0.07, ease: [0.16, 1, 0.3, 1] }}
+      style={{ borderBottom: "1px solid rgba(255,255,255,0.1)" }}
+    >
+      <button
+        onClick={onToggle}
+        className="w-full flex items-center justify-between py-5 text-left group"
+      >
+        <span
+          className="font-medium tracking-tight transition-colors duration-200"
+          style={{
+            fontSize: "clamp(16px, 1.5vw, 20px)",
+            color: open ? "#ffffff" : "rgba(255,255,255,0.7)",
+          }}
+        >
+          {item.title}
+        </span>
+        <motion.span
+          animate={{ rotate: open ? 45 : 0 }}
+          transition={{ duration: 0.25, ease: "easeInOut" }}
+          className="flex-shrink-0 ml-4"
+          style={{ color: "rgba(255,255,255,0.5)" }}
+        >
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+            <line x1="9" y1="2" x2="9" y2="16" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+            <line x1="2" y1="9" x2="16" y2="9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+          </svg>
+        </motion.span>
+      </button>
+
+      <motion.div
+        initial={false}
+        animate={{ height: open ? "auto" : 0, opacity: open ? 1 : 0 }}
+        transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+        style={{ overflow: "hidden" }}
+      >
+        <div className="pb-6">
+          <p className="text-sm mb-4" style={{ color: "rgba(255,255,255,0.45)" }}>
+            {item.description}
+          </p>
+          <div className="flex flex-col gap-2">
+            {item.attachments.map((att, i) => (
+              <a
+                key={i}
+                href={att.href}
+                className="inline-flex items-center gap-2.5 w-fit group/link"
+                style={{ color: "rgba(255,255,255,0.65)" }}
+              >
+                <span
+                  className="flex-shrink-0 w-7 h-7 rounded-lg flex items-center justify-center transition-colors duration-200 group-hover/link:bg-white/10"
+                  style={{ border: "1px solid rgba(255,255,255,0.15)" }}
+                >
+                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                    <path d="M2.5 9.5L9.5 2.5M9.5 2.5H4.5M9.5 2.5V7.5" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </span>
+                <span className="text-sm transition-colors duration-200 group-hover/link:text-white">
+                  {att.label}
+                </span>
+              </a>
+            ))}
+          </div>
+        </div>
+      </motion.div>
+    </motion.div>
+  );
+}
+
+function MoreSection() {
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: "-60px" });
+
+  return (
+    <section
+      className="px-6 md:px-12 py-20 md:py-28"
+      style={{ background: "#111111" }}
+    >
+      <div className="max-w-7xl mx-auto">
+        <motion.div
+          ref={ref}
+          initial={{ opacity: 0, y: 24 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+          className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20"
+        >
+          {/* Left label */}
+          <div className="lg:col-span-4">
+            <p
+              className="text-xs tracking-[0.2em] uppercase mb-4"
+              style={{ color: "rgba(255,255,255,0.35)" }}
+            >
+              Beyond the work
+            </p>
+            <h2
+              className="font-bold leading-[1.05]"
+              style={{
+                fontSize: "clamp(36px, 5vw, 64px)",
+                color: "#ffffff",
+                letterSpacing: "-0.02em",
+              }}
+            >
+              &amp;More
+            </h2>
+            <p className="mt-4 text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.4)" }}>
+              Case studies, facilitation, writing, and speaking engagements.
+            </p>
+          </div>
+
+          {/* Right accordion */}
+          <div
+            className="lg:col-span-8"
+            style={{ borderTop: "1px solid rgba(255,255,255,0.1)" }}
+          >
+            {MORE_ITEMS.map((item, i) => (
+              <MoreAccordionItem
+                key={item.title}
+                item={item}
+                index={i}
+                open={openIndex === i}
+                onToggle={() => setOpenIndex(openIndex === i ? null : i)}
+              />
+            ))}
+          </div>
+        </motion.div>
+      </div>
+    </section>
   );
 }
 
@@ -477,63 +660,6 @@ export function HomePage() {
       </section>
 
       {/* ════════════════════════════════════════
-          CASE STUDIES AND FACILITATION
-         ════════════════════════════════════════ */}
-      <section
-        className="px-6 md:px-12 py-20 md:py-28"
-        style={{ background: "#111111" }}
-      >
-        <div className="max-w-7xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 28 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-60px" }}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-          >
-            <h2
-              className="font-syne font-bold text-white mb-10"
-              style={{ fontSize: "clamp(22px, 3vw, 32px)" }}
-            >
-              Case Studies and Facilitation
-            </h2>
-            <div className="rounded-2xl overflow-hidden" style={{ maxHeight: "420px" }}>
-              <img
-                src={caseStudiesImg}
-                alt="Case Studies and Facilitation — workshop presentation and group activity"
-                className="w-full h-full object-cover object-center"
-                style={{ display: "block" }}
-              />
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* ════════════════════════════════════════
-          APPROACH
-         ════════════════════════════════════════ */}
-      <section
-        className="px-6 md:px-12 py-20 md:py-28"
-        style={{ background: "var(--bg-2)" }}
-      >
-        <div className="max-w-7xl mx-auto">
-          <div className="flex items-center gap-4 mb-14">
-            <span
-              className="font-syne font-semibold text-xs tracking-[0.2em] uppercase"
-              style={{ color: "var(--fg)" }}
-            >
-              My Approach
-            </span>
-            <div className="flex-1 h-px" style={{ background: "var(--divider)" }} />
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
-            {APPROACH.map((item, i) => (
-              <ApproachCard key={item.number} item={item} delay={i * 0.1} />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ════════════════════════════════════════
           ABOUT ME
          ════════════════════════════════════════ */}
       <section id="about" className="px-6 md:px-12 py-24 md:py-32 max-w-7xl mx-auto">
@@ -666,6 +792,36 @@ export function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* ════════════════════════════════════════
+          APPROACH
+         ════════════════════════════════════════ */}
+      <section
+        className="px-6 md:px-12 py-20 md:py-28"
+        style={{ background: "var(--bg-2)" }}
+      >
+        <div className="max-w-7xl mx-auto">
+          <div className="flex items-center gap-4 mb-14">
+            <span
+              className="font-syne font-semibold text-xs tracking-[0.2em] uppercase"
+              style={{ color: "var(--fg)" }}
+            >
+              My Approach
+            </span>
+            <div className="flex-1 h-px" style={{ background: "var(--divider)" }} />
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+            {APPROACH.map((item, i) => (
+              <ApproachCard key={item.number} item={item} delay={i * 0.1} />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ════════════════════════════════════════
+          & MORE — accordion
+         ════════════════════════════════════════ */}
+      <MoreSection />
 
       {/* ════════════════════════════════════════
           CONTACT CTA
