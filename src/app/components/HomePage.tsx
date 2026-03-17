@@ -80,13 +80,48 @@ function GradientBlobs({ opacity = 1 }: { opacity?: number }) {
   );
 }
 
-/* ─── Typing word component ─── */
-const TYPING_WORDS = ["Designer.", "Strategist.", "Researcher.", "Systems Thinker.", "Storyteller."];
+/* ─── Greeting typing component ─── */
+function GreetingTyping() {
+  const full = "Hello, I am Ria";
+  const [displayed, setDisplayed] = useState("");
+  const [done, setDone] = useState(false);
+
+  useEffect(() => {
+    if (done) return;
+    if (displayed.length < full.length) {
+      const t = setTimeout(() => setDisplayed(full.slice(0, displayed.length + 1)), 80);
+      return () => clearTimeout(t);
+    } else {
+      setDone(true);
+    }
+  }, [displayed, done]);
+
+  return (
+    <span>
+      {displayed}
+      {!done && (
+        <span
+          className="inline-block w-[2px] ml-0.5 align-middle"
+          style={{
+            height: "0.75em",
+            background: "currentColor",
+            borderRadius: "1px",
+            animation: "cursor-blink 1s step-end infinite",
+          }}
+        />
+      )}
+    </span>
+  );
+}
+
+/* ─── Typing word component — cycles through words, stops permanently at "Designer." ─── */
+const TYPING_WORDS = ["Researcher.", "Storyteller.", "Strategist.", "Designer."];
 
 function TypingWord() {
   const [wordIndex, setWordIndex] = useState(0);
   const [displayed, setDisplayed] = useState("");
   const [phase, setPhase] = useState<"typing" | "pausing" | "deleting">("typing");
+  const isLast = wordIndex === TYPING_WORDS.length - 1;
 
   useEffect(() => {
     const current = TYPING_WORDS[wordIndex];
@@ -95,10 +130,11 @@ function TypingWord() {
       if (displayed.length < current.length) {
         const t = setTimeout(() => setDisplayed(current.slice(0, displayed.length + 1)), 72);
         return () => clearTimeout(t);
-      } else {
-        const t = setTimeout(() => setPhase("pausing"), 1600);
-        return () => clearTimeout(t);
       }
+      // On last word ("Designer."), stop permanently
+      if (isLast) return;
+      const t = setTimeout(() => setPhase("pausing"), 1400);
+      return () => clearTimeout(t);
     }
 
     if (phase === "pausing") {
@@ -111,24 +147,29 @@ function TypingWord() {
         const t = setTimeout(() => setDisplayed(displayed.slice(0, -1)), 38);
         return () => clearTimeout(t);
       } else {
-        setWordIndex((i) => (i + 1) % TYPING_WORDS.length);
+        // Advance to next word (never loops back — isLast guard above prevents deleting the last)
+        setWordIndex((i) => Math.min(i + 1, TYPING_WORDS.length - 1));
         setPhase("typing");
       }
     }
-  }, [displayed, phase, wordIndex]);
+  }, [displayed, phase, wordIndex, isLast]);
+
+  const fullyDone = isLast && displayed === TYPING_WORDS[TYPING_WORDS.length - 1];
 
   return (
     <span>
       {displayed}
-      <span
-        className="inline-block w-[3px] ml-1 align-middle"
-        style={{
-          height: "0.8em",
-          background: "rgba(255,255,255,0.5)",
-          borderRadius: "1px",
-          animation: "cursor-blink 1s step-end infinite",
-        }}
-      />
+      {!fullyDone && (
+        <span
+          className="inline-block w-[3px] ml-1 align-middle"
+          style={{
+            height: "0.8em",
+            background: "rgba(160,160,160,0.6)",
+            borderRadius: "1px",
+            animation: "cursor-blink 1s step-end infinite",
+          }}
+        />
+      )}
       <style>{`
         @keyframes cursor-blink {
           0%, 100% { opacity: 1; }
@@ -359,7 +400,7 @@ export function HomePage() {
                 style={{
                   fontSize: "165px",
                   fontFamily: "'DM Sans', sans-serif",
-                  color: "#FFFFFF",
+                  color: "#D0D0D0",
                   letterSpacing: "-0.02em",
                   lineHeight: 1.05,
                 }}
@@ -367,6 +408,17 @@ export function HomePage() {
                 <TypingWord />
               </motion.p>
             </div>
+
+            {/* Tagline */}
+            <motion.p
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.9, delay: 1.0, ease: [0.16, 1, 0.3, 1] }}
+              className="mt-6 text-white"
+              style={{ fontSize: "clamp(18px, 2vw, 28px)", maxWidth: "680px", lineHeight: 1.5 }}
+            >
+              Product designer specializing in 0→1 product development and AI-driven design systems.
+            </motion.p>
           </motion.div>
 
           {/* Scroll cue */}
@@ -389,112 +441,6 @@ export function HomePage() {
         </motion.div>
       </section>
 
-      {/* ════════════════════════════════════════
-          INTRO — "Hello, I am Ria 👋" + bio
-         ════════════════════════════════════════ */}
-      <section
-        className="relative overflow-hidden"
-        style={{ background: "#0A0A0A" }}
-      >
-        {/* Subtle blob carry-over from above */}
-        <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-30">
-          <div
-            className="absolute"
-            style={{
-              top: "-30%",
-              right: "-10%",
-              width: "60vw",
-              height: "60vw",
-              maxWidth: "600px",
-              maxHeight: "600px",
-              borderRadius: "50%",
-              background: "radial-gradient(circle, rgba(100, 18, 45, 0.6) 0%, transparent 70%)",
-              filter: "blur(80px)",
-            }}
-          />
-        </div>
-
-        <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 py-24 md:py-32">
-          <motion.div
-            initial={{ opacity: 0, y: 32 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-          >
-            {/* Greeting */}
-            <p className="text-white text-2xl md:text-3xl font-semibold mb-6">
-              Hello, I am Ria{" "}
-              <span
-                className="inline-block"
-                style={{ animation: "wave 2.5s ease-in-out infinite", transformOrigin: "70% 70%" }}
-              >
-                👋
-              </span>
-            </p>
-
-            {/* Bio */}
-            <p
-              className="text-white/75 leading-relaxed mb-10 max-w-3xl"
-              style={{ fontSize: "clamp(16px, 2vw, 22px)" }}
-            >
-              I am a Product Designer specializing in early-stage{" "}
-              <span className="text-white font-medium">(0→1)</span> product development across{" "}
-              <span className="text-white font-medium">healthcare, finance</span>, and venture-backed
-              environments. I combine research, product strategy, and AI-driven systems design to
-              create meaningful, scalable solutions.
-            </p>
-
-            {/* Specialty tags */}
-            <div className="flex flex-wrap gap-2.5 mb-10">
-              {SPECIALTIES.map((tag) => (
-                <span
-                  key={tag}
-                  className="text-sm px-4 py-2 rounded-full"
-                  style={{
-                    background: "rgba(255,255,255,0.07)",
-                    color: "rgba(255,255,255,0.6)",
-                    border: "1px solid rgba(255,255,255,0.12)",
-                  }}
-                >
-                  {tag}
-                </span>
-              ))}
-            </div>
-
-            {/* Stats */}
-            <div className="flex flex-wrap gap-10 md:gap-16">
-              {[
-                { n: "5", label: "Projects shipped" },
-                { n: "3+", label: "Years designing" },
-                { n: "3", label: "Industries" },
-                { n: "50+", label: "User interviews" },
-              ].map(({ n, label }) => (
-                <div key={label}>
-                  <p
-                    className="font-syne font-bold text-white leading-none mb-1.5"
-                    style={{ fontSize: "clamp(32px, 4vw, 48px)" }}
-                  >
-                    {n}
-                  </p>
-                  <p className="text-xs tracking-widest uppercase text-white/35">{label}</p>
-                </div>
-              ))}
-            </div>
-          </motion.div>
-        </div>
-
-        {/* Wave animation style */}
-        <style>{`
-          @keyframes wave {
-            0%, 100% { transform: rotate(0deg); }
-            15%       { transform: rotate(14deg); }
-            30%       { transform: rotate(-8deg); }
-            45%       { transform: rotate(14deg); }
-            60%       { transform: rotate(-4deg); }
-            75%       { transform: rotate(10deg); }
-          }
-        `}</style>
-      </section>
 
       {/* ─── Marquee ─── */}
       <div style={{ background: "var(--bg)" }}>

@@ -41,7 +41,7 @@ export function Layout() {
           {/* Logo */}
           <Link
             to="/"
-            className="font-syne font-bold text-sm tracking-tight transition-opacity hover:opacity-60"
+            className="font-bold text-sm tracking-tight transition-opacity hover:opacity-60"
             style={{ color: "var(--fg)" }}
           >
             riajohn.design
