@@ -120,7 +120,6 @@ function TypingWord() {
   const [wordIndex, setWordIndex] = useState(0);
   const [displayed, setDisplayed] = useState("");
   const [phase, setPhase] = useState<"typing" | "pausing" | "deleting">("typing");
-  const isLast = wordIndex === TYPING_WORDS.length - 1;
 
   useEffect(() => {
     const current = TYPING_WORDS[wordIndex];
@@ -130,8 +129,6 @@ function TypingWord() {
         const t = setTimeout(() => setDisplayed(current.slice(0, displayed.length + 1)), 72);
         return () => clearTimeout(t);
       }
-      // On last word ("Designer."), stop permanently
-      if (isLast) return;
       const t = setTimeout(() => setPhase("pausing"), 1400);
       return () => clearTimeout(t);
     }
@@ -146,29 +143,24 @@ function TypingWord() {
         const t = setTimeout(() => setDisplayed(displayed.slice(0, -1)), 38);
         return () => clearTimeout(t);
       } else {
-        // Advance to next word (never loops back — isLast guard above prevents deleting the last)
-        setWordIndex((i) => Math.min(i + 1, TYPING_WORDS.length - 1));
+        setWordIndex((i) => (i + 1) % TYPING_WORDS.length);
         setPhase("typing");
       }
     }
-  }, [displayed, phase, wordIndex, isLast]);
-
-  const fullyDone = isLast && displayed === TYPING_WORDS[TYPING_WORDS.length - 1];
+  }, [displayed, phase, wordIndex]);
 
   return (
     <span>
       {displayed}
-      {!fullyDone && (
-        <span
-          className="inline-block w-[3px] ml-1 align-middle"
-          style={{
-            height: "0.8em",
-            background: "rgba(160,160,160,0.6)",
-            borderRadius: "1px",
-            animation: "cursor-blink 1s step-end infinite",
-          }}
-        />
-      )}
+      <span
+        className="inline-block w-[3px] ml-1 align-middle"
+        style={{
+          height: "0.8em",
+          background: "rgba(160,160,160,0.6)",
+          borderRadius: "1px",
+          animation: "cursor-blink 1s step-end infinite",
+        }}
+      />
       <style>{`
         @keyframes cursor-blink {
           0%, 100% { opacity: 1; }
