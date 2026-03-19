@@ -413,7 +413,7 @@ export const projects: Project[] = [
     year: "2023",
     role: "Design Researcher",
     tools: ["FigJam", "Miro", "Dovetail", "Literature Review"],
-    image: "/project-cover.png",
+    image: "/project-et-tube.png",
     accent: "#C94F4F",
     tagline: "Understanding a critical problem in emergency airway management.",
     overview:
