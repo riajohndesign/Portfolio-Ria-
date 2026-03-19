@@ -592,7 +592,7 @@ export function HomePage() {
               className="mt-6 text-white"
               style={{ fontSize: "clamp(18px, 2vw, 28px)", maxWidth: "680px", lineHeight: 1.5 }}
             >
-              AI Product Designer crafting 0→1 experiences powered by intelligent systems.
+              AI Product Designer specializing in 0→1 products, turning ambiguity into scalable, intelligent user experiences.
             </motion.p>
           </motion.div>
 
