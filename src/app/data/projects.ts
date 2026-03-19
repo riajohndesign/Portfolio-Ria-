@@ -143,13 +143,13 @@ export const projects: Project[] = [
   },
   {
     id: "othain-jersey-tech",
-    title: "OThain / Jersey Tech",
+    title: "Othain / Jersey Tech",
     subtitle: "Full Website Redesign",
     category: ["UX Design", "Content Strategy", "Design System"],
     year: "2024",
     role: "UX Designer & Content Strategist",
     tools: ["Figma", "FigJam", "Notion", "Webflow"],
-    image: "/project-cover.png",
+    image: "/project-othain.png",
     accent: "#4B72D4",
     tagline: "Rebuilding a tech brand from the ground up — components to content.",
     overview:
