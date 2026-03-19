@@ -674,22 +674,13 @@ export function HomePage() {
               I design with curiosity and intention.
             </h2>
 
-            {/* Photo placeholder */}
-            <div
-              className="aspect-[4/5] rounded-2xl flex items-center justify-center mb-6 overflow-hidden"
-              style={{ background: "var(--bg-2)", border: "1px dashed var(--divider)" }}
-            >
-              <div className="text-center px-6">
-                <div
-                  className="w-14 h-14 rounded-full mx-auto mb-3 flex items-center justify-center font-syne font-bold"
-                  style={{ background: "var(--divider)", color: "var(--fg-2)", fontSize: "18px" }}
-                >
-                  RJ
-                </div>
-                <p className="text-xs" style={{ color: "var(--fg-3)" }}>
-                  Add your photo here
-                </p>
-              </div>
+            {/* Profile photo */}
+            <div className="aspect-[4/5] rounded-2xl mb-6 overflow-hidden">
+              <img
+                src="/profile.png"
+                alt="Ria John — Product Designer"
+                className="w-full h-full object-cover object-top"
+              />
             </div>
 
             <a
