@@ -460,11 +460,14 @@ function ProjectCard({
               transform: hovered ? "scale(1.06)" : "scale(1)",
             }}
           />
+          {/* Base dark tint */}
+          <div className="absolute inset-0" style={{ background: "rgba(0,0,0,0.45)" }} />
+          {/* Bottom gradient for text legibility */}
           <div
             className="absolute inset-0"
             style={{
               background:
-                "linear-gradient(to top, rgba(0,0,0,0.82) 0%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0.0) 100%)",
+                "linear-gradient(to top, rgba(0,0,0,0.82) 0%, rgba(0,0,0,0.1) 55%, rgba(0,0,0,0.0) 100%)",
             }}
           />
           <div
