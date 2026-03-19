@@ -56,7 +56,7 @@ export const projects: Project[] = [
     year: "2024",
     role: "UX Designer",
     tools: ["Figma", "FigJam", "Maze", "ChatGPT"],
-    image: "/project-cover.png",
+    image: "/project-breathe-studio.png",
     accent: "#4B9E7A",
     tagline: "Empowering wellness coaches with AI-driven client insights.",
     overview:
