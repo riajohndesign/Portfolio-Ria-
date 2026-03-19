@@ -325,7 +325,7 @@ export const projects: Project[] = [
     year: "2023",
     role: "UX Researcher & Product Designer",
     tools: ["Figma", "FigJam", "Maze", "IDEO Methods"],
-    image: "/project-cover.png",
+    image: "/project-validose.png",
     accent: "#7C5CBF",
     tagline: "Making it easier to take the right medication at the right time.",
     overview:
