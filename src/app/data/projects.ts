@@ -56,8 +56,7 @@ export const projects: Project[] = [
     year: "2024",
     role: "UX Designer",
     tools: ["Figma", "FigJam", "Maze", "ChatGPT"],
-    image:
-      "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
+    image: "/project-cover.png",
     accent: "#4B9E7A",
     tagline: "Empowering wellness coaches with AI-driven client insights.",
     overview:
@@ -150,8 +149,7 @@ export const projects: Project[] = [
     year: "2024",
     role: "UX Designer & Content Strategist",
     tools: ["Figma", "FigJam", "Notion", "Webflow"],
-    image:
-      "https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
+    image: "/project-cover.png",
     accent: "#4B72D4",
     tagline: "Rebuilding a tech brand from the ground up — components to content.",
     overview:
@@ -239,8 +237,7 @@ export const projects: Project[] = [
     year: "2023",
     role: "UX Researcher & Early Designer",
     tools: ["Figma", "FigJam", "Miro", "Atlas.ti"],
-    image:
-      "https://images.unsplash.com/photo-1584515933487-779824d29309?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
+    image: "/project-cover.png",
     accent: "#D4714A",
     tagline: "Bringing primary care to the communities that need it most.",
     overview:
@@ -328,8 +325,7 @@ export const projects: Project[] = [
     year: "2023",
     role: "UX Researcher & Product Designer",
     tools: ["Figma", "FigJam", "Maze", "IDEO Methods"],
-    image:
-      "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
+    image: "/project-cover.png",
     accent: "#7C5CBF",
     tagline: "Making it easier to take the right medication at the right time.",
     overview:
@@ -417,8 +413,7 @@ export const projects: Project[] = [
     year: "2023",
     role: "Design Researcher",
     tools: ["FigJam", "Miro", "Dovetail", "Literature Review"],
-    image:
-      "https://images.unsplash.com/photo-1530497610245-94d3c16cda28?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
+    image: "/project-cover.png",
     accent: "#C94F4F",
     tagline: "Understanding a critical problem in emergency airway management.",
     overview:
