@@ -461,7 +461,7 @@ function ProjectCard({
             }}
           />
           {/* Base dark tint */}
-          <div className="absolute inset-0" style={{ background: "rgba(0,0,0,0.45)" }} />
+          <div className="absolute inset-0" style={{ background: "rgba(0,0,0,0.25)" }} />
           {/* Bottom gradient for text legibility */}
           <div
             className="absolute inset-0"
