@@ -237,7 +237,7 @@ export const projects: Project[] = [
     year: "2023",
     role: "UX Researcher & Early Designer",
     tools: ["Figma", "FigJam", "Miro", "Atlas.ti"],
-    image: "/project-cover.png",
+    image: "/project-arpa-h.png",
     accent: "#D4714A",
     tagline: "Bringing primary care to the communities that need it most.",
     overview:
