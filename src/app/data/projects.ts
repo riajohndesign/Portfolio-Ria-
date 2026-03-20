@@ -143,7 +143,7 @@ export const projects: Project[] = [
   },
   {
     id: "othain-jersey-tech",
-    title: "Othain / Jersey Tech",
+    title: "Othain/Jersey Tech",
     subtitle: "Full Website Redesign",
     category: ["UX Design", "Content Strategy", "Design System"],
     year: "2024",
@@ -319,7 +319,7 @@ export const projects: Project[] = [
   },
   {
     id: "validose",
-    title: "Validose",
+    title: "Eye Drops Adherance",
     subtitle: "Medication Adherence Device",
     category: ["User Research", "Product Development", "Healthcare"],
     year: "2023",
@@ -407,7 +407,7 @@ export const projects: Project[] = [
   },
   {
     id: "et-tube",
-    title: "ET Tube",
+    title: "ET Tube Holder",
     subtitle: "Medical Device Design Research",
     category: ["Design Research", "Healthcare", "Medical Devices"],
     year: "2023",
