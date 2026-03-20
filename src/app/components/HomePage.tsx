@@ -752,7 +752,7 @@ export function HomePage() {
                 <div key={group.label}>
                   <p
                     className="text-xs tracking-[0.2em] uppercase mb-3"
-                    style={{ color: "var(--fg-3)" }}
+                    style={{ color: "rgba(255,255,255,0.18)" }}
                   >
                     {group.label}
                   </p>
