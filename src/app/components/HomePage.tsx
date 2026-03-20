@@ -730,33 +730,49 @@ export function HomePage() {
             </p>
 
             {/* Skills */}
-            <div className="mb-12">
-              <p
-                className="text-xs tracking-[0.2em] uppercase mb-5"
-                style={{ color: "var(--fg-3)" }}
-              >
-                Skills & Tools
-              </p>
-              <div className="flex flex-wrap gap-2">
-                {[
-                  "UX Research", "Product Design", "Design Systems", "Service Design",
-                  "Content Strategy", "Prototyping", "User Testing", "Journey Mapping",
-                  "Figma", "FigJam", "AI-driven Design", "Healthcare UX",
-                  "Workshop Facilitation", "0→1 Product Development",
-                ].map((skill) => (
-                  <span
-                    key={skill}
-                    className="text-sm px-4 py-1.5 rounded-full"
-                    style={{
-                      background: "var(--bg-2)",
-                      color: "var(--fg-2)",
-                      border: "1px solid var(--divider)",
-                    }}
+            <div className="mb-12 space-y-6">
+              {[
+                {
+                  label: "Core",
+                  skills: ["Product Design", "UX Research", "Service Design", "Design Systems", "0→1 Product Development", "AI-driven Design"],
+                },
+                {
+                  label: "Methods",
+                  skills: ["User Testing", "Journey Mapping", "Workshop Facilitation", "Service Blueprinting", "Content Strategy"],
+                },
+                {
+                  label: "Tools",
+                  skills: ["Figma", "FigJam", "Cursor"],
+                },
+                {
+                  label: "AI-Native Tools",
+                  skills: ["Figma Make", "Lovable", "Midjourney", "Vizcom"],
+                },
+              ].map((group) => (
+                <div key={group.label}>
+                  <p
+                    className="text-xs tracking-[0.2em] uppercase mb-3"
+                    style={{ color: "var(--fg-3)" }}
                   >
-                    {skill}
-                  </span>
-                ))}
-              </div>
+                    {group.label}
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    {group.skills.map((skill) => (
+                      <span
+                        key={skill}
+                        className="text-sm px-4 py-1.5 rounded-full"
+                        style={{
+                          background: "var(--bg-2)",
+                          color: "var(--fg-2)",
+                          border: "1px solid var(--divider)",
+                        }}
+                      >
+                        {skill}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              ))}
             </div>
 
             {/* Experience */}
