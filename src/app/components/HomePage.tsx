@@ -785,9 +785,9 @@ export function HomePage() {
               </p>
               <div className="space-y-0">
                 {[
-                  { role: "Product Designer", company: "Add your current role", year: "2024–Present" },
-                  { role: "UX Designer", company: "Add your previous role", year: "2022–2024" },
-                  { role: "Design Intern", company: "Add your internship", year: "2021–2022" },
+                  { role: "Product Designer", company: "Jersey Tech Partners", year: "July 2025" },
+                  { role: "Product Designer", company: "10XBeta", year: "June 2024 – July 2025" },
+                  { role: "Designer", company: "Bearings World", year: "Sep 2020 – Aug 2022" },
                 ].map((exp, i) => (
                   <div
                     key={i}
