@@ -507,7 +507,7 @@ function ProjectCard({
         <div className="relative z-10 p-5 md:p-6">
           <p
             className="font-syne text-xs tracking-widest uppercase mb-3"
-            style={{ color: project.accent }}
+            style={{ color: "rgba(255,255,255,0.5)" }}
           >
             {project.year}
           </p>
