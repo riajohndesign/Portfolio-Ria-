@@ -177,16 +177,16 @@ const MORE_ITEMS = [
     title: "Case Studies",
     description: "Deep-dive documents and process writeups from key projects.",
     attachments: [
-      { label: "Bubble · Aid for Subway Induced Anxiety", href: "#" },
-      { label: "Serene · A Breathing Belt for New Moms", href: "#" },
+      { label: "Bubble · Aid for Subway Induced Anxiety", href: "/more/bubble" },
+      { label: "Serene · A Breathing Belt for New Moms", href: "/more/serene" },
     ],
   },
   {
     title: "Facilitation",
     description: "Workshop planning, session guides, and facilitation artefacts.",
     attachments: [
-      { label: "Envisioning the future you", href: "#" },
-      { label: "Carrom Club", href: "#" },
+      { label: "Envisioning the future you", href: "/more/envisioning-the-future-you" },
+      { label: "Carrom Club", href: "/more/carrom-club" },
     ],
   },
   {
@@ -265,26 +265,43 @@ function MoreAccordionItem({
             {item.description}
           </p>
           <div className="flex flex-col gap-2">
-            {item.attachments.map((att, i) => (
-              <a
-                key={i}
-                href={att.href}
-                className="inline-flex items-center gap-2.5 w-fit group/link"
-                style={{ color: "rgba(255,255,255,0.65)" }}
-              >
-                <span
-                  className="flex-shrink-0 w-7 h-7 rounded-lg flex items-center justify-center transition-colors duration-200 group-hover/link:bg-white/10"
-                  style={{ border: "1px solid rgba(255,255,255,0.15)" }}
+            {item.attachments.map((att, i) => {
+              const isInternal = att.href.startsWith("/");
+              const inner = (
+                <>
+                  <span
+                    className="flex-shrink-0 w-7 h-7 rounded-lg flex items-center justify-center transition-colors duration-200 group-hover/link:bg-white/10"
+                    style={{ border: "1px solid rgba(255,255,255,0.15)" }}
+                  >
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                      <path d="M2.5 9.5L9.5 2.5M9.5 2.5H4.5M9.5 2.5V7.5" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                  </span>
+                  <span className="text-sm transition-colors duration-200 group-hover/link:text-white">
+                    {att.label}
+                  </span>
+                </>
+              );
+              return isInternal ? (
+                <Link
+                  key={i}
+                  to={att.href}
+                  className="inline-flex items-center gap-2.5 w-fit group/link"
+                  style={{ color: "rgba(255,255,255,0.65)" }}
                 >
-                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-                    <path d="M2.5 9.5L9.5 2.5M9.5 2.5H4.5M9.5 2.5V7.5" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
-                </span>
-                <span className="text-sm transition-colors duration-200 group-hover/link:text-white">
-                  {att.label}
-                </span>
-              </a>
-            ))}
+                  {inner}
+                </Link>
+              ) : (
+                <a
+                  key={i}
+                  href={att.href}
+                  className="inline-flex items-center gap-2.5 w-fit group/link"
+                  style={{ color: "rgba(255,255,255,0.65)" }}
+                >
+                  {inner}
+                </a>
+              );
+            })}
           </div>
         </div>
       </motion.div>
