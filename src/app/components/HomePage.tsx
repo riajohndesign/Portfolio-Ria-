@@ -779,7 +779,7 @@ export function HomePage() {
             <div>
               <p
                 className="text-xs tracking-[0.2em] uppercase mb-5"
-                style={{ color: "var(--fg-3)" }}
+                style={{ color: "rgba(255,255,255,0.18)" }}
               >
                 Experience
               </p>
