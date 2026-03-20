@@ -593,7 +593,7 @@ export function HomePage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.9, delay: 1.0, ease: [0.16, 1, 0.3, 1] }}
               className="mt-6 text-white"
-              style={{ fontSize: "clamp(18px, 2vw, 28px)", maxWidth: "680px", lineHeight: 1.5 }}
+              style={{ fontSize: "clamp(18px, 2vw, 28px)", maxWidth: "900px", lineHeight: 1.5 }}
             >
               AI Product Designer specializing in 0→1 products, turning ambiguity into scalable, intelligent user experiences.
             </motion.p>
