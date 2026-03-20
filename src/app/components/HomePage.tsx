@@ -177,17 +177,16 @@ const MORE_ITEMS = [
     title: "Case Studies",
     description: "Deep-dive documents and process writeups from key projects.",
     attachments: [
-      { label: "ARPA-H · Mobile Medical Van", href: "#" },
-      { label: "Validose · Medication Adherence Device", href: "#" },
-      { label: "ET Tube · Medical Device Research", href: "#" },
+      { label: "Bubble · Aid for Subway Induced Anxiety", href: "#" },
+      { label: "Serene · A Breathing Belt for New Moms", href: "#" },
     ],
   },
   {
     title: "Facilitation",
     description: "Workshop planning, session guides, and facilitation artefacts.",
     attachments: [
-      { label: "Design Sprint Playbook", href: "#" },
-      { label: "Journey Mapping Workshop Deck", href: "#" },
+      { label: "Envisioning the future you", href: "#" },
+      { label: "Carrom Club", href: "#" },
     ],
   },
   {
