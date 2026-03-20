@@ -50,7 +50,7 @@ export interface Project {
 export const projects: Project[] = [
   {
     id: "breathe-studio",
-    title: "ARPA-H",
+    title: "Care Delivery Partner",
     subtitle: "Care Delivery Vehicle · Rural Healthcare Access",
     category: ["UX Design", "AI Tools", "Dashboard"],
     year: "2024",
