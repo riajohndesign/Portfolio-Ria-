@@ -714,17 +714,19 @@ export function HomePage() {
           {/* Right */}
           <div className="lg:col-span-8 lg:pl-8 flex flex-col justify-center">
             <p className="text-base md:text-lg leading-relaxed mb-6" style={{ color: "var(--fg)" }}>
-              I'm a Product Designer specializing in early-stage (0→1) product development across
-              healthcare, finance, and venture-backed environments. I combine research, product
-              strategy, and AI-driven systems design to create meaningful, scalable solutions.
+              I'm an AI Product Designer focused on building 0→1 products at the intersection of healthcare, finance, and venture-backed innovation.
+            </p>
+            <p
+              className="text-base md:text-lg leading-relaxed mb-6"
+              style={{ color: "var(--fg-2)" }}
+            >
+              My work blends user research, product strategy, and AI-driven systems design to create thoughtful, scalable experiences — especially in complex, high-stakes environments like med-tech and emerging platforms.
             </p>
             <p
               className="text-base md:text-lg leading-relaxed mb-12"
               style={{ color: "var(--fg-2)" }}
             >
-              Whether I'm mapping a service blueprint, facilitating a co-design workshop, or
-              building a component library — I'm always asking the same question: does this
-              actually serve the human on the other end?
+              From shaping early product vision to shipping end-to-end experiences, I operate across the full stack of design — whether that's mapping service blueprints, facilitating co-design workshops, or building robust design systems.
             </p>
 
             {/* Skills */}
