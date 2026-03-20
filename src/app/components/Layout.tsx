@@ -152,7 +152,7 @@ export function Layout() {
             <div>
               <p
                 className="font-syne font-bold leading-[0.95] mb-4"
-                style={{ color: "var(--footer-fg)", fontSize: "clamp(36px, 5vw, 64px)" }}
+                style={{ color: "var(--footer-fg)", fontSize: "clamp(24px, 3vw, 40px)" }}
               >
                 Let's build something
                 <br />
