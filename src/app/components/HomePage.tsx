@@ -646,9 +646,9 @@ export function HomePage() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
-          <ProjectCard project={projects[0]} index={0} className="lg:col-span-2 h-[460px] md:h-[560px]" />
+          <ProjectCard project={projects[2]} index={0} className="lg:col-span-2 h-[460px] md:h-[560px]" />
           <ProjectCard project={projects[1]} index={1} className="h-[360px] md:h-[560px]" />
-          <ProjectCard project={projects[2]} index={2} className="h-[340px] md:h-[420px]" />
+          <ProjectCard project={projects[0]} index={2} className="h-[340px] md:h-[420px]" />
           <ProjectCard project={projects[3]} index={3} className="h-[340px] md:h-[420px]" />
           <ProjectCard project={projects[4]} index={4} className="h-[340px] md:h-[420px]" />
         </div>
