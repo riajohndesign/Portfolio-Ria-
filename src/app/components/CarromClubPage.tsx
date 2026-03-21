@@ -147,9 +147,9 @@ export function CarromClubPage() {
       {/* ── Gallery row 2: wide + portrait ── */}
       <section className="px-6 md:px-12 lg:px-20 py-4 max-w-5xl mx-auto">
         <Reveal>
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-4">
-            <GalleryImg src="/cc-06.png" alt="Carrom board in play" className="md:col-span-7 aspect-[4/3]" />
-            <GalleryImg src="/cc-07.png" alt="Family at carrom event" className="md:col-span-5 aspect-[4/3]" />
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4" style={{ height: "420px" }}>
+            <GalleryImg src="/cc-06.png" alt="Carrom board in play" className="h-full" />
+            <GalleryImg src="/cc-07.png" alt="Family at carrom event" className="h-full" />
           </div>
         </Reveal>
       </section>
