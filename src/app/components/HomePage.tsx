@@ -192,10 +192,7 @@ const MORE_ITEMS = [
   {
     title: "Writing",
     description: "Articles and essays on design, systems thinking, and research.",
-    attachments: [
-      { label: "On designing for ambiguity", href: "https://medium.com/@riaannjohn" },
-      { label: "Why 0→1 needs more designers", href: "https://medium.com/@riaannjohn" },
-    ],
+    attachments: [],
   },
 ];
 
