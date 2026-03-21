@@ -191,6 +191,7 @@ const MORE_ITEMS = [
   },
   {
     title: "Writing",
+    titleHref: "https://medium.com/@riaannjohn",
     description: "Articles and essays on design, systems thinking, and research.",
     attachments: [],
   },
@@ -229,7 +230,19 @@ function MoreAccordionItem({
             color: open ? "#ffffff" : "rgba(255,255,255,0.7)",
           }}
         >
-          {item.title}
+          {item.titleHref ? (
+            <a
+              href={item.titleHref}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={(e) => e.stopPropagation()}
+              className="hover:underline underline-offset-4"
+            >
+              {item.title}
+            </a>
+          ) : (
+            item.title
+          )}
         </span>
         <motion.span
           animate={{ rotate: open ? 45 : 0 }}
