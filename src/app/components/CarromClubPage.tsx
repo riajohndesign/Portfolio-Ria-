@@ -27,9 +27,6 @@ function Reveal({
   );
 }
 
-const GALLERY_1 = ["/carrom-1.png"];
-const GALLERY_2 = ["/carrom-2.png"];
-const GALLERY_3 = ["/carrom-3.png"];
 
 export function CarromClubPage() {
   return (
@@ -112,48 +109,35 @@ export function CarromClubPage() {
         </div>
       </section>
 
-      {/* ── Gallery 1 — Brand & Identity ── */}
+      {/* ── Gallery — all 3 images in grid ── */}
       <section className="px-6 md:px-12 lg:px-20 py-16 max-w-5xl mx-auto">
         <Reveal>
           <p className="text-xs tracking-[0.2em] uppercase mb-8" style={{ color: "var(--fg-3)" }}>
-            Brand & Identity
+            Gallery
           </p>
-          <div className="rounded-2xl overflow-hidden">
-            <img
-              src={GALLERY_1[0]}
-              alt="Carrom Club brand identity and event posters"
-              className="w-full object-cover"
-            />
-          </div>
-        </Reveal>
-      </section>
-
-      {/* ── Events ── */}
-      <section className="px-6 md:px-12 lg:px-20 py-16" style={{ background: "var(--bg-2)" }}>
-        <div className="max-w-5xl mx-auto">
-          <Reveal>
-            <p className="text-xs tracking-[0.2em] uppercase mb-8" style={{ color: "var(--fg-3)" }}>
-              Events & Community
-            </p>
-            <div className="rounded-2xl overflow-hidden">
+          {/* Top: large + small side by side */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+            <div className="rounded-2xl overflow-hidden aspect-[4/3]">
               <img
-                src={GALLERY_2[0]}
-                alt="Carrom Club events and community gatherings"
-                className="w-full object-cover"
+                src="/carrom-1.png"
+                alt="Carrom Club brand identity and event posters"
+                className="w-full h-full object-cover object-top"
               />
             </div>
-          </Reveal>
-        </div>
-      </section>
-
-      {/* ── More Events ── */}
-      <section className="px-6 md:px-12 lg:px-20 py-16 max-w-5xl mx-auto">
-        <Reveal>
-          <div className="rounded-2xl overflow-hidden">
+            <div className="rounded-2xl overflow-hidden aspect-[4/3]">
+              <img
+                src="/carrom-2.png"
+                alt="Carrom Club events and community gatherings"
+                className="w-full h-full object-cover object-top"
+              />
+            </div>
+          </div>
+          {/* Bottom: full-width third image */}
+          <div className="rounded-2xl overflow-hidden aspect-[16/7]">
             <img
-              src={GALLERY_3[0]}
+              src="/carrom-3.png"
               alt="Carrom Club community moments"
-              className="w-full object-cover"
+              className="w-full h-full object-cover object-top"
             />
           </div>
         </Reveal>
