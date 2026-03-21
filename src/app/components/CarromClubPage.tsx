@@ -160,7 +160,7 @@ export function CarromClubPage() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <GalleryImg src="/cc-08.png" alt="Woman playing carrom" className="aspect-square" />
             <GalleryImg src="/cc-09.png" alt="Event gathering" className="aspect-square" />
-            <GalleryImg src="/cc-10.png" alt="Group playing carrom" className="aspect-square" />
+            <GalleryImg src="/cc-010.png" alt="Group playing carrom" className="aspect-square" />
           </div>
         </Reveal>
       </section>
@@ -169,8 +169,8 @@ export function CarromClubPage() {
       <section className="px-6 md:px-12 lg:px-20 py-4 max-w-5xl mx-auto">
         <Reveal>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <GalleryImg src="/cc-11.png" alt="Group photo — ok sign" className="aspect-[4/3]" />
-            <GalleryImg src="/cc-12.png" alt="Large group photo" className="aspect-[4/3]" />
+            <GalleryImg src="/cc-011.png" alt="Group photo — ok sign" className="aspect-[4/3]" />
+            <GalleryImg src="/cc-012.png" alt="Large group photo" className="aspect-[4/3]" />
           </div>
         </Reveal>
       </section>
