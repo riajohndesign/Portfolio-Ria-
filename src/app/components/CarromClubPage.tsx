@@ -74,49 +74,42 @@ export function CarromClubPage() {
             NYC – Community & Culture Through Play
           </p>
 
-          <div className="flex flex-wrap gap-8 pt-8" style={{ borderTop: "1px solid var(--divider)" }}>
-            {[
-              { label: "Role", value: "Co-Founder" },
-              { label: "Timeline", value: "2024 – Present" },
-              { label: "Social", value: "@thecarromclubnyc", href: "https://instagram.com/thecarromclubnyc" },
-            ].map((m) => (
-              <div key={m.label}>
-                <p className="text-xs tracking-[0.18em] uppercase mb-1" style={{ color: "var(--fg-3)" }}>{m.label}</p>
-                {m.href ? (
-                  <a
-                    href={m.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 text-sm font-medium hover:underline underline-offset-4"
-                    style={{ color: "var(--fg)" }}
-                  >
-                    {m.value} <ArrowUpRight className="w-3.5 h-3.5" />
-                  </a>
-                ) : (
-                  <p className="text-sm font-medium" style={{ color: "var(--fg)" }}>{m.value}</p>
-                )}
-              </div>
-            ))}
+          {/* Meta + Overview in same grid so they align */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 pt-8" style={{ borderTop: "1px solid var(--divider)" }}>
+            {/* Left: meta */}
+            <div className="lg:col-span-3 flex flex-col gap-6">
+              {[
+                { label: "Role", value: "Co-Founder" },
+                { label: "Timeline", value: "2024 – Present" },
+                { label: "Social", value: "@thecarromclubnyc", href: "https://instagram.com/thecarromclubnyc" },
+              ].map((m) => (
+                <div key={m.label}>
+                  <p className="text-xs tracking-[0.18em] uppercase mb-1" style={{ color: "var(--fg-3)" }}>{m.label}</p>
+                  {m.href ? (
+                    <a
+                      href={m.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1 text-sm font-medium hover:underline underline-offset-4"
+                      style={{ color: "var(--fg)" }}
+                    >
+                      {m.value} <ArrowUpRight className="w-3.5 h-3.5" />
+                    </a>
+                  ) : (
+                    <p className="text-sm font-medium" style={{ color: "var(--fg)" }}>{m.value}</p>
+                  )}
+                </div>
+              ))}
+            </div>
+            {/* Right: overview */}
+            <div className="lg:col-span-9">
+              <p className="text-xs tracking-[0.2em] uppercase mb-4" style={{ color: "var(--fg-3)" }}>Overview</p>
+              <p className="text-base md:text-lg leading-relaxed" style={{ color: "var(--fg)" }}>
+                Co-founded a community-led carrom club in New York City with the goal of creating a welcoming space for South Asian creatives and allies. The club regularly partners with local South Asian artists, designers, and musicians to host gatherings that blend traditional games with art, music, and conversation.
+              </p>
+            </div>
           </div>
         </motion.div>
-      </section>
-
-      {/* ── Overview ── */}
-      <section className="px-6 md:px-12 lg:px-20 py-16" style={{ background: "var(--bg-2)" }}>
-        <div className="max-w-5xl mx-auto">
-          <Reveal>
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
-              <div className="lg:col-span-3">
-                <p className="text-xs tracking-[0.2em] uppercase" style={{ color: "var(--fg-3)" }}>Overview</p>
-              </div>
-              <div className="lg:col-span-9">
-                <p className="text-base md:text-lg leading-relaxed" style={{ color: "var(--fg)" }}>
-                  Co-founded a community-led carrom club in New York City with the goal of creating a welcoming space for South Asian creatives and allies. The club regularly partners with local South Asian artists, designers, and musicians to host gatherings that blend traditional games with art, music, and conversation.
-                </p>
-              </div>
-            </div>
-          </Reveal>
-        </div>
       </section>
 
       {/* ── Brand ── */}
