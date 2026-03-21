@@ -197,13 +197,6 @@ const MORE_ITEMS = [
       { label: "Why 0→1 needs more designers", href: "https://medium.com/@riaannjohn" },
     ],
   },
-  {
-    title: "Speaking",
-    description: "Talks, panels, and conference appearances.",
-    attachments: [
-      { label: "Figma Config 2024 — Lightning Talk", href: "#" },
-    ],
-  },
 ];
 
 function MoreAccordionItem({
