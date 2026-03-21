@@ -27,6 +27,17 @@ function Reveal({
   );
 }
 
+function GalleryImg({ src, alt, className = "" }: { src: string; alt: string; className?: string }) {
+  return (
+    <div className={`overflow-hidden rounded-2xl ${className}`}>
+      <img
+        src={src}
+        alt={alt}
+        className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
+      />
+    </div>
+  );
+}
 
 export function CarromClubPage() {
   return (
@@ -63,7 +74,6 @@ export function CarromClubPage() {
             NYC – Community & Culture Through Play
           </p>
 
-          {/* Meta row */}
           <div className="flex flex-wrap gap-8 pt-8" style={{ borderTop: "1px solid var(--divider)" }}>
             {[
               { label: "Role", value: "Co-Founder" },
@@ -109,42 +119,64 @@ export function CarromClubPage() {
         </div>
       </section>
 
-      {/* ── Gallery — all 3 images in grid ── */}
+      {/* ── Brand ── */}
       <section className="px-6 md:px-12 lg:px-20 py-16 max-w-5xl mx-auto">
         <Reveal>
           <p className="text-xs tracking-[0.2em] uppercase mb-8" style={{ color: "var(--fg-3)" }}>
-            Gallery
+            Brand & Identity
           </p>
-          {/* Top: large + small side by side */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-            <div className="rounded-2xl overflow-hidden aspect-[4/3]">
-              <img
-                src="/carrom-1.png"
-                alt="Carrom Club brand identity and event posters"
-                className="w-full h-full object-cover object-top"
-              />
-            </div>
-            <div className="rounded-2xl overflow-hidden aspect-[4/3]">
-              <img
-                src="/carrom-2.png"
-                alt="Carrom Club events and community gatherings"
-                className="w-full h-full object-cover object-top"
-              />
-            </div>
+          {/* Row: wide poster + circle logo */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <GalleryImg src="/cc-01.png" alt="Carrom Club x Fontainhas poster" className="aspect-square" />
+            <GalleryImg src="/cc-02.png" alt="Carrom Club logo" className="aspect-square" />
           </div>
-          {/* Bottom: full-width third image */}
-          <div className="rounded-2xl overflow-hidden aspect-[16/7]">
-            <img
-              src="/carrom-3.png"
-              alt="Carrom Club community moments"
-              className="w-full h-full object-cover object-top"
-            />
+        </Reveal>
+      </section>
+
+      {/* ── Gallery row 1 ── */}
+      <section className="px-6 md:px-12 lg:px-20 py-4 max-w-5xl mx-auto">
+        <Reveal>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <GalleryImg src="/cc-03.png" alt="Carrom Club at Fontainhas" className="aspect-square" />
+            <GalleryImg src="/cc-04.png" alt="Iced coffee with Carrom Club flyer" className="aspect-square" />
+            <GalleryImg src="/cc-05.png" alt="Carrom board pieces closeup" className="aspect-square" />
+          </div>
+        </Reveal>
+      </section>
+
+      {/* ── Gallery row 2: wide + portrait ── */}
+      <section className="px-6 md:px-12 lg:px-20 py-4 max-w-5xl mx-auto">
+        <Reveal>
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-4">
+            <GalleryImg src="/cc-06.png" alt="Carrom board in play" className="md:col-span-7 aspect-[4/3]" />
+            <GalleryImg src="/cc-07.png" alt="Family at carrom event" className="md:col-span-5 aspect-[4/3]" />
+          </div>
+        </Reveal>
+      </section>
+
+      {/* ── Gallery row 3 ── */}
+      <section className="px-6 md:px-12 lg:px-20 py-4 max-w-5xl mx-auto">
+        <Reveal>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <GalleryImg src="/cc-08.png" alt="Woman playing carrom" className="aspect-square" />
+            <GalleryImg src="/cc-09.png" alt="Event gathering" className="aspect-square" />
+            <GalleryImg src="/cc-10.png" alt="Group playing carrom" className="aspect-square" />
+          </div>
+        </Reveal>
+      </section>
+
+      {/* ── Gallery row 4: two full group photos ── */}
+      <section className="px-6 md:px-12 lg:px-20 py-4 max-w-5xl mx-auto">
+        <Reveal>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <GalleryImg src="/cc-11.png" alt="Group photo — ok sign" className="aspect-[4/3]" />
+            <GalleryImg src="/cc-12.png" alt="Large group photo" className="aspect-[4/3]" />
           </div>
         </Reveal>
       </section>
 
       {/* ── Impact ── */}
-      <section className="px-6 md:px-12 lg:px-20 py-16" style={{ background: "var(--bg-2)" }}>
+      <section className="px-6 md:px-12 lg:px-20 py-20 mt-8" style={{ background: "var(--bg-2)" }}>
         <div className="max-w-5xl mx-auto">
           <Reveal>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
