@@ -27,22 +27,15 @@ function Reveal({
   );
 }
 
-const IMAGES = [
-  { src: "/ev-01.png", alt: "Envisioning the Future You event banner" },
-  { src: "/ev-02.png", alt: "Facilitator guiding workshop discussion" },
-  { src: "/ev-03.png", alt: "Facilitator speaking to group" },
-  { src: "/ev-04.png", alt: "Vision boarding materials on table" },
-  { src: "/ev-05.png", alt: "Participants at workshop table" },
-  { src: "/ev-06.png", alt: "Collage and vision board process" },
-  { src: "/ev-07.png", alt: "Team presenting at Products of Design" },
-  { src: "/ev-08.png", alt: "Envisioning the Future You event poster" },
-  { src: "/ev-09.png", alt: "Vision board — Who Are You Close Up" },
-  { src: "/ev-10.png", alt: "Participants working on vision boards" },
-  { src: "/ev-11.png", alt: "Personal SWOT analysis framework" },
-  { src: "/ev-12.png", alt: "Titles, Locations, Industries template" },
-];
-
-export function EnvisioningPage() {
+function SectionCarousel({
+  label,
+  images,
+  height = 440,
+}: {
+  label?: string;
+  images: { src: string; alt: string }[];
+  height?: number;
+}) {
   const [index, setIndex] = useState(0);
   const [direction, setDirection] = useState(1);
 
@@ -50,9 +43,80 @@ export function EnvisioningPage() {
     setDirection(next > index ? 1 : -1);
     setIndex(next);
   };
-  const prev = () => go((index - 1 + IMAGES.length) % IMAGES.length);
-  const next = () => go((index + 1) % IMAGES.length);
 
+  const showNav = images.length > 1;
+
+  return (
+    <section className="px-6 md:px-12 lg:px-20 py-4 max-w-5xl mx-auto">
+      <Reveal>
+        {label && (
+          <p className="text-xs tracking-[0.2em] uppercase mb-6 mt-8" style={{ color: "var(--fg-3)" }}>
+            {label}
+          </p>
+        )}
+        <div className="relative rounded-2xl overflow-hidden bg-black" style={{ height }}>
+          <AnimatePresence initial={false} custom={direction} mode="popLayout">
+            <motion.img
+              key={images[index].src}
+              src={images[index].src}
+              alt={images[index].alt}
+              custom={direction}
+              variants={{
+                enter: (d: number) => ({ x: d > 0 ? "100%" : "-100%", opacity: 0 }),
+                center: { x: "0%", opacity: 1 },
+                exit: (d: number) => ({ x: d > 0 ? "-100%" : "100%", opacity: 0 }),
+              }}
+              initial="enter"
+              animate="center"
+              exit="exit"
+              transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+              className="absolute inset-0 w-full h-full object-contain"
+            />
+          </AnimatePresence>
+
+          {showNav && (
+            <>
+              <button
+                onClick={() => go((index - 1 + images.length) % images.length)}
+                className="absolute left-3 top-1/2 -translate-y-1/2 z-10 flex items-center justify-center w-9 h-9 rounded-full transition-opacity duration-200 hover:opacity-80"
+                style={{ background: "rgba(0,0,0,0.5)" }}
+                aria-label="Previous"
+              >
+                <ChevronLeft className="w-5 h-5 text-white" />
+              </button>
+              <button
+                onClick={() => go((index + 1) % images.length)}
+                className="absolute right-3 top-1/2 -translate-y-1/2 z-10 flex items-center justify-center w-9 h-9 rounded-full transition-opacity duration-200 hover:opacity-80"
+                style={{ background: "rgba(0,0,0,0.5)" }}
+                aria-label="Next"
+              >
+                <ChevronRight className="w-5 h-5 text-white" />
+              </button>
+
+              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-10 flex gap-1.5">
+                {images.map((_, i) => (
+                  <button
+                    key={i}
+                    onClick={() => go(i)}
+                    className="rounded-full transition-all duration-300"
+                    style={{
+                      width: i === index ? "20px" : "8px",
+                      height: "8px",
+                      background: i === index ? "white" : "rgba(255,255,255,0.4)",
+                    }}
+                    aria-label={`Image ${i + 1}`}
+                  />
+                ))}
+              </div>
+            </>
+          )}
+        </div>
+      </Reveal>
+    </section>
+  );
+}
+
+export function EnvisioningPage() {
   return (
     <div style={{ background: "var(--bg)", color: "var(--fg)", minHeight: "100vh" }}>
 
@@ -87,7 +151,6 @@ export function EnvisioningPage() {
             A vision boarding workshop for Women & Non-Binary creatives
           </p>
 
-          {/* Meta + Overview */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 pt-8 items-start" style={{ borderTop: "1px solid var(--divider)" }}>
             <div className="lg:col-span-3 flex flex-col gap-6">
               {[
@@ -115,80 +178,60 @@ export function EnvisioningPage() {
         </motion.div>
       </section>
 
-      {/* ── Carousel ── */}
-      <section className="px-6 md:px-12 lg:px-20 pb-20 max-w-5xl mx-auto">
-        <Reveal>
-          <div className="relative rounded-2xl overflow-hidden bg-black" style={{ height: "520px" }}>
-            {/* Slides */}
-            <AnimatePresence initial={false} custom={direction} mode="popLayout">
-              <motion.img
-                key={IMAGES[index].src}
-                src={IMAGES[index].src}
-                alt={IMAGES[index].alt}
-                custom={direction}
-                variants={{
-                  enter: (d: number) => ({ x: d > 0 ? "100%" : "-100%", opacity: 0 }),
-                  center: { x: "0%", opacity: 1 },
-                  exit: (d: number) => ({ x: d > 0 ? "-100%" : "100%", opacity: 0 }),
-                }}
-                initial="enter"
-                animate="center"
-                exit="exit"
-                transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
-                className="absolute inset-0 w-full h-full object-contain"
-              />
-            </AnimatePresence>
+      {/* ── Event Identity ── */}
+      <SectionCarousel
+        label="Event Identity"
+        images={[
+          { src: "/ev-08.png", alt: "Event poster" },
+          { src: "/ev-01.png", alt: "Event banner" },
+        ]}
+        height={480}
+      />
 
-            {/* Prev button */}
-            <button
-              onClick={prev}
-              className="absolute left-4 top-1/2 -translate-y-1/2 z-10 flex items-center justify-center w-10 h-10 rounded-full transition-opacity duration-200 hover:opacity-80"
-              style={{ background: "rgba(0,0,0,0.5)" }}
-              aria-label="Previous image"
-            >
-              <ChevronLeft className="w-5 h-5 text-white" />
-            </button>
+      {/* ── Workshop in Action ── */}
+      <SectionCarousel
+        label="Workshop in Action"
+        images={[
+          { src: "/ev-05.png", alt: "Participants at workshop table" },
+          { src: "/ev-03.png", alt: "Facilitator speaking to group" },
+          { src: "/ev-07.png", alt: "Team presenting at Products of Design" },
+          { src: "/ev-02.png", alt: "Facilitator guiding workshop discussion" },
+        ]}
+        height={440}
+      />
 
-            {/* Next button */}
-            <button
-              onClick={next}
-              className="absolute right-4 top-1/2 -translate-y-1/2 z-10 flex items-center justify-center w-10 h-10 rounded-full transition-opacity duration-200 hover:opacity-80"
-              style={{ background: "rgba(0,0,0,0.5)" }}
-              aria-label="Next image"
-            >
-              <ChevronRight className="w-5 h-5 text-white" />
-            </button>
+      {/* ── Workshop Materials ── */}
+      <SectionCarousel
+        label="Workshop Materials"
+        images={[
+          { src: "/ev-04.png", alt: "Vision boarding materials on table" },
+          { src: "/ev-06.png", alt: "Collage and vision board process" },
+        ]}
+        height={440}
+      />
 
-            {/* Counter */}
-            <div
-              className="absolute bottom-4 right-4 z-10 text-xs font-medium px-3 py-1 rounded-full"
-              style={{ background: "rgba(0,0,0,0.5)", color: "white" }}
-            >
-              {index + 1} / {IMAGES.length}
-            </div>
+      {/* ── Vision Boards ── */}
+      <SectionCarousel
+        label="Vision Boards"
+        images={[
+          { src: "/ev-10.png", alt: "Participants working on vision boards" },
+          { src: "/ev-09.png", alt: "Vision board — Who Are You Close Up" },
+        ]}
+        height={440}
+      />
 
-            {/* Dots */}
-            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-10 flex gap-1.5">
-              {IMAGES.map((_, i) => (
-                <button
-                  key={i}
-                  onClick={() => go(i)}
-                  className="rounded-full transition-all duration-300"
-                  style={{
-                    width: i === index ? "20px" : "8px",
-                    height: "8px",
-                    background: i === index ? "white" : "rgba(255,255,255,0.4)",
-                  }}
-                  aria-label={`Go to image ${i + 1}`}
-                />
-              ))}
-            </div>
-          </div>
-        </Reveal>
-      </section>
+      {/* ── Frameworks & Templates ── */}
+      <SectionCarousel
+        label="Frameworks & Templates"
+        images={[
+          { src: "/ev-11.png", alt: "Personal SWOT analysis framework" },
+          { src: "/ev-12.png", alt: "Titles, Locations, Industries template" },
+        ]}
+        height={440}
+      />
 
       {/* ── Impact ── */}
-      <section className="px-6 md:px-12 lg:px-20 py-20" style={{ background: "var(--bg-2)" }}>
+      <section className="px-6 md:px-12 lg:px-20 py-20 mt-12" style={{ background: "var(--bg-2)" }}>
         <div className="max-w-5xl mx-auto">
           <Reveal>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
