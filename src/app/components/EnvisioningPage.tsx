@@ -37,11 +37,11 @@ function GalleryImg({
   className?: string;
 }) {
   return (
-    <div className={`overflow-hidden rounded-2xl ${className}`}>
+    <div className={`rounded-2xl overflow-hidden ${className}`}>
       <img
         src={src}
         alt={alt}
-        className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
+        className="w-full h-auto block transition-transform duration-700 hover:scale-105"
       />
     </div>
   );
@@ -83,7 +83,7 @@ export function EnvisioningPage() {
           </p>
 
           {/* Meta + Overview */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 pt-8" style={{ borderTop: "1px solid var(--divider)" }}>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 pt-8 items-start" style={{ borderTop: "1px solid var(--divider)" }}>
             <div className="lg:col-span-3 flex flex-col gap-6">
               {[
                 { label: "Role", value: "Facilitator & Organizer" },
@@ -116,10 +116,10 @@ export function EnvisioningPage() {
           <p className="text-xs tracking-[0.2em] uppercase mb-6" style={{ color: "var(--fg-3)" }}>
             Event Identity
           </p>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <GalleryImg src="/ev-08.png" alt="Envisioning the Future You event poster" className="md:col-span-1 aspect-[2/3]" />
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 items-start">
+            <GalleryImg src="/ev-08.png" alt="Envisioning the Future You event poster" className="md:col-span-1" />
             <div className="md:col-span-2 flex flex-col gap-4">
-              <GalleryImg src="/ev-01.png" alt="Envisioning the Future You event banner" className="flex-1" />
+              <GalleryImg src="/ev-01.png" alt="Envisioning the Future You event banner" />
             </div>
           </div>
         </Reveal>
@@ -131,10 +131,10 @@ export function EnvisioningPage() {
           <p className="text-xs tracking-[0.2em] uppercase mb-6 mt-8" style={{ color: "var(--fg-3)" }}>
             Workshop in Action
           </p>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <GalleryImg src="/ev-05.png" alt="Participants at workshop table" className="aspect-[4/3]" />
-            <GalleryImg src="/ev-03.png" alt="Facilitator speaking to group" className="aspect-[4/3]" />
-            <GalleryImg src="/ev-07.png" alt="Team presenting at Products of Design" className="aspect-[4/3]" />
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 items-start">
+            <GalleryImg src="/ev-05.png" alt="Participants at workshop table" />
+            <GalleryImg src="/ev-03.png" alt="Facilitator speaking to group" />
+            <GalleryImg src="/ev-07.png" alt="Team presenting at Products of Design" />
           </div>
         </Reveal>
       </section>
@@ -142,7 +142,7 @@ export function EnvisioningPage() {
       {/* ── Full-width facilitation shot ── */}
       <section className="px-6 md:px-12 lg:px-20 py-4 max-w-5xl mx-auto">
         <Reveal>
-          <GalleryImg src="/ev-02.png" alt="Facilitator guiding workshop discussion" className="w-full aspect-[21/9]" />
+          <GalleryImg src="/ev-02.png" alt="Facilitator guiding workshop discussion" className="w-full" />
         </Reveal>
       </section>
 
@@ -152,9 +152,9 @@ export function EnvisioningPage() {
           <p className="text-xs tracking-[0.2em] uppercase mb-6 mt-8" style={{ color: "var(--fg-3)" }}>
             Workshop Materials
           </p>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <GalleryImg src="/ev-04.png" alt="Vision boarding materials on table" className="aspect-[4/3]" />
-            <GalleryImg src="/ev-06.png" alt="Collage and vision board process" className="aspect-[4/3]" />
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-start">
+            <GalleryImg src="/ev-04.png" alt="Vision boarding materials on table" />
+            <GalleryImg src="/ev-06.png" alt="Collage and vision board process" />
           </div>
         </Reveal>
       </section>
@@ -162,9 +162,9 @@ export function EnvisioningPage() {
       {/* ── Vision Boards ── */}
       <section className="px-6 md:px-12 lg:px-20 py-4 max-w-5xl mx-auto">
         <Reveal>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <GalleryImg src="/ev-10.png" alt="Participants working on vision boards" className="aspect-[4/3]" />
-            <GalleryImg src="/ev-09.png" alt="Vision board closeup — 'Who Are You'" className="aspect-[4/3]" />
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-start">
+            <GalleryImg src="/ev-10.png" alt="Participants working on vision boards" />
+            <GalleryImg src="/ev-09.png" alt="Vision board closeup — 'Who Are You'" />
           </div>
         </Reveal>
       </section>
@@ -175,9 +175,9 @@ export function EnvisioningPage() {
           <p className="text-xs tracking-[0.2em] uppercase mb-6 mt-8" style={{ color: "var(--fg-3)" }}>
             Frameworks & Templates
           </p>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <GalleryImg src="/ev-11.png" alt="Personal SWOT analysis framework" className="aspect-[4/3]" />
-            <GalleryImg src="/ev-12.png" alt="Titles, Locations, Industries template" className="aspect-[4/3]" />
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-start">
+            <GalleryImg src="/ev-11.png" alt="Personal SWOT analysis framework" />
+            <GalleryImg src="/ev-12.png" alt="Titles, Locations, Industries template" />
           </div>
         </Reveal>
       </section>
