@@ -1,7 +1,7 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { Link } from "react-router";
-import { motion, useInView } from "motion/react";
-import { ArrowLeft } from "lucide-react";
+import { motion, useInView, AnimatePresence } from "motion/react";
+import { ArrowLeft, ChevronLeft, ChevronRight } from "lucide-react";
 
 function Reveal({
   children,
@@ -44,6 +44,85 @@ function GalleryImg({
         className="w-full h-auto block transition-transform duration-700 hover:scale-105"
       />
     </div>
+  );
+}
+
+const CAROUSEL_IMGS = [
+  { src: "/ev-05.png", alt: "Participants at workshop table" },
+  { src: "/ev-03.png", alt: "Facilitator speaking to group" },
+  { src: "/ev-07.png", alt: "Team presenting at Products of Design" },
+];
+
+function WorkshopCarousel() {
+  const [index, setIndex] = useState(0);
+  const [direction, setDirection] = useState(1);
+
+  const go = (next: number) => {
+    setDirection(next > index ? 1 : -1);
+    setIndex(next);
+  };
+  const prev = () => go((index - 1 + CAROUSEL_IMGS.length) % CAROUSEL_IMGS.length);
+  const next = () => go((index + 1) % CAROUSEL_IMGS.length);
+
+  return (
+    <section className="px-6 md:px-12 lg:px-20 py-4 max-w-5xl mx-auto">
+      <Reveal>
+        <p className="text-xs tracking-[0.2em] uppercase mb-6 mt-8" style={{ color: "var(--fg-3)" }}>
+          Workshop in Action
+        </p>
+        <div className="relative rounded-2xl overflow-hidden" style={{ height: "420px" }}>
+          <AnimatePresence initial={false} custom={direction} mode="popLayout">
+            <motion.img
+              key={CAROUSEL_IMGS[index].src}
+              src={CAROUSEL_IMGS[index].src}
+              alt={CAROUSEL_IMGS[index].alt}
+              custom={direction}
+              variants={{
+                enter: (d: number) => ({ x: d * 60, opacity: 0 }),
+                center: { x: 0, opacity: 1 },
+                exit: (d: number) => ({ x: d * -60, opacity: 0 }),
+              }}
+              initial="enter"
+              animate="center"
+              exit="exit"
+              transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+              className="absolute inset-0 w-full h-full object-cover"
+            />
+          </AnimatePresence>
+
+          {/* Prev / Next buttons */}
+          <button
+            onClick={prev}
+            className="absolute left-3 top-1/2 -translate-y-1/2 z-10 flex items-center justify-center w-9 h-9 rounded-full transition-opacity duration-200 hover:opacity-80"
+            style={{ background: "rgba(0,0,0,0.45)" }}
+            aria-label="Previous"
+          >
+            <ChevronLeft className="w-5 h-5 text-white" />
+          </button>
+          <button
+            onClick={next}
+            className="absolute right-3 top-1/2 -translate-y-1/2 z-10 flex items-center justify-center w-9 h-9 rounded-full transition-opacity duration-200 hover:opacity-80"
+            style={{ background: "rgba(0,0,0,0.45)" }}
+            aria-label="Next"
+          >
+            <ChevronRight className="w-5 h-5 text-white" />
+          </button>
+
+          {/* Dots */}
+          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-10 flex gap-2">
+            {CAROUSEL_IMGS.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => go(i)}
+                className="w-2 h-2 rounded-full transition-all duration-300"
+                style={{ background: i === index ? "white" : "rgba(255,255,255,0.4)" }}
+                aria-label={`Go to slide ${i + 1}`}
+              />
+            ))}
+          </div>
+        </div>
+      </Reveal>
+    </section>
   );
 }
 
@@ -125,19 +204,8 @@ export function EnvisioningPage() {
         </Reveal>
       </section>
 
-      {/* ── Workshop in action ── */}
-      <section className="px-6 md:px-12 lg:px-20 py-4 max-w-5xl mx-auto">
-        <Reveal>
-          <p className="text-xs tracking-[0.2em] uppercase mb-6 mt-8" style={{ color: "var(--fg-3)" }}>
-            Workshop in Action
-          </p>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 items-start">
-            <GalleryImg src="/ev-05.png" alt="Participants at workshop table" />
-            <GalleryImg src="/ev-03.png" alt="Facilitator speaking to group" />
-            <GalleryImg src="/ev-07.png" alt="Team presenting at Products of Design" />
-          </div>
-        </Reveal>
-      </section>
+      {/* ── Workshop in action — Carousel ── */}
+      <WorkshopCarousel />
 
       {/* ── Full-width facilitation shot ── */}
       <section className="px-6 md:px-12 lg:px-20 py-4 max-w-5xl mx-auto">
