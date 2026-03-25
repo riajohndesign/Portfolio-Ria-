@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { Link } from "react-router";
 import { motion, useInView, AnimatePresence } from "motion/react";
 import { ArrowLeft, ChevronLeft, ChevronRight } from "lucide-react";
@@ -31,18 +31,30 @@ function SectionCarousel({
   label,
   images,
   height = 440,
+  interval = 3000,
 }: {
   label?: string;
   images: { src: string; alt: string }[];
   height?: number;
+  interval?: number;
 }) {
   const [index, setIndex] = useState(0);
   const [direction, setDirection] = useState(1);
+  const [paused, setPaused] = useState(false);
 
   const go = (next: number) => {
     setDirection(next > index ? 1 : -1);
     setIndex(next);
   };
+
+  useEffect(() => {
+    if (images.length <= 1 || paused) return;
+    const timer = setInterval(() => {
+      setDirection(1);
+      setIndex((i) => (i + 1) % images.length);
+    }, interval);
+    return () => clearInterval(timer);
+  }, [images.length, paused, interval]);
 
   const showNav = images.length > 1;
 
@@ -54,7 +66,12 @@ function SectionCarousel({
             {label}
           </p>
         )}
-        <div className="relative rounded-2xl overflow-hidden bg-black" style={{ height }}>
+        <div
+          className="relative rounded-2xl overflow-hidden bg-black"
+          style={{ height }}
+          onMouseEnter={() => setPaused(true)}
+          onMouseLeave={() => setPaused(false)}
+        >
           <AnimatePresence initial={false} custom={direction} mode="popLayout">
             <motion.img
               key={images[index].src}
