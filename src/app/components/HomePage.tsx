@@ -846,45 +846,6 @@ export function HomePage() {
          ════════════════════════════════════════ */}
       <MoreSection />
 
-      {/* ════════════════════════════════════════
-          CONTACT CTA
-         ════════════════════════════════════════ */}
-      <section className="px-6 md:px-12 pb-24 max-w-7xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 32 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-          className="relative rounded-3xl overflow-hidden"
-          style={{ background: "var(--fg)" }}
-        >
-          <div className="p-10 md:p-16 flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
-            <div>
-              <p
-                className="text-xs tracking-[0.2em] uppercase mb-4"
-                style={{ color: "color-mix(in srgb, var(--bg) 50%, transparent)" }}
-              >
-                Get in touch
-              </p>
-              <h2
-                className="font-syne font-bold leading-tight"
-                style={{ fontSize: "clamp(28px, 4vw, 48px)", color: "var(--bg)" }}
-              >
-                Have a project in mind?
-                <br />
-                Let's talk.
-              </h2>
-            </div>
-            <a
-              href="mailto:hello@riajohn.design"
-              className="inline-flex items-center gap-2.5 px-8 py-4 rounded-full text-sm font-medium transition-all duration-300 hover:opacity-85 flex-shrink-0"
-              style={{ background: "var(--bg)", color: "var(--fg)" }}
-            >
-              Say Hello <ArrowUpRight className="w-4 h-4" />
-            </a>
-          </div>
-        </motion.div>
-      </section>
     </div>
   );
 }
