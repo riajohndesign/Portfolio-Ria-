@@ -145,8 +145,8 @@ export function Layout() {
       </main>
 
       {/* ─── Footer ─── */}
-      <footer style={{ background: "var(--footer-bg)" }}>
-        <div className="max-w-7xl mx-auto px-6 md:px-12 pt-20 pb-10">
+      <footer className="px-6 md:px-12 pt-20 pb-10" style={{ background: "var(--footer-bg)" }}>
+        <div className="max-w-7xl mx-auto">
           {/* Top row */}
           <div className="flex flex-col lg:flex-row items-start lg:items-end justify-between gap-10 mb-16">
             <div>
