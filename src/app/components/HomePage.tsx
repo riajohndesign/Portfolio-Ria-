@@ -638,8 +638,8 @@ function TestimonialsCarousel() {
               </div>
               <div>
                 <p className="text-sm font-semibold" style={{ color: "var(--fg)" }}>{t.name}</p>
-                <p className="text-xs mt-0.5" style={{ color: "var(--fg-3)", maxWidth: "160px" }}>{t.title}</p>
-                <p className="text-xs mt-1 italic" style={{ color: "var(--fg-3)" }}>{t.relationship}</p>
+                <p className="text-xs mt-0.5" style={{ color: "rgba(255,255,255,0.35)", maxWidth: "160px" }}>{t.title}</p>
+                <p className="text-xs mt-1 italic" style={{ color: "rgba(255,255,255,0.35)" }}>{t.relationship}</p>
               </div>
             </div>
 
