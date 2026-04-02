@@ -167,7 +167,7 @@ export function Layout() {
 
             <div className="flex flex-col sm:flex-row gap-3">
               <a
-                href="mailto:hello@riajohn.com"
+                href="mailto:riajohn.design@gmail.com"
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-sm font-medium transition-all hover:opacity-90"
                 style={{ background: "var(--footer-fg)", color: "var(--footer-bg)" }}
               >
