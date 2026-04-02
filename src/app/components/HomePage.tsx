@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { Link } from "react-router";
-import { motion, useInView, useScroll, useTransform } from "motion/react";
+import { motion, useInView, useScroll, useTransform, AnimatePresence } from "motion/react";
 import { ArrowUpRight, ArrowDown } from "lucide-react";
 import { projects } from "../data/projects";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
@@ -555,6 +555,125 @@ const SPECIALTIES = [
   "Product Strategy",
 ];
 
+/* ─── Testimonials Carousel ─── */
+const TESTIMONIALS = [
+  {
+    name: "Jacob Kritzinger",
+    title: "Medical Technologies Design Engineer",
+    relationship: "Jacob managed Ria directly",
+    photo: "/testimonial-jacob.png",
+    initials: "JK",
+    quote:
+      "It is with great enthusiasm that I recommend Ria. As a skilled User Experience Designer, she combines technical expertise with an insatiable curiosity, consistently seeking to expand her knowledge across disciplines—from architectural design to the rapid prototyping of medical products. Her proactive, go-getter attitude and remarkable ability to glean valuable insights from every experience truly set her apart in the field.",
+  },
+  {
+    name: "Heba Jaleel",
+    title: "Design Strategist at Edenic Energy | Brand & Product",
+    relationship: "Heba worked with Ria on the same team",
+    photo: "/testimonial-heba.png",
+    initials: "HJ",
+    quote:
+      "During my time at the School of Visual Arts, I had the pleasure of working with Ria on several group projects. What stood out to me most was her passion, work ethic, and collaborative spirit. Ria is not only eager to learn but also brings a thoughtful and unique perspective to every challenge. She's the kind of teammate you can always count on—reliable, proactive, and genuinely committed to delivering strong outcomes. Ria is a valuable asset to any team—always fostering a productive and collaborative environment.",
+  },
+];
+
+function TestimonialsCarousel() {
+  const [index, setIndex] = useState(0);
+  const [direction, setDirection] = useState(1);
+  const [paused, setPaused] = useState(false);
+
+  useEffect(() => {
+    if (paused) return;
+    const t = setInterval(() => {
+      setDirection(1);
+      setIndex((i) => (i + 1) % TESTIMONIALS.length);
+    }, 5000);
+    return () => clearInterval(t);
+  }, [paused]);
+
+  const go = (next: number) => {
+    setDirection(next > index ? 1 : -1);
+    setIndex(next);
+  };
+
+  const t = TESTIMONIALS[index];
+
+  return (
+    <section className="px-6 md:px-12 py-20 md:py-28 max-w-7xl mx-auto">
+      <div className="flex items-center gap-4 mb-14">
+        <span className="font-syne font-semibold text-xs tracking-[0.2em] uppercase" style={{ color: "var(--fg)" }}>
+          Testimonials
+        </span>
+        <div className="flex-1 h-px" style={{ background: "var(--divider)" }} />
+      </div>
+
+      <div
+        className="relative overflow-hidden rounded-2xl"
+        onMouseEnter={() => setPaused(true)}
+        onMouseLeave={() => setPaused(false)}
+        style={{ border: "1px solid var(--divider)", background: "rgba(255,255,255,0.06)" }}
+      >
+        <AnimatePresence initial={false} custom={direction} mode="wait">
+          <motion.div
+            key={t.name}
+            custom={direction}
+            variants={{
+              enter: (d: number) => ({ x: d > 0 ? 60 : -60, opacity: 0 }),
+              center: { x: 0, opacity: 1 },
+              exit: (d: number) => ({ x: d > 0 ? -60 : 60, opacity: 0 }),
+            }}
+            initial="enter"
+            animate="center"
+            exit="exit"
+            transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+            className="flex flex-col md:flex-row gap-8 p-8 md:p-12"
+          >
+            {/* Avatar + info */}
+            <div className="flex-shrink-0 flex flex-row md:flex-col items-center md:items-start gap-4 md:gap-3 md:w-48">
+              <div
+                className="w-16 h-16 rounded-full overflow-hidden flex-shrink-0"
+                style={{ border: "2px solid var(--divider)" }}
+              >
+                <img src={t.photo} alt={t.name} className="w-full h-full object-cover" />
+              </div>
+              <div>
+                <p className="text-sm font-semibold" style={{ color: "var(--fg)" }}>{t.name}</p>
+                <p className="text-xs mt-0.5" style={{ color: "var(--fg-3)", maxWidth: "160px" }}>{t.title}</p>
+                <p className="text-xs mt-1 italic" style={{ color: "var(--fg-3)" }}>{t.relationship}</p>
+              </div>
+            </div>
+
+            {/* Divider */}
+            <div className="hidden md:block w-px self-stretch flex-shrink-0" style={{ background: "var(--divider)" }} />
+
+            {/* Quote */}
+            <p className="text-base md:text-lg leading-relaxed self-center flex-1" style={{ color: "var(--fg-2)" }}>
+              "{t.quote}"
+            </p>
+          </motion.div>
+        </AnimatePresence>
+
+        {/* Dots */}
+        <div className="flex justify-center gap-2 pb-6">
+          {TESTIMONIALS.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => go(i)}
+              className="rounded-full transition-all duration-300"
+              style={{
+                width: i === index ? "20px" : "8px",
+                height: "8px",
+                background: i === index ? "var(--fg)" : "var(--divider)",
+              }}
+              aria-label={`Testimonial ${i + 1}`}
+            />
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 /* ─── HomePage ─── */
 export function HomePage() {
   const { scrollY } = useScroll();
@@ -844,81 +963,7 @@ export function HomePage() {
       {/* ════════════════════════════════════════
           TESTIMONIALS
          ════════════════════════════════════════ */}
-      <section className="px-6 md:px-12 py-20 md:py-28 max-w-7xl mx-auto">
-        <div className="flex items-center gap-4 mb-14">
-          <span
-            className="font-syne font-semibold text-xs tracking-[0.2em] uppercase"
-            style={{ color: "var(--fg)" }}
-          >
-            Testimonials
-          </span>
-          <div className="flex-1 h-px" style={{ background: "var(--divider)" }} />
-        </div>
-        <div className="flex flex-col gap-6">
-          {[
-            {
-              name: "Jacob Kritzinger",
-              title: "Medical Technologies Design Engineer",
-              relationship: "Jacob managed Ria directly",
-              photo: "/testimonial-jacob.png",
-              initials: "JK",
-              quote:
-                "It is with great enthusiasm that I recommend Ria. As a skilled User Experience Designer, she combines technical expertise with an insatiable curiosity, consistently seeking to expand her knowledge across disciplines—from architectural design to the rapid prototyping of medical products. Her proactive, go-getter attitude and remarkable ability to glean valuable insights from every experience truly set her apart in the field.",
-            },
-            {
-              name: "Heba Jaleel",
-              title: "Design Strategist at Edenic Energy | Brand & Product",
-              relationship: "Heba worked with Ria on the same team",
-              photo: "/testimonial-heba.png",
-              initials: "HJ",
-              quote:
-                "During my time at the School of Visual Arts, I had the pleasure of working with Ria on several group projects. What stood out to me most was her passion, work ethic, and collaborative spirit. Ria is not only eager to learn but also brings a thoughtful and unique perspective to every challenge. She's the kind of teammate you can always count on—reliable, proactive, and genuinely committed to delivering strong outcomes. Ria is a valuable asset to any team—always fostering a productive and collaborative environment.",
-            },
-          ].map((t, i) => (
-            <motion.div
-              key={t.name}
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-60px" }}
-              transition={{ duration: 0.7, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
-              className="flex flex-col md:flex-row gap-8 p-8 md:p-10 rounded-2xl"
-              style={{ border: "1px solid var(--divider)", background: "rgba(255,255,255,0.06)" }}
-            >
-              {/* Avatar */}
-              <div className="flex-shrink-0 flex flex-col items-center gap-3 md:items-start">
-                <div className="w-16 h-16 rounded-full overflow-hidden flex-shrink-0"
-                  style={{ border: "2px solid var(--divider)" }}>
-                  <img
-                    src={t.photo}
-                    alt={t.name}
-                    className="w-full h-full object-cover"
-                    onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = "none"; }}
-                  />
-                  <div
-                    className="w-full h-full flex items-center justify-center text-sm font-semibold"
-                    style={{ background: "rgba(255,255,255,0.18)", color: "var(--fg)" }}
-                  >
-                    {t.initials}
-                  </div>
-                </div>
-                <div className="text-center md:text-left">
-                  <p className="text-sm font-semibold" style={{ color: "var(--fg)" }}>{t.name}</p>
-                  <p className="text-xs mt-0.5 max-w-[160px]" style={{ color: "var(--fg-3)" }}>{t.title}</p>
-                  <p className="text-xs mt-1 italic" style={{ color: "var(--fg-3)" }}>{t.relationship}</p>
-                </div>
-              </div>
-
-              {/* Divider */}
-              <div className="hidden md:block w-px self-stretch" style={{ background: "var(--divider)" }} />
-
-              {/* Quote */}
-              <p className="text-base md:text-lg leading-relaxed self-center" style={{ color: "var(--fg-2)" }}>
-                "{t.quote}"
-              </p>
-            </motion.div>
-          ))}
-        </div>
-      </section>
+      <TestimonialsCarousel />
 
       {/* ════════════════════════════════════════
           & MORE — accordion
