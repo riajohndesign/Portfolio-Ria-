@@ -856,15 +856,15 @@ export function HomePage() {
               {[
                 {
                   label: "Core",
-                  skills: ["Product Design", "UX Research", "Service Design", "Design Systems", "0→1 Product Development", "AI-driven Design"],
+                  skills: ["Product Design", "UX Research", "Service Design", "Design Systems", "0→1 Product Development", "AI-driven Design", "UX Writing", "Participatory Design", "Strategic Planning", "Systems Mapping"],
                 },
                 {
                   label: "Methods",
-                  skills: ["User Testing", "Journey Mapping", "Workshop Facilitation", "Service Blueprinting", "Content Strategy"],
+                  skills: ["Ideation", "Storyboarding", "Wireframing", "Prototyping", "User Testing", "Journey Mapping", "Workshop Facilitation", "Service Blueprinting", "Observational Studies", "Ideation Workshops", "Design Sprints", "Agile", "End-to-end Best Practice"],
                 },
                 {
                   label: "Tools",
-                  skills: ["Figma", "FigJam", "Cursor"],
+                  skills: ["Figma", "Sketch", "FigJam", "Miro", "Adobe Creative Suite", "Jira", "Confluence", "Slack", "Asana", "Trello", "Procreate", "Cursor"],
                 },
                 {
                   label: "AI-Native Tools",
