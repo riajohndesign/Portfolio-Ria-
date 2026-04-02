@@ -882,7 +882,7 @@ export function HomePage() {
               viewport={{ once: true, margin: "-60px" }}
               transition={{ duration: 0.7, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
               className="flex flex-col md:flex-row gap-8 p-8 md:p-10 rounded-2xl"
-              style={{ border: "1px solid var(--divider)", background: "var(--bg-2)" }}
+              style={{ border: "1px solid var(--divider)", background: "rgba(255,255,255,0.06)" }}
             >
               {/* Avatar */}
               <div className="flex-shrink-0 flex flex-col items-center gap-3 md:items-start">
@@ -896,7 +896,7 @@ export function HomePage() {
                   />
                   <div
                     className="w-full h-full flex items-center justify-center text-sm font-semibold"
-                    style={{ background: "var(--divider)", color: "var(--fg)" }}
+                    style={{ background: "rgba(255,255,255,0.18)", color: "var(--fg)" }}
                   >
                     {t.initials}
                   </div>
