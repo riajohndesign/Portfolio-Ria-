@@ -854,12 +854,13 @@ export function HomePage() {
           </span>
           <div className="flex-1 h-px" style={{ background: "var(--divider)" }} />
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="flex flex-col gap-6">
           {[
             {
               name: "Jacob Kritzinger",
               title: "Medical Technologies Design Engineer",
               relationship: "Jacob managed Ria directly",
+              photo: "/testimonial-jacob.png",
               initials: "JK",
               quote:
                 "It is with great enthusiasm that I recommend Ria. As a skilled User Experience Designer, she combines technical expertise with an insatiable curiosity, consistently seeking to expand her knowledge across disciplines—from architectural design to the rapid prototyping of medical products. Her proactive, go-getter attitude and remarkable ability to glean valuable insights from every experience truly set her apart in the field.",
@@ -868,38 +869,52 @@ export function HomePage() {
               name: "Heba Jaleel",
               title: "Design Strategist at Edenic Energy | Brand & Product",
               relationship: "Heba worked with Ria on the same team",
+              photo: "/testimonial-heba.png",
               initials: "HJ",
               quote:
                 "During my time at the School of Visual Arts, I had the pleasure of working with Ria on several group projects. What stood out to me most was her passion, work ethic, and collaborative spirit. Ria is not only eager to learn but also brings a thoughtful and unique perspective to every challenge. She's the kind of teammate you can always count on—reliable, proactive, and genuinely committed to delivering strong outcomes. Ria is a valuable asset to any team—always fostering a productive and collaborative environment.",
             },
-          ].map((t) => (
+          ].map((t, i) => (
             <motion.div
               key={t.name}
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-60px" }}
-              transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-              className="flex flex-col gap-6 p-8 rounded-2xl"
+              transition={{ duration: 0.7, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
+              className="flex flex-col md:flex-row gap-8 p-8 md:p-10 rounded-2xl"
               style={{ border: "1px solid var(--divider)", background: "var(--bg-2)" }}
             >
-              {/* Quote */}
-              <p className="text-base leading-relaxed flex-1" style={{ color: "var(--fg-2)" }}>
-                "{t.quote}"
-              </p>
-              {/* Author */}
-              <div className="flex items-center gap-4 pt-4" style={{ borderTop: "1px solid var(--divider)" }}>
-                <div
-                  className="w-10 h-10 rounded-full flex items-center justify-center text-xs font-semibold flex-shrink-0"
-                  style={{ background: "var(--divider)", color: "var(--fg)" }}
-                >
-                  {t.initials}
+              {/* Avatar */}
+              <div className="flex-shrink-0 flex flex-col items-center gap-3 md:items-start">
+                <div className="w-16 h-16 rounded-full overflow-hidden flex-shrink-0"
+                  style={{ border: "2px solid var(--divider)" }}>
+                  <img
+                    src={t.photo}
+                    alt={t.name}
+                    className="w-full h-full object-cover"
+                    onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = "none"; }}
+                  />
+                  <div
+                    className="w-full h-full flex items-center justify-center text-sm font-semibold"
+                    style={{ background: "var(--divider)", color: "var(--fg)" }}
+                  >
+                    {t.initials}
+                  </div>
                 </div>
-                <div>
+                <div className="text-center md:text-left">
                   <p className="text-sm font-semibold" style={{ color: "var(--fg)" }}>{t.name}</p>
-                  <p className="text-xs" style={{ color: "var(--fg-3)" }}>{t.title}</p>
-                  <p className="text-xs mt-0.5" style={{ color: "var(--fg-3)" }}>{t.relationship}</p>
+                  <p className="text-xs mt-0.5 max-w-[160px]" style={{ color: "var(--fg-3)" }}>{t.title}</p>
+                  <p className="text-xs mt-1 italic" style={{ color: "var(--fg-3)" }}>{t.relationship}</p>
                 </div>
               </div>
+
+              {/* Divider */}
+              <div className="hidden md:block w-px self-stretch" style={{ background: "var(--divider)" }} />
+
+              {/* Quote */}
+              <p className="text-base md:text-lg leading-relaxed self-center" style={{ color: "var(--fg-2)" }}>
+                "{t.quote}"
+              </p>
             </motion.div>
           ))}
         </div>
