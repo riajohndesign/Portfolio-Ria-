@@ -860,7 +860,7 @@ export function HomePage() {
                 },
                 {
                   label: "Methods",
-                  skills: ["Ideation", "Storyboarding", "Wireframing", "Prototyping", "User Testing", "Journey Mapping", "Workshop Facilitation", "Service Blueprinting", "Observational Studies", "Ideation Workshops", "Design Sprints", "Agile", "End-to-end Best Practice"],
+                  skills: ["Ideation", "Storyboarding", "Wireframing", "Prototyping", "User Testing", "Usability Testing", "Journey Mapping", "Workshop Facilitation", "Service Blueprinting", "Observational Studies", "Ideation Workshops", "Design Sprints", "Agile", "End-to-end Best Practice"],
                 },
                 {
                   label: "Tools",
