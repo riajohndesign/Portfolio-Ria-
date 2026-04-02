@@ -634,7 +634,7 @@ function TestimonialsCarousel() {
                 className="w-24 h-24 rounded-full overflow-hidden flex-shrink-0"
                 style={{ border: "2px solid var(--divider)" }}
               >
-                <img src={t.photo} alt={t.name} className="w-full h-full object-cover scale-110" />
+                <img src={t.photo} alt={t.name} className="w-full h-full object-cover scale-125" />
               </div>
               <div>
                 <p className="text-sm font-semibold" style={{ color: "var(--fg)" }}>{t.name}</p>
