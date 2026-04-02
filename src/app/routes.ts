@@ -5,6 +5,7 @@ import { ProjectPage } from "./components/ProjectPage";
 import { MoreItemPage } from "./components/MoreItemPage";
 import { CarromClubPage } from "./components/CarromClubPage";
 import { EnvisioningPage } from "./components/EnvisioningPage";
+import { BubblePage } from "./components/BubblePage";
 
 const basename = (import.meta.env.BASE_URL ?? '/').replace(/\/$/, '') || '/';
 
@@ -17,6 +18,7 @@ export const router = createBrowserRouter([
       { path: "project/:id", Component: ProjectPage },
       { path: "more/carrom-club", Component: CarromClubPage },
       { path: "more/envisioning-the-future-you", Component: EnvisioningPage },
+      { path: "more/bubble", Component: BubblePage },
       { path: "more/:id", Component: MoreItemPage },
     ],
   },
