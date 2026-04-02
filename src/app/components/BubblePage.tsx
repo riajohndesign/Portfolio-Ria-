@@ -56,7 +56,7 @@ export function BubblePage() {
               {[
                 { label: "Context", value: "MFA Products of Design" },
                 { label: "Timeline", value: "10 Weeks" },
-                { label: "Collaborators", value: "Sama Srinivas, Nigel Koen, Roza Pan" },
+                { label: "Collaborators", value: "Sama Srinivas, Nigel Keen, Rora Pan" },
                 { label: "Responsibilities", value: "Design Research, User Testing, Storytelling, User Interviews, Prototyping" },
               ].map((m) => (
                 <div key={m.label}>
