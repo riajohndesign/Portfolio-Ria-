@@ -71,31 +71,33 @@ export function EyeDropsPage() {
           transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
         >
           <div className="flex flex-wrap gap-2 mb-5">
-            {["User Research", "Product Development", "Healthcare"].map(t => (
+            {["UX research", "Human factors", "Clinical trials", "Service blueprinting", "B2B concept"].map(t => (
               <span key={t} className="text-xs px-3 py-1 rounded-full" style={{ border: "1px solid rgba(255,255,255,0.35)", color: "rgba(255,255,255,0.85)", background: "rgba(0,0,0,0.25)" }}>{t}</span>
             ))}
           </div>
 
-          <h1 className="font-bold leading-[1.05] mb-2 text-white" style={{ fontSize: "clamp(38px, 5.5vw, 70px)", letterSpacing: "-0.02em" }}>
-            Eye Drops Adherence
+          <h1 className="font-bold leading-[1.1] mb-3 text-white" style={{ fontSize: "clamp(28px, 4vw, 56px)", letterSpacing: "-0.02em", maxWidth: "820px" }}>
+            Research contribution: reframing an eyedrop adherence tracker for clinical trial use
           </h1>
-          <p className="text-lg md:text-xl" style={{ color: "rgba(255,255,255,0.65)" }}>Medication Adherence Device</p>
+          <p className="text-base md:text-lg" style={{ color: "rgba(255,255,255,0.65)", maxWidth: "680px" }}>
+            A collaborative research effort — stakeholder interviews, secondary research, synthesis, and service blueprinting — that redirected a struggling product toward a credible CRO-facing concept.
+          </p>
         </motion.div>
       </section>
 
       {/* ── Meta strip ── */}
       <section className="px-6 md:px-12 lg:px-20 pt-10 pb-6 max-w-5xl mx-auto">
         <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-px mb-8 rounded-2xl overflow-hidden" style={{ border: "1px solid var(--divider)" }}>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-8">
             {[
-              { k: "Role", v: "UX Researcher & Product Designer" },
-              { k: "Year", v: "2024" },
-              { k: "Type", v: "User Research" },
-              { k: "Tools", v: "Figma · FigJam · Maze · IDEO Methods" },
+              { k: "My Role", v: "Research contributor · Human factors\nPart of a collaborative, non-hierarchical team" },
+              { k: "Team Structure", v: "Small collaborative team, no designated research lead. Responsibilities shared across contributors." },
+              { k: "Research Methods", v: "Stakeholder interviews · Secondary research · Synthesis · Service blueprinting" },
+              { k: "Context", v: "10XBeta · Early-stage MedTech concept pitched to CROs and pharma companies" },
             ].map((m, i) => (
-              <div key={i} className="px-5 py-4" style={{ background: "var(--bg-2)" }}>
-                <p className="text-xs tracking-[0.14em] uppercase mb-1" style={{ color: "var(--fg-3)" }}>{m.k}</p>
-                <p className="text-sm leading-snug" style={{ color: "var(--fg)" }}>{m.v}</p>
+              <div key={i} className="px-5 py-5 rounded-xl" style={{ border: "1px solid var(--divider)", background: "var(--bg-2)" }}>
+                <p className="text-xs tracking-[0.14em] uppercase mb-2" style={{ color: "var(--fg-3)" }}>{m.k}</p>
+                <p className="text-sm leading-relaxed whitespace-pre-line" style={{ color: "var(--fg)" }}>{m.v}</p>
               </div>
             ))}
           </div>
