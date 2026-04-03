@@ -37,26 +37,56 @@ export function EyeDropsPage() {
   return (
     <div style={{ background: "var(--bg)", color: "var(--fg)", minHeight: "100vh" }}>
 
-      {/* ── Hero ── */}
-      <section className="px-6 md:px-12 lg:px-20 pt-32 pb-16 max-w-5xl mx-auto">
-        <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}>
-          <Link to="/" className="inline-flex items-center gap-2 text-sm mb-10 transition-opacity hover:opacity-60" style={{ color: "var(--fg-2)" }}>
-            <ArrowLeft className="w-4 h-4" /> Back to home
-          </Link>
+      {/* ── Full-viewport Hero Banner ── */}
+      <section className="relative w-full overflow-hidden" style={{ height: "90vh", minHeight: "520px" }}>
+        {/* Background photo */}
+        <img
+          src="/eyedrops-hero.png"
+          alt="Elderly woman applying eye drops"
+          className="absolute inset-0 w-full h-full object-cover object-center"
+        />
+        {/* Gradient overlay — heavy at bottom so text is readable */}
+        <div
+          className="absolute inset-0"
+          style={{ background: "linear-gradient(to bottom, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0.05) 30%, rgba(0,0,0,0.75) 80%, rgba(0,0,0,0.92) 100%)" }}
+        />
 
-          <div className="flex flex-wrap gap-2 mb-6">
-            {["User Research", "Healthcare", "Clinical Trials", "Service Design"].map(t => (
-              <span key={t} className="text-xs px-3 py-1 rounded-full" style={{ border: "1px solid var(--divider)", color: "var(--fg-2)" }}>{t}</span>
+        {/* Back link */}
+        <motion.div
+          className="absolute top-6 left-6 md:left-12 z-10"
+          initial={{ opacity: 0, y: -8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+        >
+          <Link to="/" className="inline-flex items-center gap-2 text-sm transition-opacity hover:opacity-70" style={{ color: "rgba(255,255,255,0.8)" }}>
+            <ArrowLeft className="w-4 h-4" /> Back to work
+          </Link>
+        </motion.div>
+
+        {/* Title block — pinned to bottom */}
+        <motion.div
+          className="absolute bottom-0 left-0 right-0 px-6 md:px-12 lg:px-20 pb-10 z-10"
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+        >
+          <div className="flex flex-wrap gap-2 mb-5">
+            {["User Research", "Product Development", "Healthcare"].map(t => (
+              <span key={t} className="text-xs px-3 py-1 rounded-full" style={{ border: "1px solid rgba(255,255,255,0.35)", color: "rgba(255,255,255,0.85)", background: "rgba(0,0,0,0.25)" }}>{t}</span>
             ))}
           </div>
 
-          <h1 className="font-bold leading-[1.05] mb-3" style={{ fontSize: "clamp(40px, 6vw, 72px)", letterSpacing: "-0.02em" }}>
+          <h1 className="font-bold leading-[1.05] mb-2 text-white" style={{ fontSize: "clamp(38px, 5.5vw, 70px)", letterSpacing: "-0.02em" }}>
             Eye Drops Adherence
           </h1>
-          <p className="text-xl md:text-2xl mb-10" style={{ color: "var(--fg-2)" }}>Medication Adherence Device</p>
+          <p className="text-lg md:text-xl" style={{ color: "rgba(255,255,255,0.65)" }}>Medication Adherence Device</p>
+        </motion.div>
+      </section>
 
-          {/* Meta strip */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-px mb-10 rounded-2xl overflow-hidden" style={{ border: "1px solid var(--divider)" }}>
+      {/* ── Meta strip ── */}
+      <section className="px-6 md:px-12 lg:px-20 pt-10 pb-6 max-w-5xl mx-auto">
+        <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-px mb-8 rounded-2xl overflow-hidden" style={{ border: "1px solid var(--divider)" }}>
             {[
               { k: "Role", v: "UX Researcher & Product Designer" },
               { k: "Year", v: "2024" },
