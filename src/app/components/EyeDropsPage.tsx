@@ -86,7 +86,7 @@ export function EyeDropsPage() {
         </div>
       </section>
 
-      <section className="px-6 md:px-12 lg:px-20 py-[100px]" style={{ background: "#fafafa" }}>
+      <section className="px-6 md:px-12 lg:px-20 py-[100px]" style={{ background: "#FAFAFA" }}>
         <div className="max-w-7xl mx-auto">
           <p className="text-[16px] uppercase tracking-[2px] mb-1.5">how might we</p>
           <div className="h-[2px] w-8 mb-10" style={{ background: "#f97007" }} />
@@ -109,8 +109,8 @@ export function EyeDropsPage() {
         </div>
       </section>
 
-      <section className="relative px-6 md:px-12 lg:px-20 py-[100px]" style={{ background: "#f2f2f2" }}>
-        <img src={figmaMethodBg} alt="" className="absolute inset-0 h-full w-full object-cover opacity-40" />
+      <section className="relative px-6 md:px-12 lg:px-20 py-[100px]" style={{ background: "#FFFFFF" }}>
+        <img src={figmaMethodBg} alt="" className="absolute inset-0 h-full w-full object-cover opacity-35" />
         <div className="relative z-10 max-w-7xl mx-auto">
           <p className="text-[16px] uppercase tracking-[2px] mb-1.5">methodology</p>
           <div className="h-[2px] w-8 mb-10" style={{ background: "#eade08" }} />
@@ -136,11 +136,17 @@ export function EyeDropsPage() {
             <div className="opacity-0 rounded-[20px] border border-[#e3e3e3] bg-white p-[16px]" />
           </div>
           <h3 className="text-[28px] font-bold leading-[47.406px] mb-4">Journey Map of a Clinical Trial Patient</h3>
-          <img src={figmaJourneyMap} alt="Journey map of clinical trial patient" className="w-full h-auto" draggable={false} />
+          <img
+            src={figmaJourneyMap}
+            alt="Journey map of clinical trial patient"
+            className="block h-auto mx-auto"
+            style={{ width: "min(100%, 1280px)" }}
+            draggable={false}
+          />
         </div>
       </section>
 
-      <section className="px-6 md:px-12 lg:px-20 py-[100px]" style={{ background: "#fafafa" }}>
+      <section className="px-6 md:px-12 lg:px-20 py-[100px]" style={{ background: "#FAFAFA" }}>
         <div className="max-w-7xl mx-auto">
           <p className="text-[16px] uppercase tracking-[2px] mb-1.5">Research insights</p>
           <div className="h-[2px] w-8 mb-10" style={{ background: "#b612d1" }} />
@@ -175,12 +181,12 @@ export function EyeDropsPage() {
                 </div>
                 <div className="flex flex-col gap-[40px]">
                   <div className="flex flex-col gap-[16px]">
-                    <h3 className="text-[26px] font-bold leading-[1.2]">{item.title}</h3>
-                    <p className="text-[18px] leading-[29.25px]">{item.body}</p>
+                    <h3 className="text-[26px] font-bold leading-[1.2] md:min-h-[96px]">{item.title}</h3>
+                    <p className="text-[18px] leading-[29.25px] md:min-h-[174px]">{item.body}</p>
                   </div>
                   <div className="flex flex-col gap-[8px]">
-                    <p className="text-[16px] tracking-[2px] uppercase" style={{ color: "#048574" }}>INSIGHT SYNTHESIS</p>
-                    <p className="text-[18px] leading-[29.25px]">{item.synth}</p>
+                    <p className="text-[16px] tracking-[2px] uppercase md:min-h-[15px]" style={{ color: "#048574" }}>INSIGHT SYNTHESIS</p>
+                    <p className="text-[18px] leading-[29.25px] md:min-h-[145px]">{item.synth}</p>
                   </div>
                 </div>
               </article>
@@ -189,7 +195,7 @@ export function EyeDropsPage() {
         </div>
       </section>
 
-      <section className="px-6 md:px-12 lg:px-20 py-[100px]" style={{ background: "#f2f2f2" }}>
+      <section className="px-6 md:px-12 lg:px-20 py-[100px]" style={{ background: "#FFFFFF" }}>
         <div className="max-w-7xl mx-auto">
           <p className="text-[16px] uppercase tracking-[2px] mb-1.5">deliverable</p>
           <div className="h-[2px] w-8 mb-10" style={{ background: "#0a3cec" }} />
@@ -198,7 +204,13 @@ export function EyeDropsPage() {
             Our role was to translate research into a defensible MVP. The service blueprint that follows is a design recommendation, a structured foundation for the company to build, test, and refine.
           </p>
           <h3 className="text-[28px] font-bold leading-[47.406px] mb-4">Service Blueprint</h3>
-          <img src={figmaBlueprint} alt="Service blueprint" className="w-full h-auto" draggable={false} />
+          <img
+            src={figmaBlueprint}
+            alt="Service blueprint"
+            className="block h-auto mx-auto"
+            style={{ width: "min(100%, 1280px)" }}
+            draggable={false}
+          />
         </div>
       </section>
 
