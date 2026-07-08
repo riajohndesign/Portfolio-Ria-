@@ -20,7 +20,7 @@ const imgDesignProcessTimeline = "https://www.figma.com/api/mcp/asset/e4b1aaf9-f
 const imgReqIcon1 = "https://www.figma.com/api/mcp/asset/dfd36d7f-32cf-4177-b86a-a16ad749e694";
 const imgReqIcon2 = "https://www.figma.com/api/mcp/asset/1871f9e3-b036-4cd3-8ab5-0d266f97d838";
 const imgReqIcon3 = "https://www.figma.com/api/mcp/asset/f782a758-178c-4bde-96fb-10b90723777d";
-const imgInformationArchitecture = "/breathe-information-architecture-v2.png";
+const imgInformationArchitecture = "/breathe-information-architecture-v3.png";
 
 const insights = [
   {
@@ -253,7 +253,7 @@ export function BreatheStudioPage() {
             {requirements.map((item) => (
               <article key={item.title} className="flex flex-col gap-6">
                 <img src={item.icon} alt={item.title} className="h-[96px] w-[96px]" draggable={false} />
-                <h3 className="text-[42px] font-bold leading-[1.05] md:text-[40px] lg:text-[40px]">{item.title}</h3>
+                <h3 className="text-[30px] font-bold leading-[1.2]">{item.title}</h3>
                 <p className="text-[18px] leading-[29.25px]">{item.body}</p>
               </article>
             ))}
