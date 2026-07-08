@@ -1,4 +1,6 @@
+import { useState } from "react";
 import { ArrowUpRight } from "lucide-react";
+import { AnimatePresence, motion } from "motion/react";
 import { Link } from "react-router";
 
 const imgHero = "https://www.figma.com/api/mcp/asset/43078e9a-541e-4ede-b4d9-fbee70f6fb4d";
@@ -15,6 +17,10 @@ const imgVersion3 = "https://www.figma.com/api/mcp/asset/648cee6a-776a-4621-9251
 const imgFinalFigmaMake = "https://www.figma.com/api/mcp/asset/e2cbd0bc-ca83-4b75-b7e2-a9fa8bf5c485";
 const imgFinalDev = "https://www.figma.com/api/mcp/asset/1a0df7f3-fad2-477c-80ae-90973b78b44e";
 const imgDesignProcessTimeline = "https://www.figma.com/api/mcp/asset/e4b1aaf9-f842-4664-8b76-0356bb9d0d71";
+const imgReqIcon1 = "https://www.figma.com/api/mcp/asset/dfd36d7f-32cf-4177-b86a-a16ad749e694";
+const imgReqIcon2 = "https://www.figma.com/api/mcp/asset/1871f9e3-b036-4cd3-8ab5-0d266f97d838";
+const imgReqIcon3 = "https://www.figma.com/api/mcp/asset/f782a758-178c-4bde-96fb-10b90723777d";
+const imgInformationArchitecture = "/breathe-information-architecture.png";
 
 const insights = [
   {
@@ -42,20 +48,34 @@ const insights = [
 
 const requirements = [
   {
+    icon: imgReqIcon1,
     title: "Seamless Coach Transitions",
-    body: "Changes in coaching staff never disrupt the client journey because progress history, notes, and recommendations stay centralized and immediately accessible.",
+    body:
+      "The experience was designed so that changes in coaching staff never disrupt the client journey. Whether a session is led by a primary coach, substitute, or newly onboarded coach, all relevant client context remains immediately accessible. By centralizing progress history, session notes, and recommendations, the system minimizes transition friction and enables a consistent, continuous experience for every client.",
   },
   {
+    icon: imgReqIcon2,
     title: "AI-Powered Advisory Support",
-    body: "AI surfaces recommendations and behavioral patterns as contextual inputs, helping coaches decide faster while keeping human judgment in control.",
+    body:
+      "AI surfaces relevant recommendations and behavioural patterns such as suggesting progressive overload, flagging adherence risks, to support coaches in their decision-making. Rather than acting autonomously, these insights are presented as contextual inputs, allowing coaches to apply their own expertise and clinical judgment before taking action.",
   },
   {
-    title: "Integrated Pre/Postnatal and General Flows",
-    body: "Pre/postnatal journeys are embedded into the core flow so guidance adapts naturally without forcing users into separate systems or modes.",
+    icon: imgReqIcon3,
+    title: "Integrated Pre/Postnatal and General User Flows",
+    body:
+      "Rather than treating pre/postnatal care as separate or configurable paths, we embedded these journeys directly into the main product experience. This ensures that users receive contextually relevant guidance without needing to switch modes or navigate different systems. The core flow adapts naturally based on user stage, allowing personalized experiences while maintaining a single, cohesive interface for both clients and coaches.",
   },
 ];
 
 export function BreatheStudioPage() {
+  const iterationVersions = [
+    { src: imgVersion1, label: "Version 1" },
+    { src: imgVersion2, label: "Version 2" },
+    { src: imgVersion3, label: "Version 3" },
+  ];
+  const [activeIteration, setActiveIteration] = useState(0);
+  const [activeFinalView, setActiveFinalView] = useState<"figma" | "dev">("figma");
+
   return (
     <div style={{ minHeight: "100vh", background: "#ffffff", color: "#111111" }}>
       <style>{`
@@ -74,7 +94,7 @@ export function BreatheStudioPage() {
               {["UX Design", "AI Tools", "Dashboard"].map((chip) => (
                 <span
                   key={chip}
-                  className="rounded-full border px-3 py-1 text-[12px]"
+                  className="rounded-full border px-3 py-1 text-[12px] transition-transform duration-300 hover:-translate-y-0.5"
                   style={{ color: "rgba(255,255,255,0.85)", borderColor: "rgba(255,255,255,0.22)", background: "rgba(255,255,255,0.12)" }}
                 >
                   {chip}
@@ -193,7 +213,7 @@ export function BreatheStudioPage() {
           </p>
           <div className="grid grid-cols-1 gap-10 md:grid-cols-3">
             {insights.map((item) => (
-              <article key={item.title} className="flex flex-col gap-8">
+              <article key={item.title} className="flex flex-col gap-8 rounded-[16px] p-3 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)]">
                 <img src={item.icon} alt={item.title} className="h-[88px] w-[88px]" draggable={false} />
                 <div className="space-y-4">
                   <h3 className="text-[30px] font-bold leading-[1.2]">{item.title}</h3>
@@ -227,16 +247,25 @@ export function BreatheStudioPage() {
           <div className="mb-6 mt-2 h-[2px] w-8 bg-[#048574]" />
           <h2 className="mb-4 text-[45px] font-bold leading-[47.406px]">Seamless continuity, faster coordination, and full visibility</h2>
           <p className="mb-10 max-w-[1117px] text-[18px] leading-[29.25px]">
-            After synthesizing stakeholder requirements, we prioritized the three most critical needs to guide product direction.
+            After synthesizing stakeholder requirements, we prioritized the three most critical needs to guide the product direction.
           </p>
           <div className="grid grid-cols-1 gap-10 md:grid-cols-3">
             {requirements.map((item) => (
-              <article key={item.title} className="rounded-[16px] border border-[#e3e3e3] bg-white p-6 shadow-[0_1px_1.5px_rgba(0,0,0,0.1)]">
-                <h3 className="mb-4 text-[30px] font-bold leading-[1.2]">{item.title}</h3>
+              <article key={item.title} className="flex flex-col gap-6">
+                <img src={item.icon} alt={item.title} className="h-[96px] w-[96px]" draggable={false} />
+                <h3 className="text-[42px] font-bold leading-[1.05] md:text-[40px] lg:text-[40px]">{item.title}</h3>
                 <p className="text-[18px] leading-[29.25px]">{item.body}</p>
               </article>
             ))}
           </div>
+          <h3 className="mb-4 mt-14 text-[42px] font-bold leading-[47.406px] md:text-[30px]">Information Architecture Mapping</h3>
+          <img
+            src={imgInformationArchitecture}
+            alt="Information Architecture Mapping"
+            className="h-auto w-full rounded-[20px] border border-black/10 bg-white"
+            draggable={false}
+            style={{ imageRendering: "auto" }}
+          />
         </div>
       </section>
 
@@ -250,7 +279,7 @@ export function BreatheStudioPage() {
             through multiple usability-feedback cycles before final handoff.
           </p>
           <h3 className="mb-4 text-[30px] font-bold leading-[47.406px]">Prototype Usability Testing Round 1</h3>
-          <img src={imgProtoRound1} alt="Prototype usability testing round 1" className="w-full rounded-[20px]" draggable={false} />
+          <img src={imgProtoRound1} alt="Prototype usability testing round 1" className="w-full rounded-[20px] transition-transform duration-500 hover:scale-[1.01]" draggable={false} />
           <p className="mt-8 text-[18px] leading-[29.25px]">
             Feedback from the first version validated the concept and highlighted usability opportunities.{" "}
             <span className="font-bold">
@@ -259,17 +288,36 @@ export function BreatheStudioPage() {
           </p>
 
           <h3 className="mb-4 mt-12 text-[30px] font-bold leading-[47.406px]">Multiple Iterations using AI</h3>
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-            {[
-              { src: imgVersion1, label: "Version 1" },
-              { src: imgVersion2, label: "Version 2" },
-              { src: imgVersion3, label: "Version 3" },
-            ].map((version) => (
-              <div key={version.label}>
-                <p className="mb-3 text-[20px] font-bold">{version.label}</p>
-                <img src={version.src} alt={version.label} className="h-auto w-full rounded-[20px]" draggable={false} />
-              </div>
-            ))}
+          <div className="rounded-[20px] border border-black/10 bg-white p-4 md:p-6">
+            <div className="mb-4 flex flex-wrap gap-2">
+              {iterationVersions.map((version, idx) => (
+                <button
+                  key={version.label}
+                  type="button"
+                  onClick={() => setActiveIteration(idx)}
+                  className="rounded-full px-4 py-1.5 text-[14px] transition-all duration-300"
+                  style={{
+                    background: activeIteration === idx ? "#111111" : "#f2f2f2",
+                    color: activeIteration === idx ? "#ffffff" : "#111111",
+                  }}
+                >
+                  {version.label}
+                </button>
+              ))}
+            </div>
+            <AnimatePresence mode="wait">
+              <motion.img
+                key={iterationVersions[activeIteration].src}
+                src={iterationVersions[activeIteration].src}
+                alt={iterationVersions[activeIteration].label}
+                className="h-auto w-full rounded-[20px]"
+                draggable={false}
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -8 }}
+                transition={{ duration: 0.22 }}
+              />
+            </AnimatePresence>
           </div>
 
           <div className="mt-10">
@@ -295,15 +343,44 @@ export function BreatheStudioPage() {
             coaches and clients to guide future improvements.
           </p>
 
-          <h3 className="mb-4 text-[30px] font-bold leading-[47.406px]">Final Figma Make Version</h3>
-          <img src={imgFinalFigmaMake} alt="Final Figma Make version" className="mb-10 w-full rounded-[20px]" draggable={false} />
+          <div className="mb-4 flex flex-wrap items-center gap-2">
+            <button
+              type="button"
+              onClick={() => setActiveFinalView("figma")}
+              className="rounded-full px-4 py-1.5 text-[14px] transition-all duration-300"
+              style={{ background: activeFinalView === "figma" ? "#111111" : "#f2f2f2", color: activeFinalView === "figma" ? "#fff" : "#111" }}
+            >
+              Final Figma Make Version
+            </button>
+            <button
+              type="button"
+              onClick={() => setActiveFinalView("dev")}
+              className="rounded-full px-4 py-1.5 text-[14px] transition-all duration-300"
+              style={{ background: activeFinalView === "dev" ? "#111111" : "#f2f2f2", color: activeFinalView === "dev" ? "#fff" : "#111" }}
+            >
+              Final Dev Team Version
+            </button>
+          </div>
+          <AnimatePresence mode="wait">
+            <motion.img
+              key={activeFinalView}
+              src={activeFinalView === "figma" ? imgFinalFigmaMake : imgFinalDev}
+              alt={activeFinalView === "figma" ? "Final Figma Make version" : "Final deployed dashboard version"}
+              className="mb-10 w-full rounded-[20px]"
+              draggable={false}
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ duration: 0.22 }}
+            />
+          </AnimatePresence>
 
           <h3 className="mb-3 text-[30px] font-bold leading-[47.406px]">Final Version deployed by the Dev Team</h3>
           <p className="mb-4 text-[18px] leading-[29.25px]">
             Achieving the right UI through prompting required multiple iterations to refine interactions, layout details, and
             overall flow before finalization.
           </p>
-          <img src={imgFinalDev} alt="Final deployed dashboard version" className="w-full rounded-[20px]" draggable={false} />
+          <img src={imgFinalDev} alt="Final deployed dashboard version" className="w-full rounded-[20px] transition-transform duration-500 hover:scale-[1.01]" draggable={false} />
         </div>
       </section>
 
