@@ -20,7 +20,7 @@ const imgDesignProcessTimeline = "https://www.figma.com/api/mcp/asset/e4b1aaf9-f
 const imgReqIcon1 = "https://www.figma.com/api/mcp/asset/dfd36d7f-32cf-4177-b86a-a16ad749e694";
 const imgReqIcon2 = "https://www.figma.com/api/mcp/asset/1871f9e3-b036-4cd3-8ab5-0d266f97d838";
 const imgReqIcon3 = "https://www.figma.com/api/mcp/asset/f782a758-178c-4bde-96fb-10b90723777d";
-const imgInformationArchitecture = "/breathe-information-architecture.png";
+const imgInformationArchitecture = "/breathe-information-architecture-v2.png";
 
 const insights = [
   {
