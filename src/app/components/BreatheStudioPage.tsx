@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ArrowUpRight } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 import { Link } from "react-router";
@@ -67,6 +67,20 @@ const requirements = [
   },
 ];
 
+function RevealBlock({ children, className = "" }: { children: React.ReactNode; className?: string }) {
+  return (
+    <motion.div
+      className={className}
+      initial={{ opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.18 }}
+      transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+    >
+      {children}
+    </motion.div>
+  );
+}
+
 export function BreatheStudioPage() {
   const iterationVersions = [
     { src: imgVersion1, label: "Version 1" },
@@ -75,6 +89,15 @@ export function BreatheStudioPage() {
   ];
   const [activeIteration, setActiveIteration] = useState(0);
   const [activeFinalView, setActiveFinalView] = useState<"figma" | "dev">("figma");
+  const [zoomImage, setZoomImage] = useState<{ src: string; alt: string } | null>(null);
+
+  useEffect(() => {
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setZoomImage(null);
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, []);
 
   return (
     <div style={{ minHeight: "100vh", background: "#ffffff", color: "#111111" }}>
@@ -86,7 +109,13 @@ export function BreatheStudioPage() {
         }
       `}</style>
       <section className="relative overflow-hidden bg-[#596f57]" style={{ height: "681px" }}>
-        <img src={imgHero} alt="Breathe Studio hero visual" className="absolute right-0 top-0 h-full w-[64%] object-cover" draggable={false} />
+        <img
+          src={imgHero}
+          alt="Breathe Studio hero visual"
+          className="absolute right-0 top-0 h-full w-[64%] cursor-zoom-in object-cover"
+          draggable={false}
+          onClick={() => setZoomImage({ src: imgHero, alt: "Breathe Studio hero visual" })}
+        />
         <div className="absolute inset-0 bg-gradient-to-r from-[#596f57] via-[#596f57]/92 to-transparent" />
         <div className="relative z-10 px-6 md:px-12 lg:px-20 pt-[426px]">
           <div className="max-w-7xl mx-auto">
@@ -109,7 +138,7 @@ export function BreatheStudioPage() {
       </section>
 
       <section className="px-6 md:px-12 lg:px-20 py-10" style={{ background: "#e0ddd6" }}>
-        <div className="mx-auto flex max-w-7xl flex-wrap items-start gap-12 lg:gap-20">
+        <RevealBlock className="mx-auto flex max-w-7xl flex-wrap items-start gap-12 lg:gap-20">
           <div>
             <p className="mb-2 text-[10px] uppercase tracking-[2px]">Role</p>
             <p className="text-[14px] text-[#596f57]">UX Designer (End to End)</p>
@@ -126,11 +155,11 @@ export function BreatheStudioPage() {
             <p className="mb-2 text-[10px] uppercase tracking-[2px]">Domain</p>
             <p className="text-[14px] text-[#596f57]">Health &amp; Fitness</p>
           </div>
-        </div>
+        </RevealBlock>
       </section>
 
       <section className="bg-white px-6 md:px-12 lg:px-20 py-[80px]">
-        <div className="mx-auto max-w-7xl">
+        <RevealBlock className="mx-auto max-w-7xl">
           <p className="text-[16px] uppercase tracking-[2px]">Overview</p>
           <div className="mb-8 mt-2 h-[2px] w-8 bg-[#3e9891]" />
           <div className="hidden lg:flex items-start gap-[40px]">
@@ -138,8 +167,9 @@ export function BreatheStudioPage() {
               <img
                 src={imgOverview}
                 alt="Breathe Studio dashboard overview"
-                className="absolute inset-0 h-full w-full object-cover"
+                className="absolute inset-0 h-full w-full cursor-zoom-in object-cover"
                 draggable={false}
+                onClick={() => setZoomImage({ src: imgOverview, alt: "Breathe Studio dashboard overview" })}
               />
             </div>
             <div className="w-[607px]">
@@ -158,7 +188,13 @@ export function BreatheStudioPage() {
             </div>
           </div>
           <div className="lg:hidden">
-            <img src={imgOverview} alt="Breathe Studio dashboard overview" className="w-full rounded-[8px] object-cover" draggable={false} />
+            <img
+              src={imgOverview}
+              alt="Breathe Studio dashboard overview"
+              className="w-full cursor-zoom-in rounded-[8px] object-cover"
+              draggable={false}
+              onClick={() => setZoomImage({ src: imgOverview, alt: "Breathe Studio dashboard overview" })}
+            />
             <div className="mt-8 max-w-[607px]">
               <h2 className="mb-6 text-[36px] font-bold leading-[1.1]">From Analog Tracking to an AI-Powered Dashboard</h2>
               <p className="text-[18px] leading-[29.25px]">
@@ -174,11 +210,11 @@ export function BreatheStudioPage() {
               </p>
             </div>
           </div>
-        </div>
+        </RevealBlock>
       </section>
 
       <section className="px-6 md:px-12 lg:px-20 py-[80px]">
-        <div className="mx-auto max-w-7xl">
+        <RevealBlock className="mx-auto max-w-7xl">
           <p className="text-[16px] uppercase tracking-[2px]">DeSIGN process</p>
           <div className="mb-6 mt-2 h-[2px] w-8 bg-[#596f57]" />
           <h2 className="mb-4 text-[45px] font-bold leading-[47.406px]">
@@ -194,16 +230,17 @@ export function BreatheStudioPage() {
             <img
               src={imgDesignProcessTimeline}
               alt="6 week design process timeline"
-              className="h-auto w-[1280px] max-w-none md:w-full md:max-w-[1280px] md:mx-auto"
+              className="h-auto w-[1280px] max-w-none cursor-zoom-in md:mx-auto md:w-full md:max-w-[1280px]"
               draggable={false}
               style={{ imageRendering: "auto" }}
+              onClick={() => setZoomImage({ src: imgDesignProcessTimeline, alt: "6 week design process timeline" })}
             />
           </div>
-        </div>
+        </RevealBlock>
       </section>
 
       <section className="bg-[#fffefb] px-6 md:px-12 lg:px-20 py-[80px]">
-        <div className="mx-auto max-w-7xl">
+        <RevealBlock className="mx-auto max-w-7xl">
           <p className="text-[16px] uppercase tracking-[2px]">Research Insights</p>
           <div className="mb-6 mt-2 h-[2px] w-8 bg-[#e17f80]" />
           <h2 className="mb-4 text-[45px] font-bold leading-[47.406px]">Manual tracking caused confusion</h2>
@@ -214,7 +251,13 @@ export function BreatheStudioPage() {
           <div className="grid grid-cols-1 gap-10 md:grid-cols-3">
             {insights.map((item) => (
               <article key={item.title} className="flex flex-col gap-8 rounded-[16px] p-3 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)]">
-                <img src={item.icon} alt={item.title} className="h-[88px] w-[88px]" draggable={false} />
+                <img
+                  src={item.icon}
+                  alt={item.title}
+                  className="h-[88px] w-[88px] cursor-zoom-in"
+                  draggable={false}
+                  onClick={() => setZoomImage({ src: item.icon, alt: item.title })}
+                />
                 <div className="space-y-4">
                   <h3 className="text-[30px] font-bold leading-[1.2]">{item.title}</h3>
                   <p className="text-[18px] leading-[29.25px]">{item.body}</p>
@@ -229,20 +272,22 @@ export function BreatheStudioPage() {
           <img
             src={imgInsightsBoard}
             alt="Research synthesis board"
-            className="mt-12 block h-auto w-full rounded-[20px] object-cover"
+            className="mt-12 block h-auto w-full cursor-zoom-in rounded-[20px] object-cover"
             draggable={false}
+            onClick={() => setZoomImage({ src: imgInsightsBoard, alt: "Research synthesis board" })}
           />
           <img
             src={imgFlowBoard}
             alt="Information architecture and flow board"
-            className="mt-10 block h-auto w-full rounded-[20px] object-cover"
+            className="mt-10 block h-auto w-full cursor-zoom-in rounded-[20px] object-cover"
             draggable={false}
+            onClick={() => setZoomImage({ src: imgFlowBoard, alt: "Information architecture and flow board" })}
           />
-        </div>
+        </RevealBlock>
       </section>
 
       <section className="bg-[#fffefb] px-6 md:px-12 lg:px-20 py-[80px]">
-        <div className="mx-auto max-w-7xl">
+        <RevealBlock className="mx-auto max-w-7xl">
           <p className="text-[16px] uppercase tracking-[2px]">Design Requirements</p>
           <div className="mb-6 mt-2 h-[2px] w-8 bg-[#048574]" />
           <h2 className="mb-4 text-[45px] font-bold leading-[47.406px]">Seamless continuity, faster coordination, and full visibility</h2>
@@ -252,8 +297,14 @@ export function BreatheStudioPage() {
           <div className="grid grid-cols-1 gap-10 md:grid-cols-3">
             {requirements.map((item) => (
               <article key={item.title} className="flex flex-col gap-6">
-                <img src={item.icon} alt={item.title} className="h-[96px] w-[96px]" draggable={false} />
-                <h3 className="text-[30px] font-bold leading-[1.2]">{item.title}</h3>
+                <img
+                  src={item.icon}
+                  alt={item.title}
+                  className="h-[96px] w-[96px] cursor-zoom-in"
+                  draggable={false}
+                  onClick={() => setZoomImage({ src: item.icon, alt: item.title })}
+                />
+                <h3 className="text-[30px] font-bold leading-[1.2] md:min-h-[108px]">{item.title}</h3>
                 <p className="text-[18px] leading-[29.25px]">{item.body}</p>
               </article>
             ))}
@@ -262,15 +313,16 @@ export function BreatheStudioPage() {
           <img
             src={imgInformationArchitecture}
             alt="Information Architecture Mapping"
-            className="h-auto w-full rounded-[20px] border border-black/10 bg-white"
+            className="mx-auto h-auto w-full max-w-[1120px] cursor-zoom-in rounded-[20px] border border-black/10 bg-white"
             draggable={false}
             style={{ imageRendering: "auto" }}
+            onClick={() => setZoomImage({ src: imgInformationArchitecture, alt: "Information Architecture Mapping" })}
           />
-        </div>
+        </RevealBlock>
       </section>
 
       <section className="bg-[#fffefb] px-6 md:px-12 lg:px-20 py-[80px]">
-        <div className="mx-auto max-w-7xl">
+        <RevealBlock className="mx-auto max-w-7xl">
           <p className="text-[16px] uppercase tracking-[2px]">Prototyping with AI &amp; Usability Testing</p>
           <div className="mb-6 mt-2 h-[2px] w-8 bg-[#3e9891]" />
           <h2 className="mb-4 text-[45px] font-bold leading-[47.406px]">Rapid Dashboard Design with Figma Make</h2>
@@ -279,7 +331,13 @@ export function BreatheStudioPage() {
             through multiple usability-feedback cycles before final handoff.
           </p>
           <h3 className="mb-4 text-[30px] font-bold leading-[47.406px]">Prototype Usability Testing Round 1</h3>
-          <img src={imgProtoRound1} alt="Prototype usability testing round 1" className="w-full rounded-[20px] transition-transform duration-500 hover:scale-[1.01]" draggable={false} />
+          <img
+            src={imgProtoRound1}
+            alt="Prototype usability testing round 1"
+            className="w-full cursor-zoom-in rounded-[20px] transition-transform duration-500 hover:scale-[1.01]"
+            draggable={false}
+            onClick={() => setZoomImage({ src: imgProtoRound1, alt: "Prototype usability testing round 1" })}
+          />
           <p className="mt-8 text-[18px] leading-[29.25px]">
             Feedback from the first version validated the concept and highlighted usability opportunities.{" "}
             <span className="font-bold">
@@ -310,8 +368,9 @@ export function BreatheStudioPage() {
                 key={iterationVersions[activeIteration].src}
                 src={iterationVersions[activeIteration].src}
                 alt={iterationVersions[activeIteration].label}
-                className="h-auto w-full rounded-[20px]"
+                className="h-auto w-full cursor-zoom-in rounded-[20px]"
                 draggable={false}
+                onClick={() => setZoomImage({ src: iterationVersions[activeIteration].src, alt: iterationVersions[activeIteration].label })}
                 initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -8 }}
@@ -330,11 +389,11 @@ export function BreatheStudioPage() {
               <li>Accelerated the overall design-development workflow.</li>
             </ol>
           </div>
-        </div>
+        </RevealBlock>
       </section>
 
       <section className="px-6 md:px-12 lg:px-20 py-[80px]">
-        <div className="mx-auto max-w-7xl">
+        <RevealBlock className="mx-auto max-w-7xl">
           <p className="text-[16px] uppercase tracking-[2px]">Final Designs</p>
           <div className="mb-6 mt-2 h-[2px] w-8 bg-[#7c5cbf]" />
           <h2 className="mb-3 text-[45px] font-bold leading-[47.406px]">The final version that was deployed</h2>
@@ -366,8 +425,14 @@ export function BreatheStudioPage() {
               key={activeFinalView}
               src={activeFinalView === "figma" ? imgFinalFigmaMake : imgFinalDev}
               alt={activeFinalView === "figma" ? "Final Figma Make version" : "Final deployed dashboard version"}
-              className="mb-10 w-full rounded-[20px]"
+              className="mb-10 w-full cursor-zoom-in rounded-[20px]"
               draggable={false}
+              onClick={() =>
+                setZoomImage({
+                  src: activeFinalView === "figma" ? imgFinalFigmaMake : imgFinalDev,
+                  alt: activeFinalView === "figma" ? "Final Figma Make version" : "Final deployed dashboard version",
+                })
+              }
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -8 }}
@@ -380,12 +445,18 @@ export function BreatheStudioPage() {
             Achieving the right UI through prompting required multiple iterations to refine interactions, layout details, and
             overall flow before finalization.
           </p>
-          <img src={imgFinalDev} alt="Final deployed dashboard version" className="w-full rounded-[20px] transition-transform duration-500 hover:scale-[1.01]" draggable={false} />
-        </div>
+          <img
+            src={imgFinalDev}
+            alt="Final deployed dashboard version"
+            className="w-full cursor-zoom-in rounded-[20px] transition-transform duration-500 hover:scale-[1.01]"
+            draggable={false}
+            onClick={() => setZoomImage({ src: imgFinalDev, alt: "Final deployed dashboard version" })}
+          />
+        </RevealBlock>
       </section>
 
       <section className="bg-[#596f57] px-6 md:px-12 lg:px-20 py-[80px] text-white">
-        <div className="mx-auto max-w-7xl">
+        <RevealBlock className="mx-auto max-w-7xl">
           <p className="text-[16px] uppercase tracking-[2px]">Impact &amp; Learnings</p>
           <div className="mb-6 mt-2 h-[2px] w-8 bg-[#a7e7da]" />
           <h2 className="mb-4 text-[40px] font-bold leading-[47.406px]">Opportunities for Improvement</h2>
@@ -402,11 +473,11 @@ export function BreatheStudioPage() {
             <li>Treat AI outputs as starting points, then refine with design judgment.</li>
             <li>Set clearer prompts and constraints up front for more relevant results.</li>
           </ul>
-        </div>
+        </RevealBlock>
       </section>
 
       <section className="bg-white px-6 md:px-12 lg:px-20 py-[92px]">
-        <div className="mx-auto max-w-7xl border-t border-black/30 pt-[60px]">
+        <RevealBlock className="mx-auto max-w-7xl border-t border-black/30 pt-[60px]">
           <p className="mb-8 text-[16px] uppercase tracking-[2px]">Next Project</p>
           <Link to="/project/validose" className="group flex items-center justify-between gap-6">
             <div>
@@ -421,8 +492,30 @@ export function BreatheStudioPage() {
               <ArrowUpRight className="h-5 w-5 -ml-3 opacity-0 group-hover:opacity-100" style={{ animation: "breatheArrowMove 1.1s ease-in-out infinite" }} />
             </span>
           </Link>
-        </div>
+        </RevealBlock>
       </section>
+      <AnimatePresence>
+        {zoomImage && (
+          <motion.div
+            className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 p-4"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setZoomImage(null)}
+          >
+            <motion.img
+              src={zoomImage.src}
+              alt={zoomImage.alt}
+              className="max-h-[92vh] max-w-[92vw] rounded-[14px] object-contain"
+              initial={{ scale: 0.95, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.96, opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              onClick={(event) => event.stopPropagation()}
+            />
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
