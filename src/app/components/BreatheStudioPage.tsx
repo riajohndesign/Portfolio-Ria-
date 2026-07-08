@@ -14,16 +14,7 @@ const imgVersion2 = "https://www.figma.com/api/mcp/asset/05b81bc5-15a0-4f62-8306
 const imgVersion3 = "https://www.figma.com/api/mcp/asset/648cee6a-776a-4621-9251-d72c988444fd";
 const imgFinalFigmaMake = "https://www.figma.com/api/mcp/asset/e2cbd0bc-ca83-4b75-b7e2-a9fa8bf5c485";
 const imgFinalDev = "https://www.figma.com/api/mcp/asset/1a0df7f3-fad2-477c-80ae-90973b78b44e";
-const imgEllipse7 = "https://www.figma.com/api/mcp/asset/35861b7a-9cec-4125-9a1d-fb178a1c9244";
-const imgEllipse10 = "https://www.figma.com/api/mcp/asset/59a00ef3-16cd-4199-adc7-0227334de011";
-const imgEllipse8 = "https://www.figma.com/api/mcp/asset/abeb98b8-9cf4-4294-9aca-be9c85e766bf";
-const imgEllipse12 = "https://www.figma.com/api/mcp/asset/dcdca66d-5aae-4e44-a5e1-b9b60185bc01";
-const imgLine16 = "https://www.figma.com/api/mcp/asset/c98242f4-9657-415e-8234-c26b64d617a2";
-const imgLine20 = "https://www.figma.com/api/mcp/asset/cbaa384c-ef26-4ad6-a5fa-da5b5710109a";
-const imgLine21 = "https://www.figma.com/api/mcp/asset/e008e55a-6bf5-430d-9bea-458b66105ed0";
-const imgLine22 = "https://www.figma.com/api/mcp/asset/602958f0-7181-4700-a067-2d823b2a306b";
-const imgLine27 = "https://www.figma.com/api/mcp/asset/0c0a4c37-43f5-430b-87cc-f6ac08de3a72";
-const imgLine26 = "https://www.figma.com/api/mcp/asset/2822eae0-f13a-4ddc-a5d7-997562f4018b";
+const imgDesignProcessTimeline = "https://www.figma.com/api/mcp/asset/c984aad2-1191-4aa3-9874-94450cb521a5";
 
 const insights = [
   {
@@ -118,16 +109,16 @@ export function BreatheStudioPage() {
         </div>
       </section>
 
-      <section className="px-6 md:px-12 lg:px-20 py-[80px]">
+      <section className="bg-[#efefef] px-6 md:px-12 lg:px-20 py-[80px]">
         <div className="mx-auto max-w-7xl">
           <p className="text-[16px] uppercase tracking-[2px]">Overview</p>
           <div className="mb-8 mt-2 h-[2px] w-8 bg-[#3e9891]" />
-          <div className="hidden lg:flex items-start gap-[45px]">
-            <div className="relative h-[474px] w-[598px] shrink-0 overflow-hidden">
+          <div className="hidden lg:flex items-start gap-[40px]">
+            <div className="relative h-[450px] w-[560px] shrink-0 overflow-hidden">
               <img
                 src={imgOverview}
                 alt="Breathe Studio dashboard overview"
-                className="absolute h-full left-[-6.43%] max-w-none top-0 w-[118.97%]"
+                className="absolute inset-0 h-full w-full object-cover"
                 draggable={false}
               />
             </div>
@@ -138,9 +129,11 @@ export function BreatheStudioPage() {
                 or 36 sessions) as well as pregnant clients enrolled in pre/post natal programs.
               </p>
               <p className="mt-4 text-[18px] leading-[29.25px]">
-                The studio asked us to design a dashboard that would help fitness coaches track their client&apos;s session progress
-                more effectively. Coaches needed clear progress visibility across 3, 6, and 9 months, while studio managers needed
-                better visibility into coach-client assignments and overall progress.
+                The studio asked us to design a dashboard that would help fitness coaches track their client’s session progress more
+                effectively. Coaches needed a clear visual representation of client progress over 3, 6, and 9 months to better
+                understand performance trends and improvements over time. The dashboard also needed to support studio managers by
+                giving them visibility into coach-client assignments, making it easier to track which coach was assigned to each
+                client and monitor overall coaching progress.
               </p>
             </div>
           </div>
@@ -153,9 +146,11 @@ export function BreatheStudioPage() {
                 or 36 sessions) as well as pregnant clients enrolled in pre/post natal programs.
               </p>
               <p className="mt-4 text-[18px] leading-[29.25px]">
-                The studio asked us to design a dashboard that would help fitness coaches track their client&apos;s session progress
-                more effectively. Coaches needed clear progress visibility across 3, 6, and 9 months, while studio managers needed
-                better visibility into coach-client assignments and overall progress.
+                The studio asked us to design a dashboard that would help fitness coaches track their client’s session progress more
+                effectively. Coaches needed a clear visual representation of client progress over 3, 6, and 9 months to better
+                understand performance trends and improvements over time. The dashboard also needed to support studio managers by
+                giving them visibility into coach-client assignments, making it easier to track which coach was assigned to each
+                client and monitor overall coaching progress.
               </p>
             </div>
           </div>
@@ -164,7 +159,7 @@ export function BreatheStudioPage() {
 
       <section className="px-6 md:px-12 lg:px-20 py-[80px]">
         <div className="mx-auto max-w-7xl">
-          <p className="text-[16px] uppercase tracking-[2px]">Design Process</p>
+          <p className="text-[16px] uppercase tracking-[2px]">DeSIGN process</p>
           <div className="mb-6 mt-2 h-[2px] w-8 bg-[#596f57]" />
           <h2 className="mb-4 text-[45px] font-bold leading-[47.406px]">
             A 6 week <span className="text-[#596f57]">end-to-end</span> design sprint
@@ -173,192 +168,13 @@ export function BreatheStudioPage() {
             Prior to the dashboard, the studio relied on analog methods to track client progress, which made coordination between
             coaches difficult and added significant administrative overhead.
           </p>
-          <div className="hidden md:block">
-            <div className="grid-rows-[max-content] inline-grid leading-[0] place-items-start relative w-full">
-              <p className="[word-break:break-word] col-1 font-bold leading-[normal] ml-[7.15%] mt-0 not-italic relative row-1 text-[16px] text-black w-[9%]">
-                Research
-              </p>
-              <p className="[word-break:break-word] col-1 font-bold leading-[normal] ml-[46.12%] mt-[185.98px] not-italic relative row-1 text-[16px] text-black w-[16.33%]">
-                Usability Testing Round 1
-              </p>
-              <p className="[word-break:break-word] col-1 font-bold leading-[normal] ml-[30.68%] mt-[0.9px] not-italic relative row-1 text-[16px] text-black w-[18.83%]">
-                Low- Fidelity Design using AI
-              </p>
-              <p className="[word-break:break-word] col-1 font-bold leading-[normal] ml-[59.45%] mt-[2.21px] not-italic relative row-1 text-[16px] text-black w-[10.34%]">
-                Design Iteration
-              </p>
-              <p className="[word-break:break-word] col-1 font-bold leading-[normal] ml-[73.53%] mt-[171.97px] not-italic relative row-1 text-[16px] text-black w-[16.51%]">
-                Usability Testing Round 2
-              </p>
-              <p className="[word-break:break-word] col-1 font-bold leading-[normal] ml-[88.33%] mt-[3px] not-italic relative row-1 text-[16px] text-black w-[10.15%]">
-                Design Handoff
-              </p>
-              <div className="col-1 h-[14.861px] ml-[57.53%] mt-[2.21px] relative row-1 w-[1.28%]">
-                <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgEllipse7} />
-              </div>
-              <div className="col-1 h-[14.861px] ml-[5.18%] mt-[2.86px] relative row-1 w-[1.27%]">
-                <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgEllipse10} />
-              </div>
-              <div className="col-1 h-[14.861px] ml-[86.21%] mt-[6.75px] relative row-1 w-[1.27%]">
-                <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgEllipse8} />
-              </div>
-              <div className="col-1 h-[14.861px] ml-[27.33%] mt-[4.81px] relative row-1 w-[1.27%]">
-                <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgEllipse7} />
-              </div>
-              <div className="col-1 h-[14.861px] ml-[43.1%] mt-[219.86px] relative row-1 w-[1.28%]">
-                <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgEllipse12} />
-              </div>
-              <div className="col-1 h-[14.861px] ml-[70.13%] mt-[220.75px] relative row-1 w-[1.28%]">
-                <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgEllipse12} />
-              </div>
-              <div className="col-1 flex h-[92.265px] items-center justify-center ml-[58.06%] mt-[28.78px] relative row-1 w-0" style={{ containerType: "size" }}>
-                <div className="flex-none h-[22570600cqw] rotate-90 w-[100cqh]">
-                  <div className="relative size-full">
-                    <div className="absolute inset-[-1.79px_0_0_0]">
-                      <img alt="" className="block max-w-none size-full" src={imgLine16} />
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="col-1 flex h-[92.265px] items-center justify-center ml-[86.69%] mt-[28.59px] relative row-1 w-[1.77636e-15%]" style={{ containerType: "size" }}>
-                <div className="flex-none h-[22570600cqw] rotate-90 w-[100cqh]">
-                  <div className="relative size-full">
-                    <div className="absolute inset-[-1.79px_0_0_0]">
-                      <img alt="" className="block max-w-none size-full" src={imgLine16} />
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="col-1 flex h-[92.265px] items-center justify-center ml-[5.63%] mt-[27.62px] relative row-1 w-0" style={{ containerType: "size" }}>
-                <div className="flex-none h-[22570600cqw] rotate-90 w-[100cqh]">
-                  <div className="relative size-full">
-                    <div className="absolute inset-[-1.79px_0_0_0]">
-                      <img alt="" className="block max-w-none size-full" src={imgLine20} />
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="col-1 flex h-[92.265px] items-center justify-center ml-[43.66%] mt-[118.2px] relative row-1 w-0" style={{ containerType: "size" }}>
-                <div className="flex-none h-[22570600cqw] rotate-90 w-[100cqh]">
-                  <div className="relative size-full">
-                    <div className="absolute inset-[-1.79px_0_0_0]">
-                      <img alt="" className="block max-w-none size-full" src={imgLine21} />
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="col-1 flex h-[92.265px] items-center justify-center ml-[28%] mt-[28.27px] relative row-1 w-0" style={{ containerType: "size" }}>
-                <div className="flex-none h-[22570600cqw] rotate-90 w-[100cqh]">
-                  <div className="relative size-full">
-                    <div className="absolute inset-[-1.79px_0_0_0]">
-                      <img alt="" className="block max-w-none size-full" src={imgLine22} />
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="col-1 flex h-[92.265px] items-center justify-center ml-[19.94%] mt-[118.2px] relative row-1 w-0" style={{ containerType: "size" }}>
-                <div className="flex-none h-[22570600cqw] rotate-90 w-[100cqh]">
-                  <div className="relative size-full">
-                    <div className="absolute inset-[-1.79px_0_0_0]">
-                      <img alt="" className="block max-w-none size-full" src={imgLine27} />
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="col-1 flex h-[92.265px] items-center justify-center ml-[70.78%] mt-[121.14px] relative row-1 w-0" style={{ containerType: "size" }}>
-                <div className="flex-none h-[22570600cqw] rotate-90 w-[100cqh]">
-                  <div className="relative size-full">
-                    <div className="absolute inset-[-1.79px_0_0_0]">
-                      <img alt="" className="block max-w-none size-full" src={imgLine27} />
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <ul className="[word-break:break-word] block col-1 font-normal list-disc mt-[28.75px] not-italic relative row-1 text-[14px] text-black w-[18.4%]">
-                <li className="mb-0 ms-[21px]">
-                  <span className="leading-[normal]">User Interviews</span>
-                </li>
-                <li className="mb-0 ms-[21px]">
-                  <span className="leading-[normal]">Jobs to be done framework</span>
-                </li>
-                <li className="ms-[21px]">
-                  <span className="leading-[normal]">User Personas</span>
-                </li>
-              </ul>
-              <ul className="[word-break:break-word] block col-1 font-normal list-disc mt-[213.75px] not-italic relative row-1 text-[14px] text-black w-[21.93%]">
-                <li className="mb-0 ms-[21px]">
-                  <span className="leading-[normal]">Incorporated Version 1.0 feedback into Version 2.0.</span>
-                </li>
-                <li className="ms-[21px]">
-                  <span className="leading-[normal]">Conducted usability testing with stakeholders to refine the experience.</span>
-                </li>
-              </ul>
-              <ul className="[word-break:break-word] block col-1 font-normal mt-[28.75px] not-italic relative row-1 text-[14px] text-black w-[19.06%]">
-                <li className="list-disc ms-[21px]">
-                  <span className="leading-[normal]">Built Version 1.0 of the dashboard using AI, presented it to the internal team, and iterated to Version 2.0 based on feedback.</span>
-                </li>
-              </ul>
-              <ul className="[word-break:break-word] block col-1 font-normal mt-[173.75px] not-italic relative row-1 text-[14px] text-black w-[14.7%]">
-                <li className="list-disc ms-[21px]">
-                  <span className="leading-[normal]">User Flow Mapping/ IA Review with Dev team</span>
-                </li>
-              </ul>
-              <ul className="[word-break:break-word] block col-1 font-normal list-disc mt-[30.75px] not-italic relative row-1 text-[14px] text-black w-[22.43%]">
-                <li className="mb-0 ms-[21px]">
-                  <span className="leading-[normal]">Iterated through two additional versions after Usability Testing Round 1</span>
-                </li>
-                <li className="ms-[21px]">
-                  <span className="leading-[normal]">Refined the UI based on stakeholder feedback.</span>
-                </li>
-              </ul>
-              <ul className="[word-break:break-word] block col-1 font-normal mt-[199.34px] not-italic relative row-1 text-[14px] text-black w-[18.23%]">
-                <li className="list-disc ms-[21px]">
-                  <span className="leading-[normal]">Led a second round of usability testing to make final design improvements.</span>
-                </li>
-              </ul>
-              <ul className="[word-break:break-word] block col-1 font-normal mt-[30.75px] not-italic relative row-1 text-[14px] text-black w-[12.2%]">
-                <li className="list-disc ms-[21px]">
-                  <span className="leading-[normal]">Handed off final design prototype and code to the development team.</span>
-                </li>
-              </ul>
-              <div className="col-1 h-0 ml-[1.72%] mt-[120.75px] relative row-1 w-[96.72%]">
-                <div className="absolute inset-[-1.79px_0_0_0]">
-                  <img alt="" className="block max-w-none size-full" src={imgLine26} />
-                </div>
-              </div>
-              <div className="[word-break:break-word] col-1 font-semibold ml-[5.4%] mt-[135.8px] not-italic relative row-1 text-[#596f57] text-[12px] w-[18.23%]">
-                <p className="leading-[normal] mb-0">1 week</p>
-              </div>
-              <div className="[word-break:break-word] col-1 font-semibold ml-[46.09%] mt-[136.75px] not-italic relative row-1 text-[#596f57] text-[12px] w-[18.23%]">
-                <p className="leading-[normal] mb-0">3 week</p>
-              </div>
-              <div className="[word-break:break-word] col-1 font-semibold ml-[86.56%] mt-[136.75px] not-italic relative row-1 text-[#596f57] text-[12px] w-[3.6%]">
-                <p className="leading-[normal] mb-0">6 week</p>
-              </div>
-              <div className="col-1 flex h-[60px] items-center justify-center ml-0 mt-[82.75px] relative row-1 w-[1.21%]" style={{ containerType: "size" }}>
-                <div className="-rotate-90 flex-none h-[100cqw] w-[100cqh]">
-                  <p className="[word-break:break-word] font-bold leading-[normal] not-italic relative size-full text-[#596f57] text-[12px] tracking-[2.4px]">STAGE</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="md:hidden">
-            <div className="space-y-5">
-              {[
-                ["Research", "User Interviews, JTBD framework, and personas."],
-                ["Low-Fidelity Design using AI", "Built v1 and iterated to v2 using team feedback."],
-                ["Usability Testing Round 1", "Validated v2 and refined user journeys."],
-                ["Design Iteration", "Aligned flow and IA with development."],
-                ["Usability Testing Round 2", "Final round to polish interactions and usability."],
-                ["Design Handoff", "Delivered final prototype and code handoff."],
-              ].map(([title, body]) => (
-                <div key={title} className="rounded-xl border border-[#596f57]/20 p-4">
-                  <p className="text-[16px] font-bold">{title}</p>
-                  <p className="mt-1 text-[14px]">{body}</p>
-                </div>
-              ))}
-            </div>
+          <div className="overflow-x-auto">
+            <img
+              src={imgDesignProcessTimeline}
+              alt="6 week design process timeline"
+              className="h-auto w-[1280px] max-w-none md:w-full md:max-w-[1280px] md:mx-auto"
+              draggable={false}
+            />
           </div>
         </div>
       </section>
