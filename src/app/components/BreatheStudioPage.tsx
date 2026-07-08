@@ -14,7 +14,7 @@ const imgVersion2 = "https://www.figma.com/api/mcp/asset/05b81bc5-15a0-4f62-8306
 const imgVersion3 = "https://www.figma.com/api/mcp/asset/648cee6a-776a-4621-9251-d72c988444fd";
 const imgFinalFigmaMake = "https://www.figma.com/api/mcp/asset/e2cbd0bc-ca83-4b75-b7e2-a9fa8bf5c485";
 const imgFinalDev = "https://www.figma.com/api/mcp/asset/1a0df7f3-fad2-477c-80ae-90973b78b44e";
-const imgDesignProcessTimeline = "https://www.figma.com/api/mcp/asset/c984aad2-1191-4aa3-9874-94450cb521a5";
+const imgDesignProcessTimeline = "https://www.figma.com/api/mcp/asset/e4b1aaf9-f842-4664-8b76-0356bb9d0d71";
 
 const insights = [
   {
@@ -27,16 +27,16 @@ const insights = [
   {
     icon: imgInsight2,
     title: "Managers were operating without full visibility",
-    body: "Without a centralized database, client progress data was scattered across individual coach notes, limiting managers' ability to see a complete view of each client's journey.",
+    body: "Without a centralized database, client progress data was scattered across individual coach notes, limiting manager’s ability to see a complete view of each client’s journey.",
     possibility:
-      "Enable end-to-end visibility that centralizes session data, standardizes coach inputs, and surfaces inconsistencies for manager review.",
+      "Enable end-to-end visibility of client progress that centralizes session data, standardizes coach inputs, and surfaces inconsistencies in documentation for manager review.",
   },
   {
     icon: imgInsight3,
     title: "Analog reduced coaching efficiency",
     body: "Manual tracking processes reduced coaching efficiency by introducing time-intensive documentation and fragmented information flow.",
     possibility:
-      "Use user-friendly assessment forms that reduce effort and improve consistency in how coaches capture client information.",
+      "User friendly assessment forms that reduce effort and improve consistency in how coaches capture client information.",
   },
 ];
 
@@ -109,7 +109,7 @@ export function BreatheStudioPage() {
         </div>
       </section>
 
-      <section className="bg-[#efefef] px-6 md:px-12 lg:px-20 py-[80px]">
+      <section className="bg-white px-6 md:px-12 lg:px-20 py-[80px]">
         <div className="mx-auto max-w-7xl">
           <p className="text-[16px] uppercase tracking-[2px]">Overview</p>
           <div className="mb-8 mt-2 h-[2px] w-8 bg-[#3e9891]" />
@@ -164,16 +164,19 @@ export function BreatheStudioPage() {
           <h2 className="mb-4 text-[45px] font-bold leading-[47.406px]">
             A 6 week <span className="text-[#596f57]">end-to-end</span> design sprint
           </h2>
-          <p className="mb-10 max-w-[1124px] text-[18px] leading-[29.25px]">
+          <p className="mb-24 max-w-[1124px] text-[18px] leading-[29.25px]">
             Prior to the dashboard, the studio relied on analog methods to track client progress, which made coordination between
-            coaches difficult and added significant administrative overhead.
+            coaches difficult. Coaches also had to manually log and communicate progress after each session, which was time-consuming
+            and added significant administrative overhead to their workflow. As a result, less time was spent on actual coaching and
+            client interaction, and clients lacked a clear, consistent view of their progress over time.
           </p>
-          <div className="overflow-x-auto">
+          <div className="mt-16 overflow-x-auto">
             <img
               src={imgDesignProcessTimeline}
               alt="6 week design process timeline"
               className="h-auto w-[1280px] max-w-none md:w-full md:max-w-[1280px] md:mx-auto"
               draggable={false}
+              style={{ imageRendering: "auto" }}
             />
           </div>
         </div>
@@ -185,13 +188,13 @@ export function BreatheStudioPage() {
           <div className="mb-6 mt-2 h-[2px] w-8 bg-[#e17f80]" />
           <h2 className="mb-4 text-[45px] font-bold leading-[47.406px]">Manual tracking caused confusion</h2>
           <p className="mb-12 max-w-[966px] text-[18px] leading-[29.25px]">
-            Based on user interviews, I created personas and applied the Jobs-to-be-Done framework to identify motivations and
-            behavior patterns.
+            Based on user interviews, I created user personas and applied the Jobs-to-be-Done framework to understand user
+            motivations and behaviours.
           </p>
           <div className="grid grid-cols-1 gap-10 md:grid-cols-3">
             {insights.map((item) => (
               <article key={item.title} className="flex flex-col gap-8">
-                <img src={item.icon} alt={item.title} className="h-[130px] w-[130px]" draggable={false} />
+                <img src={item.icon} alt={item.title} className="h-[88px] w-[88px]" draggable={false} />
                 <div className="space-y-4">
                   <h3 className="text-[30px] font-bold leading-[1.2]">{item.title}</h3>
                   <p className="text-[18px] leading-[29.25px]">{item.body}</p>

@@ -1,0 +1,87 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns='http://www.w3.org/2005/Atom' xmlns:apps='http://schemas.google.com/apps/2006'>
+    <title>Mail Filters</title>
+    <id>tag:mail.google.com,2008:filters:ria-email-cleanup</id>
+    <updated>2026-04-21T00:00:00Z</updated>
+    <author>
+        <name>Ria John</name>
+        <email>riajohn.design@gmail.com</email>
+    </author>
+
+    <!-- ============================================================ -->
+    <!-- JOBS: recruiters, job boards, and job alerts                -->
+    <!-- Action: apply "Jobs" label, keep in inbox                    -->
+    <!-- ============================================================ -->
+    <entry>
+        <category term='filter'></category>
+        <title>Filter: Jobs</title>
+        <id>tag:mail.google.com,2008:filter:jobs-001</id>
+        <updated>2026-04-21T00:00:00Z</updated>
+        <content></content>
+        <apps:property name='from' value='ziprecruiter.com OR lensa.com OR hi.wellfound.com OR wellfound.com OR aquent.com OR linkedin.com OR indeed.com OR glassdoor.com OR hired.com OR builtin.com OR dribbble.com OR angel.co'/>
+        <apps:property name='label' value='Jobs'/>
+        <apps:property name='sizeOperator' value='s_sl'/>
+        <apps:property name='sizeUnit' value='s_smb'/>
+    </entry>
+
+    <!-- Jobs: subject-based catch-all for recruiter outreach -->
+    <entry>
+        <category term='filter'></category>
+        <title>Filter: Jobs (subject)</title>
+        <id>tag:mail.google.com,2008:filter:jobs-002</id>
+        <updated>2026-04-21T00:00:00Z</updated>
+        <content></content>
+        <apps:property name='subject' value='(&quot;is hiring&quot; OR &quot;may want to hire you&quot; OR &quot;new job&quot; OR &quot;job might be right&quot; OR &quot;opening at&quot; OR &quot;UX Designer&quot; OR &quot;UI Designer&quot; OR &quot;Product Designer&quot; OR &quot;jobs open&quot;)'/>
+        <apps:property name='label' value='Jobs'/>
+        <apps:property name='sizeOperator' value='s_sl'/>
+        <apps:property name='sizeUnit' value='s_smb'/>
+    </entry>
+
+    <!-- ============================================================ -->
+    <!-- NEWSLETTERS: Substack, Medium, design/tech newsletters       -->
+    <!-- Action: apply "Newsletters" label, keep in inbox             -->
+    <!-- ============================================================ -->
+    <entry>
+        <category term='filter'></category>
+        <title>Filter: Newsletters</title>
+        <id>tag:mail.google.com,2008:filter:newsletters-001</id>
+        <updated>2026-04-21T00:00:00Z</updated>
+        <content></content>
+        <apps:property name='from' value='substack.com OR medium.com OR mail.anthropic.com OR email.claude.com OR mail.cursor.com OR supabase.com OR koistudios.io'/>
+        <apps:property name='label' value='Newsletters'/>
+        <apps:property name='sizeOperator' value='s_sl'/>
+        <apps:property name='sizeUnit' value='s_smb'/>
+    </entry>
+
+    <!-- ============================================================ -->
+    <!-- JUNK: promos, marketing, retailer blasts                    -->
+    <!-- Action: apply "Junk" label AND archive (skip inbox)          -->
+    <!-- ============================================================ -->
+    <entry>
+        <category term='filter'></category>
+        <title>Filter: Junk (promos and marketing)</title>
+        <id>tag:mail.google.com,2008:filter:junk-001</id>
+        <updated>2026-04-21T00:00:00Z</updated>
+        <content></content>
+        <apps:property name='from' value='connected.staples.com OR emails.fabletics.com OR safeopt.com OR email.masterclass.com OR brainstation.io OR hubspot.com OR joinleland.com OR email.paperlesspost.com'/>
+        <apps:property name='label' value='Junk'/>
+        <apps:property name='shouldArchive' value='true'/>
+        <apps:property name='sizeOperator' value='s_sl'/>
+        <apps:property name='sizeUnit' value='s_smb'/>
+    </entry>
+
+    <!-- Junk: subject-based catch-all for common promo keywords -->
+    <entry>
+        <category term='filter'></category>
+        <title>Filter: Junk (promo subjects)</title>
+        <id>tag:mail.google.com,2008:filter:junk-002</id>
+        <updated>2026-04-21T00:00:00Z</updated>
+        <content></content>
+        <apps:property name='hasTheWord' value='(&quot;% off&quot; OR &quot;today only&quot; OR &quot;flash sale&quot; OR &quot;limited time&quot; OR &quot;don&apos;t miss&quot; OR &quot;last chance&quot; OR &quot;exclusive offer&quot; OR &quot;free shipping&quot; OR &quot;shop now&quot; OR &quot;intro offer&quot;) category:promotions'/>
+        <apps:property name='label' value='Junk'/>
+        <apps:property name='shouldArchive' value='true'/>
+        <apps:property name='sizeOperator' value='s_sl'/>
+        <apps:property name='sizeUnit' value='s_smb'/>
+    </entry>
+
+</feed>
