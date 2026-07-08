@@ -22,6 +22,7 @@ export function Layout() {
   }, [location.pathname]);
 
   const isHome = location.pathname === "/";
+  const isProjectPage = location.pathname.startsWith("/project/");
   const showTransparentNav = isHome && !scrolled;
 
   return (
@@ -52,9 +53,9 @@ export function Layout() {
             <a
               href="/#projects"
               className="text-sm transition-opacity hover:opacity-60"
-              style={{ color: location.pathname === "/" ? "var(--fg)" : "var(--fg-2)" }}
+              style={{ color: location.pathname === "/" || isProjectPage ? "var(--fg)" : "var(--fg-2)" }}
             >
-              Shipped Work
+              {isProjectPage ? "Work" : "Shipped Work"}
             </a>
             <a
               href="/#about"
@@ -124,7 +125,7 @@ export function Layout() {
             style={{ background: "var(--nav-bg)", backdropFilter: "blur(16px)" }}
           >
             <a href="/#projects" className="text-sm font-medium" style={{ color: "var(--fg)" }}>
-              Shipped Work
+              {isProjectPage ? "Work" : "Shipped Work"}
             </a>
             <a href="/#about" className="text-sm" style={{ color: "var(--fg-2)" }}>
               About Me
