@@ -1,3 +1,5 @@
+import { useEffect, useState, type ImgHTMLAttributes, type ReactNode } from "react";
+import { AnimatePresence, motion } from "motion/react";
 import { Link } from "react-router";
 
 const figmaHero = "https://www.figma.com/api/mcp/asset/95ffc39d-02a6-437b-9868-fb233d2ca54d";
@@ -11,13 +13,67 @@ const figmaBlueprint = "https://www.figma.com/api/mcp/asset/c1ecda74-b5b7-41a2-b
 const figmaOpportunitiesImage = "https://www.figma.com/api/mcp/asset/ae52d37c-c583-4f26-9963-f481633de16b";
 const figmaArrow = "https://www.figma.com/api/mcp/asset/9cc1f93b-2007-47cb-9123-220c5af04855";
 
+function RevealBlock({ children, className = "" }: { children: ReactNode; className?: string }) {
+  return (
+    <motion.div
+      className={className}
+      initial={{ opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.05, margin: "0px 0px -10% 0px" }}
+      transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+    >
+      {children}
+    </motion.div>
+  );
+}
+
+type ZoomableImageProps = {
+  src: string;
+  alt: string;
+  onZoom: (src: string, alt: string) => void;
+  className?: string;
+} & Omit<ImgHTMLAttributes<HTMLImageElement>, "src" | "alt" | "className" | "onClick">;
+
+function ZoomableImage({ src, alt, onZoom, className = "", ...rest }: ZoomableImageProps) {
+  return (
+    <img
+      src={src}
+      alt={alt}
+      className={`${className} cursor-zoom-in`}
+      onClick={() => onZoom(src, alt)}
+      {...rest}
+    />
+  );
+}
+
 export function EyeDropsPage() {
+  const [zoomImage, setZoomImage] = useState<{ src: string; alt: string } | null>(null);
+
+  useEffect(() => {
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setZoomImage(null);
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, []);
+
   return (
     <div style={{ minHeight: "100vh", background: "#ffffff", color: "#111111" }}>
       <section className="relative overflow-hidden" style={{ height: "681px" }}>
-        <img src={figmaHero} alt="Validose hero" className="absolute inset-0 h-full w-full object-cover" draggable={false} />
+        <ZoomableImage
+          src={figmaHero}
+          alt="Validose hero"
+          className="absolute inset-0 h-full w-full object-cover"
+          draggable={false}
+          onZoom={setZoomImage}
+        />
         <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(0,0,0,0.78), rgba(0,0,0,0.25) 52%, rgba(0,0,0,0.2))" }} />
-        <div className="relative z-10 px-6 md:px-12 lg:px-20 pt-[426px]">
+        <motion.div
+          className="relative z-10 px-6 md:px-12 lg:px-20 pt-[426px]"
+          initial={{ opacity: 0, y: 18 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+        >
           <div className="max-w-7xl mx-auto">
             <div className="flex gap-2 mb-5">
               {["User Research", "Product Development", "Healthcare"].map((chip) => (
@@ -34,11 +90,11 @@ export function EyeDropsPage() {
               Enhancing Medication Adherence in Clinical Trials
             </h1>
           </div>
-        </div>
+        </motion.div>
       </section>
 
       <section className="px-6 md:px-12 lg:px-20 py-10" style={{ background: "#111111" }}>
-        <div className="max-w-7xl mx-auto">
+        <RevealBlock className="max-w-7xl mx-auto">
           <div className="flex flex-wrap items-start justify-between gap-8">
             <div>
               <p className="text-[10px] uppercase tracking-[2px] mb-2" style={{ color: "#c4bfb9" }}>Role</p>
@@ -57,11 +113,11 @@ export function EyeDropsPage() {
               <p className="text-[14px] leading-[19.25px]" style={{ color: "#f5f3ee" }}>Medtech</p>
             </div>
           </div>
-        </div>
+        </RevealBlock>
       </section>
 
       <section className="px-6 md:px-12 lg:px-20 py-[100px]" style={{ background: "#ffffff" }}>
-        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
+        <RevealBlock className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
           <div className="max-w-[620px]">
             <p className="text-[16px] uppercase tracking-[2px] mb-1.5">OVERVIEW</p>
             <div className="h-[2px] w-8 mb-10" style={{ background: "#ed5451" }} />
@@ -76,18 +132,19 @@ export function EyeDropsPage() {
             </p>
           </div>
           <div className="w-full flex justify-end items-end">
-            <img
+            <ZoomableImage
               src={figmaOverviewArt}
               alt="Overview illustration"
               className="h-auto w-full max-w-[530px] max-h-[374px] object-contain"
               draggable={false}
+              onZoom={setZoomImage}
             />
           </div>
-        </div>
+        </RevealBlock>
       </section>
 
       <section className="px-6 md:px-12 lg:px-20 py-[100px]" style={{ background: "#FAFAFA" }}>
-        <div className="max-w-7xl mx-auto">
+        <RevealBlock className="max-w-7xl mx-auto">
           <p className="text-[16px] uppercase tracking-[2px] mb-1.5">how might we</p>
           <div className="h-[2px] w-8 mb-10" style={{ background: "#f97007" }} />
           <h2 className="font-bold mb-10 max-w-[1108px] text-[40px] leading-[47.406px]">
@@ -106,12 +163,12 @@ export function EyeDropsPage() {
               </div>
             ))}
           </div>
-        </div>
+        </RevealBlock>
       </section>
 
       <section className="relative px-6 md:px-12 lg:px-20 py-[100px]" style={{ background: "#FFFFFF" }}>
-        <img src={figmaMethodBg} alt="" className="absolute inset-0 h-full w-full object-cover opacity-35" />
-        <div className="relative z-10 max-w-7xl mx-auto">
+        <ZoomableImage src={figmaMethodBg} alt="Methodology background pattern" className="absolute inset-0 h-full w-full object-cover opacity-35" onZoom={setZoomImage} />
+        <RevealBlock className="relative z-10 max-w-7xl mx-auto">
           <p className="text-[16px] uppercase tracking-[2px] mb-1.5">methodology</p>
           <div className="h-[2px] w-8 mb-10" style={{ background: "#eade08" }} />
           <h2 className="text-[40px] font-bold leading-[47.406px] mb-3">From protocol to practice</h2>
@@ -136,18 +193,19 @@ export function EyeDropsPage() {
             <div className="opacity-0 rounded-[20px] border border-[#e3e3e3] bg-white p-[16px]" />
           </div>
           <h3 className="text-[28px] font-bold leading-[47.406px] mb-4">Journey Map of a Clinical Trial Patient</h3>
-          <img
+          <ZoomableImage
             src={figmaJourneyMap}
             alt="Journey map of clinical trial patient"
             className="block h-auto mx-auto"
             style={{ width: "min(100%, 1280px)" }}
             draggable={false}
+            onZoom={setZoomImage}
           />
-        </div>
+        </RevealBlock>
       </section>
 
       <section className="px-6 md:px-12 lg:px-20 py-[100px]" style={{ background: "#FAFAFA" }}>
-        <div className="max-w-7xl mx-auto">
+        <RevealBlock className="max-w-7xl mx-auto">
           <p className="text-[16px] uppercase tracking-[2px] mb-1.5">Research insights</p>
           <div className="h-[2px] w-8 mb-10" style={{ background: "#b612d1" }} />
           <h2 className="text-[40px] font-bold leading-[47.406px] mb-3">Insights that helped shape the concept</h2>
@@ -177,7 +235,7 @@ export function EyeDropsPage() {
             ].map((item) => (
               <article key={item.title} className="flex flex-col gap-[26px]">
                 <div className="h-[175px] flex items-center justify-center">
-                  <img src={item.image} alt={item.title} className="max-h-full w-auto" draggable={false} />
+                  <ZoomableImage src={item.image} alt={item.title} className="max-h-full w-auto" draggable={false} onZoom={setZoomImage} />
                 </div>
                 <div className="flex flex-col gap-[40px]">
                   <div className="flex flex-col gap-[16px]">
@@ -192,11 +250,11 @@ export function EyeDropsPage() {
               </article>
             ))}
           </div>
-        </div>
+        </RevealBlock>
       </section>
 
       <section className="px-6 md:px-12 lg:px-20 py-[100px]" style={{ background: "#FFFFFF" }}>
-        <div className="max-w-7xl mx-auto">
+        <RevealBlock className="max-w-7xl mx-auto">
           <p className="text-[16px] uppercase tracking-[2px] mb-1.5">deliverable</p>
           <div className="h-[2px] w-8 mb-10" style={{ background: "#0a3cec" }} />
           <h2 className="text-[40px] font-bold leading-[47.406px] mb-3">A three layer connected system</h2>
@@ -204,18 +262,19 @@ export function EyeDropsPage() {
             Our role was to translate research into a defensible MVP. The service blueprint that follows is a design recommendation, a structured foundation for the company to build, test, and refine.
           </p>
           <h3 className="text-[28px] font-bold leading-[47.406px] mb-4">Service Blueprint</h3>
-          <img
+          <ZoomableImage
             src={figmaBlueprint}
             alt="Service blueprint"
             className="block h-auto mx-auto"
             style={{ width: "min(100%, 1280px)" }}
             draggable={false}
+            onZoom={setZoomImage}
           />
-        </div>
+        </RevealBlock>
       </section>
 
       <section className="px-6 md:px-12 lg:px-20 py-[80px]" style={{ background: "#000000", color: "#ffffff" }}>
-        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
+        <RevealBlock className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
           <div>
             <p className="text-[16px] uppercase tracking-[2px] mb-1.5">impact &amp; Learnings</p>
             <div className="h-[2px] w-8 mb-10" style={{ background: "#a7e7da" }} />
@@ -233,12 +292,12 @@ export function EyeDropsPage() {
               </ul>
             </div>
           </div>
-          <img src={figmaOpportunitiesImage} alt="Opportunities concept sketch" className="w-full max-w-[588px] h-auto justify-self-end" draggable={false} />
-        </div>
+          <ZoomableImage src={figmaOpportunitiesImage} alt="Opportunities concept sketch" className="w-full max-w-[588px] h-auto justify-self-end" draggable={false} onZoom={setZoomImage} />
+        </RevealBlock>
       </section>
 
       <section className="px-6 md:px-12 lg:px-20 py-[91px]" style={{ background: "#ffffff" }}>
-        <div className="max-w-7xl mx-auto border-t border-[#e0ddd6] pt-[60px]">
+        <RevealBlock className="max-w-7xl mx-auto border-t border-[#e0ddd6] pt-[60px]">
           <p className="text-[16px] uppercase tracking-[2px] mb-8" style={{ color: "#888888" }}>Next Project</p>
           <Link to="/project/breathe-studio" className="flex items-center justify-between gap-8">
             <div>
@@ -247,11 +306,33 @@ export function EyeDropsPage() {
               <p className="text-[16px] mt-1" style={{ color: "#888888" }}>AI powered dashboard helping Wellness Coaches track client progress</p>
             </div>
             <div className="w-16 h-16 rounded-full border border-[#e0ddd6] flex items-center justify-center">
-              <img src={figmaArrow} alt="Arrow" className="w-5 h-5" />
+              <ZoomableImage src={figmaArrow} alt="Arrow" className="w-5 h-5" onZoom={setZoomImage} />
             </div>
           </Link>
-        </div>
+        </RevealBlock>
       </section>
+      <AnimatePresence>
+        {zoomImage && (
+          <motion.div
+            className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 p-4"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setZoomImage(null)}
+          >
+            <motion.img
+              src={zoomImage.src}
+              alt={zoomImage.alt}
+              className="max-h-[92vh] max-w-[92vw] rounded-[14px] object-contain"
+              initial={{ scale: 0.95, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.96, opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              onClick={(event) => event.stopPropagation()}
+            />
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

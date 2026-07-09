@@ -73,7 +73,7 @@ function RevealBlock({ children, className = "" }: { children: React.ReactNode; 
       className={className}
       initial={{ opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.18 }}
+      viewport={{ once: true, amount: 0.05, margin: "0px 0px -10% 0px" }}
       transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
     >
       {children}
@@ -87,7 +87,6 @@ export function BreatheStudioPage() {
     { src: imgVersion2, label: "Version 2" },
     { src: imgVersion3, label: "Version 3" },
   ];
-  const [activeIteration, setActiveIteration] = useState(0);
   const [activeFinalView, setActiveFinalView] = useState<"figma" | "dev">("figma");
   const [zoomImage, setZoomImage] = useState<{ src: string; alt: string } | null>(null);
 
@@ -117,7 +116,12 @@ export function BreatheStudioPage() {
           onClick={() => setZoomImage({ src: imgHero, alt: "Breathe Studio hero visual" })}
         />
         <div className="absolute inset-0 bg-gradient-to-r from-[#596f57] via-[#596f57]/92 to-transparent" />
-        <div className="relative z-10 px-6 md:px-12 lg:px-20 pt-[426px]">
+        <motion.div
+          className="relative z-10 px-6 md:px-12 lg:px-20 pt-[426px]"
+          initial={{ opacity: 0, y: 18 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+        >
           <div className="max-w-7xl mx-auto">
             <div className="mb-4 flex gap-2">
               {["UX Design", "AI Tools", "Dashboard"].map((chip) => (
@@ -134,7 +138,7 @@ export function BreatheStudioPage() {
               AI-Powered Dashboard for Coaches to Track Client Performance
             </h1>
           </div>
-        </div>
+        </motion.div>
       </section>
 
       <section className="px-6 md:px-12 lg:px-20 py-10" style={{ background: "#e0ddd6" }}>
@@ -346,37 +350,20 @@ export function BreatheStudioPage() {
           </p>
 
           <h3 className="mb-4 mt-12 text-[30px] font-bold leading-[47.406px]">Multiple Iterations using AI</h3>
-          <div className="rounded-[20px] border border-black/10 bg-white p-4 md:p-6">
-            <div className="mb-4 flex flex-wrap gap-2">
-              {iterationVersions.map((version, idx) => (
-                <button
-                  key={version.label}
-                  type="button"
-                  onClick={() => setActiveIteration(idx)}
-                  className="rounded-full px-4 py-1.5 text-[14px] transition-all duration-300"
-                  style={{
-                    background: activeIteration === idx ? "#111111" : "#f2f2f2",
-                    color: activeIteration === idx ? "#ffffff" : "#111111",
-                  }}
-                >
-                  {version.label}
-                </button>
-              ))}
-            </div>
-            <AnimatePresence mode="wait">
-              <motion.img
-                key={iterationVersions[activeIteration].src}
-                src={iterationVersions[activeIteration].src}
-                alt={iterationVersions[activeIteration].label}
-                className="h-auto w-full cursor-zoom-in rounded-[20px]"
-                draggable={false}
-                onClick={() => setZoomImage({ src: iterationVersions[activeIteration].src, alt: iterationVersions[activeIteration].label })}
-                initial={{ opacity: 0, y: 12 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -8 }}
-                transition={{ duration: 0.22 }}
-              />
-            </AnimatePresence>
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+            {iterationVersions.map((version) => (
+              <article key={version.label} className="rounded-[20px] border border-black/10 bg-white p-3 md:p-4">
+                <p className="mb-3 text-[20px] font-bold">{version.label}</p>
+                <img
+                  src={version.src}
+                  alt={version.label}
+                  className="h-auto w-full cursor-zoom-in rounded-[14px] object-contain"
+                  draggable={false}
+                  style={{ imageRendering: "auto" }}
+                  onClick={() => setZoomImage({ src: version.src, alt: version.label })}
+                />
+              </article>
+            ))}
           </div>
 
           <div className="mt-10">
