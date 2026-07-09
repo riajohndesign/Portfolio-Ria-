@@ -34,12 +34,15 @@ type ZoomableImageProps = {
   className?: string;
 } & Omit<ImgHTMLAttributes<HTMLImageElement>, "src" | "alt" | "className" | "onClick">;
 
-function ZoomableImage({ src, alt, onZoom, className = "", ...rest }: ZoomableImageProps) {
+function ZoomableImage({ src, alt, onZoom, className = "", style, loading, decoding, ...rest }: ZoomableImageProps) {
   return (
     <img
       src={src}
       alt={alt}
       className={`${className} cursor-zoom-in`}
+      loading={loading ?? "lazy"}
+      decoding={decoding ?? "async"}
+      style={{ imageRendering: "auto", ...style }}
       onClick={() => onZoom(src, alt)}
       {...rest}
     />
@@ -64,6 +67,7 @@ export function EyeDropsPage() {
           src={figmaHero}
           alt="Validose hero"
           className="absolute inset-0 h-full w-full object-cover"
+          loading="eager"
           draggable={false}
           onZoom={setZoomImage}
         />
