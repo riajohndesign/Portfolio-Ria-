@@ -1,26 +1,32 @@
 import { useEffect, useState } from "react";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, ChevronLeft, ChevronRight } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 import { Link } from "react-router";
 
-const imgHero = "https://www.figma.com/api/mcp/asset/43078e9a-541e-4ede-b4d9-fbee70f6fb4d";
-const imgOverview = "https://www.figma.com/api/mcp/asset/fc8d9acc-c769-44b7-8378-28e09039c515";
-const imgInsight1 = "https://www.figma.com/api/mcp/asset/a0c95de2-ea2a-4ec6-8a5a-820cc4645380";
-const imgInsight2 = "https://www.figma.com/api/mcp/asset/2da17df2-4bf3-4649-b24b-9e36277a0a1d";
-const imgInsight3 = "https://www.figma.com/api/mcp/asset/c8f41035-c7bf-4e8f-bea4-e0e6c28e77e6";
-const imgInsightsBoard = "https://www.figma.com/api/mcp/asset/d92cfaef-dc11-4b8c-a159-1f4e56665a79";
-const imgFlowBoard = "https://www.figma.com/api/mcp/asset/8b7fbf13-c89a-4a6b-869c-f0b8679f0237";
-const imgProtoRound1 = "https://www.figma.com/api/mcp/asset/5db7d578-f127-499f-9c2b-1372422d6f5e";
-const imgVersion1 = "https://www.figma.com/api/mcp/asset/0d2f95f0-c7d2-46eb-af68-3848d3d3b072";
-const imgVersion2 = "https://www.figma.com/api/mcp/asset/05b81bc5-15a0-4f62-8306-ab31d38b883f";
-const imgVersion3 = "https://www.figma.com/api/mcp/asset/648cee6a-776a-4621-9251-d72c988444fd";
-const imgFinalFigmaMake = "https://www.figma.com/api/mcp/asset/e2cbd0bc-ca83-4b75-b7e2-a9fa8bf5c485";
-const imgFinalDev = "https://www.figma.com/api/mcp/asset/1a0df7f3-fad2-477c-80ae-90973b78b44e";
-const imgDesignProcessTimeline = "https://www.figma.com/api/mcp/asset/e4b1aaf9-f842-4664-8b76-0356bb9d0d71";
-const imgReqIcon1 = "https://www.figma.com/api/mcp/asset/dfd36d7f-32cf-4177-b86a-a16ad749e694";
-const imgReqIcon2 = "https://www.figma.com/api/mcp/asset/1871f9e3-b036-4cd3-8ab5-0d266f97d838";
-const imgReqIcon3 = "https://www.figma.com/api/mcp/asset/f782a758-178c-4bde-96fb-10b90723777d";
-const imgInformationArchitecture = "/breathe-information-architecture-v3.png";
+const imgHero = "/breathe-hero-v3.png";
+const imgOverview = "/breathe-overview-v2.png";
+const imgInsight1 = "/breathe-insight-communication-v2.png";
+const imgInsight2 = "/breathe-insight-visibility-v2.png";
+const imgInsight3 = "/breathe-insight-efficiency-v2.png";
+const imgInsightsBoard = "/breathe-insights-board-v4.png";
+const imgFlowBoard = "/breathe-jtbd-board-v4.png";
+const imgProtoRound1 = "/breathe-prototype-round1-v5.mp4";
+const imgVersion1 = "/breathe-version-1-v2.png";
+const imgVersion2 = "/breathe-version-2-v2.png";
+const imgVersion3 = "/breathe-version-3-v2.png";
+const videoFinalDev = "/breathe-final-dev-team-v2.mp4";
+const imgDesignProcessTimeline = "/breathe-design-timeline-v3.png";
+const imgReqIcon1 = "/breathe-req-transition-v2.png";
+const imgReqIcon2 = "/breathe-req-ai-v2.png";
+const imgReqIcon3 = "/breathe-req-flows-v2.png";
+const imgInformationArchitecture = "/breathe-information-architecture-v6.png";
+const finalCarouselImages = [
+  "/breathe-final-carousel-1-hq.png",
+  "/breathe-final-carousel-2-hq.png",
+  "/breathe-final-carousel-3-hq.png",
+  "/breathe-final-carousel-4-hq.png",
+  "/breathe-final-carousel-5-hq.png",
+];
 
 const insights = [
   {
@@ -87,7 +93,7 @@ export function BreatheStudioPage() {
     { src: imgVersion2, label: "Version 2" },
     { src: imgVersion3, label: "Version 3" },
   ];
-  const [activeFinalView, setActiveFinalView] = useState<"figma" | "dev">("figma");
+  const [activeFinalSlide, setActiveFinalSlide] = useState(0);
   const [zoomImage, setZoomImage] = useState<{ src: string; alt: string } | null>(null);
 
   useEffect(() => {
@@ -111,7 +117,8 @@ export function BreatheStudioPage() {
         <img
           src={imgHero}
           alt="Breathe Studio hero visual"
-          className="absolute right-0 top-0 h-full w-[64%] cursor-zoom-in object-cover"
+          className="absolute inset-0 h-full w-full cursor-zoom-in object-cover object-center"
+          style={{ imageRendering: "auto" }}
           draggable={false}
           onClick={() => setZoomImage({ src: imgHero, alt: "Breathe Studio hero visual" })}
         />
@@ -195,7 +202,7 @@ export function BreatheStudioPage() {
             <img
               src={imgOverview}
               alt="Breathe Studio dashboard overview"
-              className="w-full cursor-zoom-in rounded-[8px] object-cover"
+              className="w-full cursor-zoom-in object-cover"
               draggable={false}
               onClick={() => setZoomImage({ src: imgOverview, alt: "Breathe Studio dashboard overview" })}
             />
@@ -243,7 +250,7 @@ export function BreatheStudioPage() {
         </RevealBlock>
       </section>
 
-      <section className="bg-[#fffefb] px-6 md:px-12 lg:px-20 py-[80px]">
+      <section className="bg-[#ffffff] px-6 md:px-12 lg:px-20 py-[80px]">
         <RevealBlock className="mx-auto max-w-7xl">
           <p className="text-[16px] uppercase tracking-[2px]">Research Insights</p>
           <div className="mb-6 mt-2 h-[2px] w-8 bg-[#e17f80]" />
@@ -274,23 +281,25 @@ export function BreatheStudioPage() {
             ))}
           </div>
           <img
-            src={imgInsightsBoard}
-            alt="Research synthesis board"
-            className="mt-12 block h-auto w-full cursor-zoom-in rounded-[20px] object-cover"
+            src={imgFlowBoard}
+            alt="Jobs To Be Done coach experience board"
+            className="mt-12 block h-auto w-full max-w-[1120px] mx-auto cursor-zoom-in"
             draggable={false}
-            onClick={() => setZoomImage({ src: imgInsightsBoard, alt: "Research synthesis board" })}
+            style={{ imageRendering: "auto" }}
+            onClick={() => setZoomImage({ src: imgFlowBoard, alt: "Jobs To Be Done coach experience board" })}
           />
           <img
-            src={imgFlowBoard}
-            alt="Information architecture and flow board"
-            className="mt-10 block h-auto w-full cursor-zoom-in rounded-[20px] object-cover"
+            src={imgInsightsBoard}
+            alt="Research synthesis board"
+            className="mt-10 block h-auto w-full max-w-[1120px] mx-auto cursor-zoom-in"
             draggable={false}
-            onClick={() => setZoomImage({ src: imgFlowBoard, alt: "Information architecture and flow board" })}
+            style={{ imageRendering: "auto" }}
+            onClick={() => setZoomImage({ src: imgInsightsBoard, alt: "Research synthesis board" })}
           />
         </RevealBlock>
       </section>
 
-      <section className="bg-[#fffefb] px-6 md:px-12 lg:px-20 py-[80px]">
+      <section className="bg-[#ffffff] px-6 md:px-12 lg:px-20 py-[80px]">
         <RevealBlock className="mx-auto max-w-7xl">
           <p className="text-[16px] uppercase tracking-[2px]">Design Requirements</p>
           <div className="mb-6 mt-2 h-[2px] w-8 bg-[#048574]" />
@@ -317,7 +326,7 @@ export function BreatheStudioPage() {
           <img
             src={imgInformationArchitecture}
             alt="Information Architecture Mapping"
-            className="mx-auto h-auto w-full max-w-[1120px] cursor-zoom-in rounded-[20px] border border-black/10 bg-white"
+            className="mx-auto h-auto w-full max-w-[1280px] cursor-zoom-in border border-black/10 bg-white"
             draggable={false}
             style={{ imageRendering: "auto" }}
             onClick={() => setZoomImage({ src: imgInformationArchitecture, alt: "Information Architecture Mapping" })}
@@ -325,7 +334,7 @@ export function BreatheStudioPage() {
         </RevealBlock>
       </section>
 
-      <section className="bg-[#fffefb] px-6 md:px-12 lg:px-20 py-[80px]">
+      <section className="bg-[#ffffff] px-6 md:px-12 lg:px-20 py-[80px]">
         <RevealBlock className="mx-auto max-w-7xl">
           <p className="text-[16px] uppercase tracking-[2px]">Prototyping with AI &amp; Usability Testing</p>
           <div className="mb-6 mt-2 h-[2px] w-8 bg-[#3e9891]" />
@@ -335,13 +344,16 @@ export function BreatheStudioPage() {
             through multiple usability-feedback cycles before final handoff.
           </p>
           <h3 className="mb-4 text-[30px] font-bold leading-[47.406px]">Prototype Usability Testing Round 1</h3>
-          <img
-            src={imgProtoRound1}
-            alt="Prototype usability testing round 1"
-            className="w-full cursor-zoom-in rounded-[20px] transition-transform duration-500 hover:scale-[1.01]"
-            draggable={false}
-            onClick={() => setZoomImage({ src: imgProtoRound1, alt: "Prototype usability testing round 1" })}
-          />
+          <video
+            className="w-full transition-transform duration-500 hover:scale-[1.01]"
+            autoPlay
+            loop
+            muted
+            playsInline
+            preload="metadata"
+          >
+            <source src={imgProtoRound1} type="video/mp4" />
+          </video>
           <p className="mt-8 text-[18px] leading-[29.25px]">
             Feedback from the first version validated the concept and highlighted usability opportunities.{" "}
             <span className="font-bold">
@@ -357,7 +369,7 @@ export function BreatheStudioPage() {
                 <img
                   src={version.src}
                   alt={version.label}
-                  className="h-auto w-full cursor-zoom-in rounded-[14px] object-contain"
+                  className="h-auto w-full cursor-zoom-in object-contain"
                   draggable={false}
                   style={{ imageRendering: "auto" }}
                   onClick={() => setZoomImage({ src: version.src, alt: version.label })}
@@ -388,57 +400,67 @@ export function BreatheStudioPage() {
             After six weeks of design and development, we deployed the first dashboard version and started live testing with
             coaches and clients to guide future improvements.
           </p>
-
-          <div className="mb-4 flex flex-wrap items-center gap-2">
-            <button
-              type="button"
-              onClick={() => setActiveFinalView("figma")}
-              className="rounded-full px-4 py-1.5 text-[14px] transition-all duration-300"
-              style={{ background: activeFinalView === "figma" ? "#111111" : "#f2f2f2", color: activeFinalView === "figma" ? "#fff" : "#111" }}
-            >
-              Final Figma Make Version
-            </button>
-            <button
-              type="button"
-              onClick={() => setActiveFinalView("dev")}
-              className="rounded-full px-4 py-1.5 text-[14px] transition-all duration-300"
-              style={{ background: activeFinalView === "dev" ? "#111111" : "#f2f2f2", color: activeFinalView === "dev" ? "#fff" : "#111" }}
-            >
-              Final Dev Team Version
-            </button>
+          <h3 className="mb-4 text-[30px] font-bold leading-[47.406px]">Final Figma Make Version</h3>
+          <div className="mb-10">
+            <div className="relative mx-auto w-full max-w-[1180px]">
+              <img
+                src={finalCarouselImages[activeFinalSlide]}
+                alt={`Final Figma Make Version ${activeFinalSlide + 1}`}
+                className="mx-auto h-auto max-h-[860px] w-full cursor-zoom-in object-contain"
+                draggable={false}
+                onClick={() =>
+                  setZoomImage({
+                    src: finalCarouselImages[activeFinalSlide],
+                    alt: `Final Figma Make Version ${activeFinalSlide + 1}`,
+                  })
+                }
+              />
+              <button
+                type="button"
+                aria-label="Previous slide"
+                onClick={() => setActiveFinalSlide((prev) => (prev - 1 + finalCarouselImages.length) % finalCarouselImages.length)}
+                className="absolute left-3 top-1/2 -translate-y-1/2 rounded-full bg-black/70 p-2 text-white transition hover:bg-black/85"
+              >
+                <ChevronLeft className="h-5 w-5" />
+              </button>
+              <button
+                type="button"
+                aria-label="Next slide"
+                onClick={() => setActiveFinalSlide((prev) => (prev + 1) % finalCarouselImages.length)}
+                className="absolute right-3 top-1/2 -translate-y-1/2 rounded-full bg-black/70 p-2 text-white transition hover:bg-black/85"
+              >
+                <ChevronRight className="h-5 w-5" />
+              </button>
+            </div>
+            <div className="mt-3 flex items-center justify-center gap-2">
+              {finalCarouselImages.map((_, idx) => (
+                <button
+                  key={idx}
+                  type="button"
+                  aria-label={`Go to slide ${idx + 1}`}
+                  onClick={() => setActiveFinalSlide(idx)}
+                  className="h-2.5 w-2.5 rounded-full transition"
+                  style={{ background: idx === activeFinalSlide ? "#111111" : "#cfcfcf" }}
+                />
+              ))}
+            </div>
           </div>
-          <AnimatePresence mode="wait">
-            <motion.img
-              key={activeFinalView}
-              src={activeFinalView === "figma" ? imgFinalFigmaMake : imgFinalDev}
-              alt={activeFinalView === "figma" ? "Final Figma Make version" : "Final deployed dashboard version"}
-              className="mb-10 w-full cursor-zoom-in rounded-[20px]"
-              draggable={false}
-              onClick={() =>
-                setZoomImage({
-                  src: activeFinalView === "figma" ? imgFinalFigmaMake : imgFinalDev,
-                  alt: activeFinalView === "figma" ? "Final Figma Make version" : "Final deployed dashboard version",
-                })
-              }
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -8 }}
-              transition={{ duration: 0.22 }}
-            />
-          </AnimatePresence>
 
           <h3 className="mb-3 text-[30px] font-bold leading-[47.406px]">Final Version deployed by the Dev Team</h3>
           <p className="mb-4 text-[18px] leading-[29.25px]">
             Achieving the right UI through prompting required multiple iterations to refine interactions, layout details, and
             overall flow before finalization.
           </p>
-          <img
-            src={imgFinalDev}
-            alt="Final deployed dashboard version"
-            className="w-full cursor-zoom-in rounded-[20px] transition-transform duration-500 hover:scale-[1.01]"
-            draggable={false}
-            onClick={() => setZoomImage({ src: imgFinalDev, alt: "Final deployed dashboard version" })}
-          />
+          <video
+            className="w-full transition-transform duration-500 hover:scale-[1.01]"
+            autoPlay
+            loop
+            muted
+            playsInline
+            preload="metadata"
+          >
+            <source src={videoFinalDev} type="video/mp4" />
+          </video>
         </RevealBlock>
       </section>
 
@@ -493,7 +515,7 @@ export function BreatheStudioPage() {
             <motion.img
               src={zoomImage.src}
               alt={zoomImage.alt}
-              className="max-h-[92vh] max-w-[92vw] rounded-[14px] object-contain"
+              className="max-h-[92vh] max-w-[92vw] object-contain"
               initial={{ scale: 0.95, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.96, opacity: 0 }}

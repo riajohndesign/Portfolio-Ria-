@@ -1,17 +1,17 @@
 import { useEffect, useState, type ImgHTMLAttributes, type ReactNode } from "react";
 import { AnimatePresence, motion } from "motion/react";
+import { ArrowUpRight } from "lucide-react";
 import { Link } from "react-router";
 
-const figmaHero = "https://www.figma.com/api/mcp/asset/95ffc39d-02a6-437b-9868-fb233d2ca54d";
-const figmaOverviewArt = "https://www.figma.com/api/mcp/asset/99014319-c2d6-4475-85c3-52eb33c66c46";
+const figmaHero = "/eyedrops-hero-v2.png";
+const figmaOverviewArt = "/eyedrops-overview-illustration-v3.png";
 const figmaMethodBg = "https://www.figma.com/api/mcp/asset/f1b2028c-028a-4d71-9d4e-fdf91c24e000";
-const figmaJourneyMap = "https://www.figma.com/api/mcp/asset/59877d08-8b8d-4335-a800-846135383cf9";
-const figmaInsight1 = "https://www.figma.com/api/mcp/asset/c179bea9-4f00-4e40-a839-58ec921a098f";
-const figmaInsight2 = "https://www.figma.com/api/mcp/asset/870858c6-6fa9-4b88-b63e-d9012e6c38eb";
-const figmaInsight3 = "https://www.figma.com/api/mcp/asset/00fa6b4d-3da5-4216-bbac-f81c0a8c8dbb";
-const figmaBlueprint = "https://www.figma.com/api/mcp/asset/c1ecda74-b5b7-41a2-bf71-d10afa57e80f";
-const figmaOpportunitiesImage = "https://www.figma.com/api/mcp/asset/ae52d37c-c583-4f26-9963-f481633de16b";
-const figmaArrow = "https://www.figma.com/api/mcp/asset/9cc1f93b-2007-47cb-9123-220c5af04855";
+const figmaJourneyMap = "/eyedrops-journey-map-v2.png";
+const figmaInsight1 = "/eyedrops-research-insight-1-v2.png";
+const figmaInsight2 = "/eyedrops-research-insight-2-v2.png";
+const figmaInsight3 = "/eyedrops-research-insight-3-v3.png";
+const figmaBlueprint = "/eyedrops-service-blueprint-v2.png";
+const figmaOpportunitiesImage = "/eyedrops-opportunities-v2.png";
 
 function RevealBlock({ children, className = "" }: { children: ReactNode; className?: string }) {
   return (
@@ -135,7 +135,7 @@ export function EyeDropsPage() {
               opportunity areas in this segment.
             </p>
           </div>
-          <div className="w-full flex justify-end items-end">
+          <div className="w-full flex justify-end items-end rounded-[12px] bg-white p-2">
             <ZoomableImage
               src={figmaOverviewArt}
               alt="Overview illustration"
@@ -310,7 +310,7 @@ export function EyeDropsPage() {
               <p className="text-[16px] mt-1" style={{ color: "#888888" }}>AI powered dashboard helping Wellness Coaches track client progress</p>
             </div>
             <div className="w-16 h-16 rounded-full border border-[#e0ddd6] flex items-center justify-center">
-              <ZoomableImage src={figmaArrow} alt="Arrow" className="w-5 h-5" onZoom={setZoomImage} />
+              <ArrowUpRight className="h-5 w-5 text-[#111111]" />
             </div>
           </Link>
         </RevealBlock>
