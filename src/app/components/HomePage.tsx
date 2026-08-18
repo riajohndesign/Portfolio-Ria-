@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { Link } from "react-router";
 import { motion, useInView, useScroll, useTransform, AnimatePresence } from "motion/react";
-import { ArrowUpRight, ArrowDown } from "lucide-react";
+import { ArrowUpRight, ArrowDown, Lock } from "lucide-react";
 import { projects } from "../data/projects";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 import { Marquee } from "./Marquee";
@@ -334,7 +334,7 @@ function MoreSection() {
           <div className="lg:col-span-4">
             <p
               className="text-xs tracking-[0.2em] uppercase mb-4"
-              style={{ color: "rgba(255,255,255,0.35)" }}
+              style={{ color: "rgba(255,255,255,0.72)" }}
             >
               Beyond the work
             </p>
@@ -348,7 +348,7 @@ function MoreSection() {
             >
               &amp;More
             </h2>
-            <p className="mt-4 text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.4)" }}>
+            <p className="mt-4 text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.78)" }}>
               Case studies, facilitation, writing, and speaking engagements.
             </p>
           </div>
@@ -438,6 +438,8 @@ function ProjectCard({
   const inView = useInView(ref, { once: true, margin: "-60px" });
   const [tilt, setTilt] = useState({ x: 0, y: 0 });
   const [hovered, setHovered] = useState(false);
+  const isComingSoon = project.comingSoon === true;
+  const blurImage = project.id === "et-tube";
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const rect = e.currentTarget.getBoundingClientRect();
@@ -452,20 +454,18 @@ function ProjectCard({
       initial={{ opacity: 0, y: 50 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.8, delay: index * 0.08, ease: [0.16, 1, 0.3, 1] }}
-      className={className}
+      className={`relative ${className}`}
       style={{ perspective: "1000px" }}
-      onMouseMove={handleMouseMove}
+      onMouseMove={isComingSoon ? undefined : handleMouseMove}
       onMouseLeave={() => { setTilt({ x: 0, y: 0 }); setHovered(false); }}
       onMouseEnter={() => setHovered(true)}
     >
-      <Link
-        to={`/project/${project.id}`}
-        data-cursor="view"
+      <div
         className="group relative flex flex-col overflow-hidden h-full"
         style={{
           borderRadius: "20px",
-          transform: `rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`,
-          transition: hovered ? "transform 0.1s ease" : "transform 0.5s ease",
+          transform: isComingSoon ? "none" : `rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`,
+          transition: isComingSoon ? "none" : hovered ? "transform 0.1s ease" : "transform 0.5s ease",
           willChange: "transform",
         }}
       >
@@ -473,14 +473,14 @@ function ProjectCard({
           <ImageWithFallback
             src={project.image}
             alt={project.title}
-            className="w-full h-full object-cover"
+            className={`w-full h-full object-cover ${blurImage ? "blur-[3px]" : ""}`}
             style={{
               transition: "transform 0.7s cubic-bezier(0.16,1,0.3,1)",
-              transform: hovered ? "scale(1.06)" : "scale(1)",
+              transform: hovered && !isComingSoon ? "scale(1.06)" : "scale(1)",
             }}
           />
           {/* Base dark tint */}
-          <div className="absolute inset-0" style={{ background: "rgba(0,0,0,0.25)" }} />
+          <div className="absolute inset-0" style={{ background: isComingSoon ? "rgba(0,0,0,0.5)" : "rgba(0,0,0,0.25)" }} />
           {/* Bottom gradient for text legibility */}
           <div
             className="absolute inset-0"
@@ -491,7 +491,7 @@ function ProjectCard({
           />
           <div
             className="absolute inset-0 transition-opacity duration-500"
-            style={{ background: "rgba(0,0,0,0.15)", opacity: hovered ? 1 : 0 }}
+            style={{ background: "rgba(0,0,0,0.15)", opacity: hovered && !isComingSoon ? 1 : 0 }}
           />
         </div>
 
@@ -511,14 +511,28 @@ function ProjectCard({
               </span>
             ))}
           </div>
-          <motion.div
-            initial={{ scale: 0, opacity: 0 }}
-            animate={hovered ? { scale: 1, opacity: 1 } : { scale: 0, opacity: 0 }}
-            transition={{ duration: 0.2 }}
-            className="w-9 h-9 rounded-full bg-white flex items-center justify-center flex-shrink-0"
-          >
-            <ArrowUpRight className="w-4 h-4 text-black" />
-          </motion.div>
+          {isComingSoon ? (
+            <div
+              className="inline-flex items-center gap-1.5 text-[11px] px-3 py-1 rounded-full"
+              style={{
+                background: "rgba(255,255,255,0.14)",
+                border: "1px solid rgba(255,255,255,0.22)",
+                color: "rgba(255,255,255,0.92)",
+              }}
+            >
+              <Lock className="w-3 h-3" />
+              Coming Soon
+            </div>
+          ) : (
+            <motion.div
+              initial={{ scale: 0, opacity: 0 }}
+              animate={hovered ? { scale: 1, opacity: 1 } : { scale: 0, opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              className="w-9 h-9 rounded-full bg-white flex items-center justify-center flex-shrink-0"
+            >
+              <ArrowUpRight className="w-4 h-4 text-black" />
+            </motion.div>
+          )}
         </div>
 
         <div className="flex-1" />
@@ -537,10 +551,18 @@ function ProjectCard({
             {project.title}
           </h3>
           <p className="text-sm" style={{ color: "rgba(255,255,255,0.55)" }}>
-            {project.subtitle}
+            {isComingSoon ? "Coming Soon" : project.subtitle}
           </p>
         </div>
-      </Link>
+      </div>
+      {!isComingSoon && (
+        <Link
+          to={`/project/${project.id}`}
+          data-cursor="view"
+          className="absolute inset-0 z-20"
+          aria-label={`Open ${project.title} case study`}
+        />
+      )}
     </motion.div>
   );
 }
@@ -626,28 +648,14 @@ function TestimonialsCarousel() {
             animate="center"
             exit="exit"
             transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-            className="flex flex-col md:flex-row gap-8 p-8 md:p-12"
+            className="p-8 md:p-12"
           >
-            {/* Avatar + info */}
-            <div className="flex-shrink-0 flex flex-row md:flex-col items-center md:items-start gap-4 md:gap-3 md:w-48">
-              <div
-                className="w-24 h-24 rounded-full overflow-hidden flex-shrink-0"
-                style={{ border: "2px solid var(--divider)" }}
-              >
-                <img src={t.photo} alt={t.name} className="w-full h-full object-cover scale-125" />
-              </div>
-              <div>
-                <p className="text-sm font-semibold" style={{ color: "var(--fg)" }}>{t.name}</p>
-                <p className="text-xs mt-0.5" style={{ color: "rgba(255,255,255,0.35)", maxWidth: "160px" }}>{t.title}</p>
-                <p className="text-xs mt-1 italic" style={{ color: "rgba(255,255,255,0.35)" }}>{t.relationship}</p>
-              </div>
+            <div className="mb-5">
+              <p className="text-sm font-semibold" style={{ color: "var(--fg)" }}>{t.name}</p>
+              <p className="text-xs mt-0.5" style={{ color: "rgba(255,255,255,0.35)" }}>{t.title}</p>
+              <p className="text-xs mt-1 italic" style={{ color: "rgba(255,255,255,0.35)" }}>{t.relationship}</p>
             </div>
-
-            {/* Divider */}
-            <div className="hidden md:block w-px self-stretch flex-shrink-0" style={{ background: "var(--divider)" }} />
-
-            {/* Quote */}
-            <p className="text-base md:text-lg leading-relaxed self-center flex-1" style={{ color: "var(--fg-2)" }}>
+            <p className="text-base md:text-lg leading-relaxed" style={{ color: "var(--fg-2)" }}>
               "{t.quote}"
             </p>
           </motion.div>
@@ -668,6 +676,282 @@ function TestimonialsCarousel() {
               aria-label={`Testimonial ${i + 1}`}
             />
           ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+type AboutBotEntry = {
+  question: string;
+  answer: string;
+  keywords: string[];
+  suggestions: string[];
+};
+
+const ABOUT_BOT_ENTRIES: AboutBotEntry[] = [
+  {
+    question: "What do you specialize in?",
+    answer:
+      "I am a Service and Experience Designer with 5 years of experience across healthcare, medtech, and AI-enabled products. I specialize in journey mapping, service blueprinting, UX research, and scalable design systems for complex, multi-stakeholder environments.",
+    keywords: ["specialize", "specialization", "focus", "niche", "expertise"],
+    suggestions: ["What experience do you have?", "Which industries do you work in?", "What methods do you use?"],
+  },
+  {
+    question: "Which industries do you work in?",
+    answer:
+      "My strongest domain experience is in healthcare and medtech, including venture-backed and government-funded initiatives. I have also worked across AI automation and digital product experiences for early-stage teams.",
+    keywords: ["industry", "industries", "healthcare", "finance", "domain", "domains"],
+    suggestions: ["What experience do you have?", "What is your current role?", "How do you work with teams?"],
+  },
+  {
+    question: "What is your design process?",
+    answer:
+      "I typically start with discovery and research, map the end-to-end system, prototype quickly, test early, and then refine for implementation with engineering constraints in mind.",
+    keywords: ["process", "workflow", "approach", "method", "research", "prototype"],
+    suggestions: ["How do you use AI in your work?", "What methods do you use?", "What tools do you use?"],
+  },
+  {
+    question: "How do you use AI in your work?",
+    answer:
+      "I use AI to accelerate ideation and rapid prototyping, validate concepts faster with stakeholders, and improve handoff quality—while still applying design judgment for final UX quality.",
+    keywords: ["ai", "llm", "automation", "prototype", "figma make", "cursor"],
+    suggestions: ["What AI tools do you use?", "How do you collaborate with engineering?", "What is your current role?"],
+  },
+  {
+    question: "What methods do you use?",
+    answer:
+      "I use journey mapping, service blueprinting (front-stage and back-stage), systems and ecosystem mapping, qualitative interviews, contextual inquiry, usability testing, participatory workshops, and design sprints.",
+    keywords: ["methods", "methodologies", "usability", "journey", "blueprint", "workshop", "service blueprint", "ecosystem"],
+    suggestions: ["What tools do you use?", "How do you work with teams?", "What experience do you have?"],
+  },
+  {
+    question: "What tools do you use?",
+    answer:
+      "My core stack includes Figma, FigJam, Miro, Jira, Confluence, Asana, Sketch, and Adobe Creative Suite. For AI workflows, I use Claude, ChatGPT, Vizcom, Midjourney, and Cursor to accelerate synthesis, prototyping, and documentation.",
+    keywords: ["tools", "tooling", "figma", "miro", "jira", "cursor", "software", "confluence", "asana", "adobe", "sketch"],
+    suggestions: ["How do you use AI in your work?", "What methods do you use?", "What education do you have?"],
+  },
+  {
+    question: "What experience do you have?",
+    answer:
+      "I currently work as a UX Designer at Jersey Technology Partners (July 2025–present), leading AI automation workflow redesign. Before that, I was an Experience Designer at 10XBeta (June 2024–July 2025), a Product and Experience Designer as an independent consultant (Sept 2022–May 2024), and a Designer at Bearings World (Jan 2021–May 2022).",
+    keywords: ["experience", "background", "resume", "career", "worked", "history", "timeline"],
+    suggestions: ["What is your current role?", "Can you summarize your resume?", "What leadership work have you done?"],
+  },
+  {
+    question: "What is your current role?",
+    answer:
+      "I am a UX Designer at Jersey Technology Partners on the AI Automation team. I map current-state operations, redesign them into AI-assisted service workflows, and build reusable workflow and interface patterns so teams can scale new use cases faster.",
+    keywords: ["current role", "current", "role", "job", "position", "jersey tech", "jersey technology partners"],
+    suggestions: ["What experience do you have?", "How do you collaborate with teams?", "What methods do you use?"],
+  },
+  {
+    question: "How do you work with teams?",
+    answer:
+      "I work cross-functionally with PMs, engineers, clinicians, operations leads, and stakeholders. I facilitate discovery workshops, align teams around shared service artifacts, and translate research into implementation-ready blueprints, workflows, and documentation.",
+    keywords: ["team", "teams", "collaboration", "stakeholders", "engineering", "pm", "cross-functional", "workshops"],
+    suggestions: ["What methods do you use?", "What leadership work have you done?", "Can you summarize your resume?"],
+  },
+  {
+    question: "What education do you have?",
+    answer:
+      "I have an MFA in Products of Design from the School of Visual Arts (2022–2024) and a BFA in Interior Design from Virginia Commonwealth University (2016–2020).",
+    keywords: ["education", "degree", "mfa", "bfa", "school", "college", "university", "sva", "vcu"],
+    suggestions: ["What experience do you have?", "What do you specialize in?", "What methods do you use?"],
+  },
+  {
+    question: "What leadership work have you done?",
+    answer:
+      "I founded and lead Carrom Club NYC, designing end-to-end community experiences with 5+ events and 200+ attendees, growing the audience by 40%. I also led and facilitated a Women in Design NYC co-creation workshop for 20 early-career designers with 95% participant satisfaction.",
+    keywords: ["leadership", "lead", "facilitator", "facilitation", "community", "carrom", "women in design", "workshop lead"],
+    suggestions: ["Can you summarize your resume?", "How do you work with teams?", "What experience do you have?"],
+  },
+  {
+    question: "Can you summarize your resume?",
+    answer:
+      "Ria is a Service and Experience Designer with 5 years of experience in healthcare and medtech systems. She has led AI automation and service workflow design at Jersey Technology Partners, delivered cross-functional service strategy at 10XBeta, consulted for startups, and built component-driven systems at Bearings World, with an MFA from SVA and strong expertise in journey mapping, service blueprinting, and research synthesis.",
+    keywords: ["resume summary", "summarize resume", "summary", "cv", "profile", "bio"],
+    suggestions: ["What is your current role?", "What methods do you use?", "What leadership work have you done?"],
+  },
+];
+
+const ABOUT_BOT_DEFAULT_SUGGESTIONS = [
+  "What do you specialize in?",
+  "Can you summarize your resume?",
+  "Which industries do you work in?",
+  "What experience do you have?",
+  "What education do you have?",
+];
+
+function getAboutBotReply(question: string) {
+  const normalized = question.toLowerCase().trim();
+  const matched = ABOUT_BOT_ENTRIES.find((entry) =>
+    entry.keywords.some((keyword) => normalized.includes(keyword))
+  );
+
+  if (matched) {
+    return { answer: matched.answer, suggestions: matched.suggestions };
+  }
+
+  return {
+    answer:
+      "I can help with Ria's portfolio and resume details, including experience, education, methods, tools, and domain focus. Try one of the suggested prompts below.",
+    suggestions: ABOUT_BOT_DEFAULT_SUGGESTIONS,
+  };
+}
+
+function AboutChatbotSection() {
+  const [messages, setMessages] = useState<Array<{ role: "bot" | "user"; text: string }>>([
+    {
+      role: "bot",
+      text: "Hi, I am Ria's portfolio assistant. Ask me about her portfolio and resume, including experience, education, tools, and process.",
+    },
+  ]);
+  const [suggestions, setSuggestions] = useState(ABOUT_BOT_DEFAULT_SUGGESTIONS);
+  const [input, setInput] = useState("");
+
+  const askQuestion = (rawQuestion: string) => {
+    const question = rawQuestion.trim();
+    if (!question) return;
+
+    const reply = getAboutBotReply(question);
+
+    setMessages((prev) => [
+      ...prev,
+      { role: "user", text: question },
+      { role: "bot", text: reply.answer },
+    ]);
+    setSuggestions(reply.suggestions);
+    setInput("");
+  };
+
+  return (
+    <section
+      id="about"
+      className="px-6 md:px-12 py-24 md:py-32"
+      style={{ background: "linear-gradient(180deg, #090909 0%, #131313 100%)" }}
+    >
+      <div className="max-w-7xl mx-auto">
+        <div
+          className="pt-16 grid grid-cols-1 lg:grid-cols-12 gap-12 md:gap-16"
+          style={{ borderTop: "1px solid var(--divider)" }}
+        >
+          <div className="lg:col-span-4">
+            <p
+              className="text-xs tracking-[0.2em] uppercase mb-8"
+              style={{ color: "rgba(255,255,255,0.72)" }}
+            >
+              About Me
+            </p>
+            <h2
+              className="font-syne font-bold leading-[1.05] mb-4"
+              style={{ fontSize: "clamp(28px, 3.5vw, 42px)", color: "#FFFFFF" }}
+            >
+              Ask Me Anything
+            </h2>
+            <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.78)" }}>
+              Ask about my work, story, and strengths. I can also suggest what to ask next.
+            </p>
+          </div>
+
+          <div className="lg:col-span-8">
+            <div
+              className="rounded-2xl p-5 md:p-6"
+              style={{
+                border: "1px solid rgba(255,255,255,0.14)",
+                background: "rgba(255,255,255,0.035)",
+                boxShadow: "0 18px 40px rgba(0,0,0,0.35)",
+              }}
+            >
+              <div className="mb-4 flex items-center justify-between">
+                <p className="text-xs uppercase tracking-[0.2em]" style={{ color: "rgba(255,255,255,0.62)" }}>
+                  Portfolio Chat
+                </p>
+                <span
+                  className="rounded-full px-2.5 py-1 text-[11px]"
+                  style={{ background: "rgba(102,211,143,0.15)", color: "#9CE3B6", border: "1px solid rgba(102,211,143,0.45)" }}
+                >
+                  Personalized
+                </span>
+              </div>
+              <div className="max-h-[420px] overflow-auto pr-1 space-y-3">
+                {messages.map((message, idx) => (
+                  <div
+                    key={idx}
+                    className={`flex ${message.role === "user" ? "justify-end" : "justify-start"}`}
+                  >
+                    {message.role === "bot" && (
+                      <div
+                        className="mr-2 h-8 w-8 shrink-0 overflow-hidden rounded-full self-end"
+                        style={{ border: "1px solid rgba(255,255,255,0.28)" }}
+                      >
+                        <img src="/profile.png" alt="Ria icon" className="h-full w-full object-cover object-top" />
+                      </div>
+                    )}
+                    <div
+                      className="max-w-[85%] rounded-2xl px-4 py-3 text-sm md:text-[15px] leading-relaxed"
+                      style={{
+                        background: message.role === "user" ? "#4f6550" : "rgba(255,255,255,0.09)",
+                        color: "#F3F5F8",
+                        border: message.role === "user" ? "1px solid rgba(255,255,255,0.2)" : "1px solid rgba(255,255,255,0.12)",
+                      }}
+                    >
+                      {message.text}
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              <form
+                className="mt-5 flex gap-2"
+                onSubmit={(event) => {
+                  event.preventDefault();
+                  askQuestion(input);
+                }}
+              >
+                <input
+                  value={input}
+                  onChange={(event) => setInput(event.target.value)}
+                  placeholder="Ask about role, tools, process, experience..."
+                  className="flex-1 rounded-xl px-4 py-3 text-sm outline-none"
+                  style={{
+                    background: "rgba(255,255,255,0.08)",
+                    color: "#F3F5F8",
+                    border: "1px solid rgba(255,255,255,0.2)",
+                  }}
+                />
+                <button
+                  type="submit"
+                  className="rounded-xl px-4 py-3 text-sm font-medium transition-colors hover:bg-[#6f8d70]"
+                  style={{ background: "#5e7a5f", color: "#ffffff" }}
+                >
+                  Ask
+                </button>
+              </form>
+
+              <p className="mt-4 text-xs uppercase tracking-[0.18em]" style={{ color: "rgba(255,255,255,0.6)" }}>
+                Suggested starters
+              </p>
+              <div className="mt-4 flex flex-wrap gap-2">
+                {suggestions.map((suggestion) => (
+                  <button
+                    key={suggestion}
+                    type="button"
+                    onClick={() => askQuestion(suggestion)}
+                    className="rounded-full px-3 py-1.5 text-xs md:text-sm transition-colors hover:bg-white/20"
+                    style={{
+                      background: "rgba(255,255,255,0.08)",
+                      color: "#E7EBF2",
+                      border: "1px solid rgba(255,255,255,0.16)",
+                    }}
+                  >
+                    {suggestion}
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -716,7 +1000,7 @@ export function HomePage() {
                 style={{
                   fontSize: "165px",
                   fontFamily: "'DM Sans', sans-serif",
-                  color: "#D0D0D0",
+                  color: "#F3F5F8",
                   letterSpacing: "-0.02em",
                   lineHeight: 1.05,
                 }}
@@ -730,8 +1014,8 @@ export function HomePage() {
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.9, delay: 1.0, ease: [0.16, 1, 0.3, 1] }}
-              className="mt-6 text-white"
-              style={{ fontSize: "clamp(18px, 2vw, 28px)", maxWidth: "900px", lineHeight: 1.5 }}
+              className="mt-6"
+              style={{ color: "#E5EAF2", fontSize: "clamp(18px, 2vw, 28px)", maxWidth: "900px", lineHeight: 1.5 }}
             >
               AI Product Designer specializing in 0→1 products, turning ambiguity into scalable, intelligent user experiences.
             </motion.p>
@@ -746,11 +1030,11 @@ export function HomePage() {
           >
             <div
               className="w-7 h-7 rounded-full border flex items-center justify-center"
-              style={{ borderColor: "rgba(255,255,255,0.2)" }}
+              style={{ borderColor: "rgba(255,255,255,0.55)" }}
             >
-              <ArrowDown className="w-3 h-3 text-white/50" />
+              <ArrowDown className="w-3 h-3" style={{ color: "#E5EAF2" }} />
             </div>
-            <span className="text-xs tracking-[0.2em] uppercase text-white/30">
+            <span className="text-xs tracking-[0.2em] uppercase" style={{ color: "#D8DEE9" }}>
               Scroll to explore
             </span>
           </motion.div>
@@ -786,179 +1070,16 @@ export function HomePage() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
           <ProjectCard project={projects[0]} index={0} className="lg:col-span-2 h-[460px] md:h-[560px]" />
           <ProjectCard project={projects[1]} index={1} className="h-[360px] md:h-[560px]" />
-          <ProjectCard project={projects[2]} index={2} className="h-[340px] md:h-[420px]" />
-          <ProjectCard project={projects[3]} index={3} className="h-[340px] md:h-[420px]" />
+          <ProjectCard project={projects[3]} index={2} className="h-[340px] md:h-[420px]" />
+          <ProjectCard project={projects[2]} index={3} className="h-[340px] md:h-[420px]" />
           <ProjectCard project={projects[4]} index={4} className="h-[340px] md:h-[420px]" />
         </div>
       </section>
 
       {/* ════════════════════════════════════════
-          ABOUT ME
+          ABOUT ME (CHATBOT STYLE)
          ════════════════════════════════════════ */}
-      <section id="about" className="px-6 md:px-12 py-24 md:py-32 max-w-7xl mx-auto">
-        <div
-          className="pt-16 grid grid-cols-1 lg:grid-cols-12 gap-12 md:gap-16"
-          style={{ borderTop: "1px solid var(--divider)" }}
-        >
-          {/* Left */}
-          <div className="lg:col-span-4">
-            <p
-              className="text-xs tracking-[0.2em] uppercase mb-8"
-              style={{ color: "var(--fg-2)" }}
-            >
-              About Me
-            </p>
-            <h2
-              className="font-syne font-bold leading-[1.05] mb-8"
-              style={{ fontSize: "clamp(28px, 3.5vw, 42px)", color: "var(--fg)" }}
-            >
-              I design with curiosity and intention.
-            </h2>
-
-            {/* Profile photo */}
-            <div className="aspect-[4/5] rounded-2xl mb-6 overflow-hidden">
-              <img
-                src="/profile.png"
-                alt="Ria John — Product Designer"
-                className="w-full h-full object-cover object-top"
-              />
-            </div>
-
-            <a
-              href="#"
-              className="inline-flex items-center gap-2 text-sm font-medium rounded-full px-5 py-2.5 transition-all duration-300"
-              style={{ border: "1px solid var(--divider)", color: "var(--fg)" }}
-            >
-              View Resume <ArrowUpRight className="w-3.5 h-3.5" />
-            </a>
-          </div>
-
-          {/* Right */}
-          <div className="lg:col-span-8 lg:pl-8 flex flex-col justify-center">
-            <p className="text-base md:text-lg leading-relaxed mb-6" style={{ color: "var(--fg)" }}>
-              I'm an AI Product Designer focused on building 0→1 products at the intersection of healthcare, finance, and venture-backed innovation.
-            </p>
-            <p
-              className="text-base md:text-lg leading-relaxed mb-6"
-              style={{ color: "var(--fg-2)" }}
-            >
-              My work blends user research, product strategy, and AI-driven systems design to create thoughtful, scalable experiences — especially in complex, high-stakes environments like med-tech and emerging platforms.
-            </p>
-            <p
-              className="text-base md:text-lg leading-relaxed mb-12"
-              style={{ color: "var(--fg-2)" }}
-            >
-              From shaping early product vision to shipping end-to-end experiences, I operate across the full stack of design — whether that's mapping service blueprints, facilitating co-design workshops, or building robust design systems.
-            </p>
-
-            {/* Skills */}
-            <div className="mb-12 space-y-6">
-              {[
-                {
-                  label: "Core",
-                  skills: ["Product Design", "UX Research", "Service Design", "Design Systems", "0→1 Product Development", "AI-driven Design", "UX Writing", "Participatory Design", "Strategic Planning", "Systems Mapping"],
-                },
-                {
-                  label: "Methods",
-                  skills: ["Ideation", "Storyboarding", "Wireframing", "Prototyping", "User Testing", "Usability Testing", "Journey Mapping", "Workshop Facilitation", "Service Blueprinting", "Observational Studies", "Ideation Workshops", "Design Sprints", "Agile", "End-to-end Best Practice"],
-                },
-                {
-                  label: "Tools",
-                  skills: ["Figma", "Sketch", "FigJam", "Miro", "Adobe Creative Suite", "Jira", "Confluence", "Slack", "Asana", "Trello", "Procreate", "Cursor"],
-                },
-                {
-                  label: "AI-Native Tools",
-                  skills: ["Figma Make", "Lovable", "Midjourney", "Vizcom"],
-                },
-              ].map((group) => (
-                <div key={group.label}>
-                  <p
-                    className="text-xs tracking-[0.2em] uppercase mb-3"
-                    style={{ color: "rgba(255,255,255,0.18)" }}
-                  >
-                    {group.label}
-                  </p>
-                  <div className="flex flex-wrap gap-2">
-                    {group.skills.map((skill) => (
-                      <span
-                        key={skill}
-                        className="text-sm px-4 py-1.5 rounded-full"
-                        style={{
-                          background: "var(--bg-2)",
-                          color: "var(--fg-2)",
-                          border: "1px solid var(--divider)",
-                        }}
-                      >
-                        {skill}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            {/* Experience */}
-            <div>
-              <p
-                className="text-xs tracking-[0.2em] uppercase mb-5"
-                style={{ color: "rgba(255,255,255,0.18)" }}
-              >
-                Experience
-              </p>
-              <div className="space-y-0">
-                {[
-                  { role: "Product Designer", company: "Jersey Tech Partners", year: "July 2025 – Present" },
-                  { role: "Product Designer", company: "10XBeta", year: "June 2024 – July 2025" },
-                  { role: "Designer", company: "Bearings World", year: "Sep 2020 – Aug 2022" },
-                ].map((exp, i) => (
-                  <div
-                    key={i}
-                    className="flex items-start justify-between py-4"
-                    style={{ borderBottom: "1px solid var(--divider)" }}
-                  >
-                    <div>
-                      <p className="text-sm font-medium" style={{ color: "var(--fg)" }}>
-                        {exp.role}
-                      </p>
-                      <p className="text-sm mt-0.5" style={{ color: "var(--fg-2)" }}>
-                        {exp.company}
-                      </p>
-                    </div>
-                    <p className="text-xs flex-shrink-0 ml-4 mt-0.5" style={{ color: "var(--fg-2)" }}>
-                      {exp.year}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ════════════════════════════════════════
-          APPROACH
-         ════════════════════════════════════════ */}
-      <section
-        className="px-6 md:px-12 py-20 md:py-28"
-        style={{ background: "var(--bg-2)" }}
-      >
-        <div className="max-w-7xl mx-auto">
-          <div className="flex items-center gap-4 mb-14">
-            <span
-              className="font-syne font-semibold text-xs tracking-[0.2em] uppercase"
-              style={{ color: "var(--fg)" }}
-            >
-              My Approach
-            </span>
-            <div className="flex-1 h-px" style={{ background: "var(--divider)" }} />
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
-            {APPROACH.map((item, i) => (
-              <ApproachCard key={item.number} item={item} delay={i * 0.1} />
-            ))}
-          </div>
-        </div>
-      </section>
+      <AboutChatbotSection />
 
       {/* ════════════════════════════════════════
           TESTIMONIALS

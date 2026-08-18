@@ -89,6 +89,42 @@ export function ProjectPage() {
   const project = projects.find((p) => p.id === id);
 
   if (!project) return <Navigate to="/" replace />;
+  if (project.comingSoon) {
+    return (
+      <div className="min-h-[70vh] px-6 md:px-12 py-28">
+        <div className="max-w-4xl mx-auto">
+          <Link
+            to="/"
+            className="inline-flex items-center gap-2 text-sm transition-opacity hover:opacity-70 group mb-8"
+            style={{ color: "var(--fg-2)" }}
+          >
+            <ArrowLeft className="w-4 h-4 group-hover:-translate-x-0.5 transition-transform" />
+            Back to work
+          </Link>
+          <div
+            className="rounded-2xl p-10 md:p-12"
+            style={{ background: "var(--surface)", border: "1px solid var(--divider)" }}
+          >
+            <p
+              className="text-[10px] tracking-[0.2em] uppercase mb-4"
+              style={{ color: "var(--fg-3)" }}
+            >
+              Coming Soon
+            </p>
+            <h1
+              className="font-syne font-bold leading-[1.05] mb-4"
+              style={{ color: "var(--fg)", fontSize: "clamp(34px, 5vw, 56px)" }}
+            >
+              {project.title}
+            </h1>
+            <p className="text-base md:text-lg leading-relaxed" style={{ color: "var(--fg-2)" }}>
+              This case study is currently in progress and will be published soon.
+            </p>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   const nextProject = project.nextProject
     ? projects.find((p) => p.id === project.nextProject)

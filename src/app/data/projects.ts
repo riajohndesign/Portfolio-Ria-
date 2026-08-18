@@ -34,6 +34,7 @@ export interface Project {
   role: string;
   tools: string[];
   image: string;
+  comingSoon?: boolean;
   accent: string;
   tagline: string;
   overview: string;
@@ -56,7 +57,7 @@ export const projects: Project[] = [
     year: "2025",
     role: "UX Designer",
     tools: ["Figma", "FigJam", "Maze", "ChatGPT"],
-    image: "/project-breathe-studio.png",
+    image: "/project-breathe-studio-v2.png",
     accent: "#888888",
     tagline: "Empowering wellness coaches with AI-driven client insights.",
     overview:
@@ -149,7 +150,7 @@ export const projects: Project[] = [
     year: "2026",
     role: "UX Designer & Content Strategist",
     tools: ["Figma", "FigJam", "Notion", "Webflow"],
-    image: "/project-othain.png",
+    image: "/project-othain-v2.png",
     accent: "#888888",
     tagline: "Rebuilding a tech brand from the ground up — components to content.",
     overview:
@@ -237,7 +238,8 @@ export const projects: Project[] = [
     year: "2025",
     role: "UX Researcher & Early Designer",
     tools: ["Figma", "FigJam", "Miro", "Atlas.ti"],
-    image: "/project-arpa-h.png",
+    image: "/project-care-delivery-partner-v2.png",
+    comingSoon: true,
     accent: "#888888",
     tagline: "Bringing primary care to the communities that need it most.",
     overview:
@@ -325,7 +327,7 @@ export const projects: Project[] = [
     year: "2024",
     role: "UX Researcher & Product Designer",
     tools: ["Figma", "FigJam", "Maze", "IDEO Methods"],
-    image: "/project-validose.png",
+    image: "/eyedrops-hero-v3.png",
     accent: "#888888",
     tagline: "Making it easier to take the right medication at the right time.",
     overview:
@@ -414,6 +416,7 @@ export const projects: Project[] = [
     role: "Design Researcher",
     tools: ["FigJam", "Miro", "Dovetail", "Literature Review"],
     image: "/project-et-tube.png",
+    comingSoon: true,
     accent: "#888888",
     tagline: "Understanding a critical problem in emergency airway management.",
     overview:

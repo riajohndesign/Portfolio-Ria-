@@ -3,7 +3,7 @@ import { AnimatePresence, motion } from "motion/react";
 import { ArrowUpRight } from "lucide-react";
 import { Link } from "react-router";
 
-const figmaHero = "/eyedrops-hero-v2.png";
+const figmaHero = "/eyedrops-hero-v3.png";
 const figmaOverviewArt = "/eyedrops-overview-illustration-v3.png";
 const figmaMethodBg = "https://www.figma.com/api/mcp/asset/f1b2028c-028a-4d71-9d4e-fdf91c24e000";
 const figmaJourneyMap = "/eyedrops-journey-map-v2.png";
@@ -30,7 +30,7 @@ function RevealBlock({ children, className = "" }: { children: ReactNode; classN
 type ZoomableImageProps = {
   src: string;
   alt: string;
-  onZoom: (src: string, alt: string) => void;
+  onZoom: (image: { src: string; alt: string }) => void;
   className?: string;
 } & Omit<ImgHTMLAttributes<HTMLImageElement>, "src" | "alt" | "className" | "onClick">;
 
@@ -43,7 +43,7 @@ function ZoomableImage({ src, alt, onZoom, className = "", style, loading, decod
       loading={loading ?? "lazy"}
       decoding={decoding ?? "async"}
       style={{ imageRendering: "auto", ...style }}
-      onClick={() => onZoom(src, alt)}
+      onClick={() => onZoom({ src, alt })}
       {...rest}
     />
   );
@@ -135,7 +135,7 @@ export function EyeDropsPage() {
               opportunity areas in this segment.
             </p>
           </div>
-          <div className="w-full flex justify-end items-end rounded-[12px] bg-white p-2">
+          <div className="w-full flex justify-end items-end bg-white p-2">
             <ZoomableImage
               src={figmaOverviewArt}
               alt="Overview illustration"
@@ -327,7 +327,7 @@ export function EyeDropsPage() {
             <motion.img
               src={zoomImage.src}
               alt={zoomImage.alt}
-              className="max-h-[92vh] max-w-[92vw] rounded-[14px] object-contain"
+              className="max-h-[92vh] max-w-[92vw] object-contain"
               initial={{ scale: 0.95, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.96, opacity: 0 }}

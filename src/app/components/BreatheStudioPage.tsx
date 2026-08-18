@@ -3,7 +3,7 @@ import { ArrowUpRight, ChevronLeft, ChevronRight } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 import { Link } from "react-router";
 
-const imgHero = "/breathe-hero-v3.png";
+const imgHero = "/breathe-hero-v4.png";
 const imgOverview = "/breathe-overview-v2.png";
 const imgInsight1 = "/breathe-insight-communication-v2.png";
 const imgInsight2 = "/breathe-insight-visibility-v2.png";
@@ -149,22 +149,24 @@ export function BreatheStudioPage() {
       </section>
 
       <section className="px-6 md:px-12 lg:px-20 py-10" style={{ background: "#e0ddd6" }}>
-        <RevealBlock className="mx-auto flex max-w-7xl flex-wrap items-start gap-12 lg:gap-20">
-          <div>
+        <RevealBlock className="mx-auto max-w-7xl">
+          <div className="grid grid-cols-2 gap-x-8 gap-y-8 lg:grid-cols-4 lg:gap-x-12">
+          <div className="w-full max-w-[260px] lg:justify-self-center">
             <p className="mb-2 text-[10px] uppercase tracking-[2px]">Role</p>
             <p className="text-[14px] text-[#596f57]">UX Designer (End to End)</p>
           </div>
-          <div>
+          <div className="w-full max-w-[260px] lg:justify-self-center">
             <p className="mb-2 text-[10px] uppercase tracking-[2px]">Team</p>
             <p className="text-[14px] text-[#596f57]">Product Manager, UX Designer, 2 Developers</p>
           </div>
-          <div>
+          <div className="w-full max-w-[260px] lg:justify-self-center">
             <p className="mb-2 text-[10px] uppercase tracking-[2px]">Year</p>
             <p className="text-[14px] text-[#596f57]">2025</p>
           </div>
-          <div>
+          <div className="w-full max-w-[260px] lg:justify-self-center">
             <p className="mb-2 text-[10px] uppercase tracking-[2px]">Domain</p>
             <p className="text-[14px] text-[#596f57]">Health &amp; Fitness</p>
+          </div>
           </div>
         </RevealBlock>
       </section>
@@ -261,7 +263,7 @@ export function BreatheStudioPage() {
           </p>
           <div className="grid grid-cols-1 gap-10 md:grid-cols-3">
             {insights.map((item) => (
-              <article key={item.title} className="flex flex-col gap-8 rounded-[16px] p-3 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)]">
+              <article key={item.title} className="flex flex-col gap-8 p-3 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)]">
                 <img
                   src={item.icon}
                   alt={item.title}
@@ -364,7 +366,7 @@ export function BreatheStudioPage() {
           <h3 className="mb-4 mt-12 text-[30px] font-bold leading-[47.406px]">Multiple Iterations using AI</h3>
           <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
             {iterationVersions.map((version) => (
-              <article key={version.label} className="rounded-[20px] border border-black/10 bg-white p-3 md:p-4">
+              <article key={version.label} className="border border-black/10 bg-white p-3 md:p-4">
                 <p className="mb-3 text-[20px] font-bold">{version.label}</p>
                 <img
                   src={version.src}

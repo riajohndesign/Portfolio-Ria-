@@ -179,3 +179,26 @@
     line-height: 1.5;
   }
 }
+
+/* Subtle thin scrollbar for Othain before/after panes. */
+.compare-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(140, 146, 163, 0.45) transparent;
+}
+
+.compare-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.compare-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.compare-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(140, 146, 163, 0.45);
+  border-radius: 9999px;
+}
+
+.compare-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(140, 146, 163, 0.62);
+}

@@ -74,7 +74,9 @@ export function Layout() {
               LinkedIn <ArrowUpRight className="w-3 h-3" />
             </a>
             <a
-              href="#"
+              href="/ria-ann-john-service-designer-resume.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
               className="text-sm transition-opacity hover:opacity-60 inline-flex items-center gap-1"
               style={{ color: "var(--fg-2)" }}
             >
@@ -133,7 +135,13 @@ export function Layout() {
             <a href="https://www.linkedin.com/in/riaannjohn/" className="text-sm" style={{ color: "var(--fg-2)" }}>
               LinkedIn
             </a>
-            <a href="#" className="text-sm inline-flex items-center gap-1" style={{ color: "var(--fg-2)" }}>
+            <a
+              href="/ria-ann-john-service-designer-resume.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sm inline-flex items-center gap-1"
+              style={{ color: "var(--fg-2)" }}
+            >
               Resume <ArrowUpRight className="w-3 h-3" />
             </a>
           </div>

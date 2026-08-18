@@ -3,20 +3,21 @@ import { AnimatePresence, motion } from "motion/react";
 import { ArrowUpRight } from "lucide-react";
 import { Link } from "react-router";
 
-const imgHero = "https://www.figma.com/api/mcp/asset/38947de0-34d7-4105-8245-70d5252b7127";
-const imgBefore = "https://www.figma.com/api/mcp/asset/ca7296ae-79f5-494c-ae48-315746aa24b1";
-const imgAfter = "https://www.figma.com/api/mcp/asset/84c7c916-4e3d-48b6-9601-454a467915d3";
+const imgHero = "/othain-hero-v4.png";
+const imgBefore = "/othain-before-v2.png";
+const imgAfter = "/othain-after-v3.png";
 const imgSiteAuditAnnotated = "/othain-site-audit-annotated.png";
-const imgCompetitiveAudit = "https://www.figma.com/api/mcp/asset/4fd8b009-47ec-4e38-b191-b7368c461088";
-const imgVisualIdentityReference = "/othain-visual-identity-reference.png";
-const imgContentAuditSitemap = "https://www.figma.com/api/mcp/asset/14373cd5-8e8c-46e2-9525-2647fa22fff2";
-const imgRapidProtoOne = "https://www.figma.com/api/mcp/asset/e9f6eb70-6fe5-42a0-99ee-18e183035514";
-const imgRapidProtoTwo = "https://www.figma.com/api/mcp/asset/c706332e-af73-4829-97c5-b8ca10a2fa7f";
+const imgCompetitiveAudit = "/othain-competitive-audit-v2.png";
+const imgVisualIdentityOne = "/othain-visual-identity-1-v2.png";
+const imgVisualIdentityTwo = "/othain-visual-identity-2-v2.png";
+const imgContentAuditSitemap = "/othain-content-audit-sitemap-v2.png";
+const imgRapidProtoOne = "/othain-rapid-proto-1-v2.png";
+const imgRapidProtoTwo = "/othain-rapid-proto-2-v2.png";
 const imgDeliverableOne = "https://www.figma.com/api/mcp/asset/046a04d7-fa82-4f64-954e-3c9c7c991b3e";
 const imgDeliverableTwo = "https://www.figma.com/api/mcp/asset/893bb582-12e5-4dc3-8119-12af3d3cff45";
-const imgProblemIcon1 = "https://www.figma.com/api/mcp/asset/2c13af15-acc9-4f7e-bb35-42040a41d401";
-const imgProblemIcon2 = "https://www.figma.com/api/mcp/asset/8c012171-20b3-4565-8153-9fc038b473f8";
-const imgProblemIcon3 = "https://www.figma.com/api/mcp/asset/beff6eb3-bdb3-44cf-8a53-d70f9cd2626f";
+const imgProblemIcon1 = "/othain-problem-icon-1.png";
+const imgProblemIcon2 = "/othain-problem-icon-2.png";
+const imgProblemIcon3 = "/othain-problem-icon-3.png";
 
 function RevealBlock({ children, className = "" }: { children: ReactNode; className?: string }) {
   return (
@@ -35,7 +36,7 @@ function RevealBlock({ children, className = "" }: { children: ReactNode; classN
 type ZoomableImageProps = {
   src: string;
   alt: string;
-  onZoom: (src: string, alt: string) => void;
+  onZoom: (image: { src: string; alt: string }) => void;
   className?: string;
 } & Omit<ImgHTMLAttributes<HTMLImageElement>, "src" | "alt" | "className" | "onClick">;
 
@@ -48,7 +49,7 @@ function ZoomableImage({ src, alt, onZoom, className = "", style, loading, decod
       loading={loading ?? "lazy"}
       decoding={decoding ?? "async"}
       style={{ imageRendering: "auto", ...style }}
-      onClick={() => onZoom(src, alt)}
+      onClick={() => onZoom({ src, alt })}
       {...rest}
     />
   );
@@ -97,20 +98,20 @@ export function OthainPage() {
 
       <section className="px-6 md:px-12 lg:px-20 py-10" style={{ background: "#111111" }}>
         <RevealBlock className="mx-auto max-w-7xl">
-          <div className="grid grid-cols-2 gap-y-8 lg:grid-cols-4 lg:gap-x-0">
-            <div>
+          <div className="grid grid-cols-2 gap-x-8 gap-y-10 lg:grid-cols-4 lg:gap-x-14">
+            <div className="w-full max-w-[260px] lg:justify-self-center">
             <p className="mb-2 text-[10px] uppercase tracking-[2px] text-white">Role</p>
             <p className="text-[14px] text-white">UX Designer (End to End)</p>
             </div>
-            <div>
+            <div className="w-full max-w-[260px] lg:justify-self-center">
             <p className="mb-2 text-[10px] uppercase tracking-[2px] text-white">Team</p>
             <p className="text-[14px] text-white">Product Manager, 2 Developers</p>
             </div>
-            <div>
+            <div className="w-full max-w-[260px] lg:justify-self-center">
             <p className="mb-2 text-[10px] uppercase tracking-[2px] text-white">Year</p>
             <p className="text-[14px] text-white">2026</p>
             </div>
-            <div>
+            <div className="w-full max-w-[260px] lg:justify-self-center">
             <p className="mb-2 text-[10px] uppercase tracking-[2px] text-white">Domain</p>
             <p className="text-[14px] text-white">Technology</p>
             </div>
@@ -132,14 +133,14 @@ export function OthainPage() {
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
             <div>
               <p className="mb-2 text-[25px] font-bold text-[#0352d2]">Before</p>
-              <div className="h-[323px] w-full overflow-hidden rounded-[8px]">
-                <ZoomableImage src={imgBefore} alt="Before redesign homepage" className="h-full w-full object-cover object-top" onZoom={setZoomImage} />
+              <div className="compare-scrollbar h-[420px] md:h-[560px] w-full overflow-y-auto overflow-x-hidden bg-white">
+                <ZoomableImage src={imgBefore} alt="Before redesign homepage" className="block h-auto w-full" onZoom={setZoomImage} />
               </div>
             </div>
             <div>
               <p className="mb-2 text-[25px] font-bold text-[#0352d2]">After</p>
-              <div className="h-[323px] w-full overflow-hidden rounded-[8px]">
-                <ZoomableImage src={imgAfter} alt="After redesign homepage" className="h-full w-full object-cover object-top" onZoom={setZoomImage} />
+              <div className="compare-scrollbar h-[420px] md:h-[560px] w-full overflow-y-auto overflow-x-hidden bg-white">
+                <ZoomableImage src={imgAfter} alt="After redesign homepage" className="block h-auto w-full" onZoom={setZoomImage} />
               </div>
             </div>
           </div>
@@ -183,7 +184,7 @@ export function OthainPage() {
           <ZoomableImage
             src={imgSiteAuditAnnotated}
             alt="Annotated homepage, about, and services audit with red issue markings"
-            className="mx-auto w-full max-w-[1024px] rounded-[12px]"
+            className="mx-auto w-full max-w-[1024px]"
             onZoom={setZoomImage}
           />
         </RevealBlock>
@@ -203,11 +204,11 @@ export function OthainPage() {
               ["02", "Improve clarity", "Visitors struggled to quickly understand the company's services.", "Communicate the value proposition clearly above the fold and improve content hierarchy for easier scanning."],
               ["03", "Increase conversions", "The website provided little guidance toward contacting the company.", "Create a clear user journey with prominent calls-to-action and a simplified navigation structure."],
             ].map(([num, title, body, goal]) => (
-              <article key={num} className="flex flex-col gap-4">
+              <article key={num} className="flex h-full flex-col gap-4">
                 <p className="text-[72px] font-bold leading-[1] text-[#2f60cd]">{num}</p>
-                <h3 className="text-[30px] font-bold leading-[1.2]">{title}</h3>
-                <p className="text-[18px] leading-[29.25px]">{body}</p>
-                <p className="text-[16px] uppercase tracking-[2px] text-[#0a3cec]">UX GOAL</p>
+                <h3 className="min-h-[72px] text-[30px] font-bold leading-[1.2]">{title}</h3>
+                <p className="min-h-[120px] text-[18px] leading-[29.25px]">{body}</p>
+                <p className="-mt-2 text-[16px] uppercase tracking-[2px] text-[#0a3cec]">UX GOAL</p>
                 <p className="text-[18px] leading-[29.25px]">{goal}</p>
               </article>
             ))}
@@ -225,7 +226,7 @@ export function OthainPage() {
           <p className="mb-8 text-[18px] leading-[29.25px]">
             I conducted a competitive audit of regional IT consulting firms to understand common visual patterns and identify opportunities for differentiation. While many competitors relied on generic corporate aesthetics, the goal for JTP and Othain was to create a modern, approachable, and credible brand that reflected their expertise while making complex technology services feel more accessible.
           </p>
-          <ZoomableImage src={imgCompetitiveAudit} alt="Competitive audit board" className="mb-10 h-auto w-full rounded-[20px]" onZoom={setZoomImage} />
+          <ZoomableImage src={imgCompetitiveAudit} alt="Competitive audit board" className="mb-10 h-auto w-full" onZoom={setZoomImage} />
 
           <h3 className="mb-4 text-[30px] font-bold leading-[47.406px]">Content Audit & Sitemap Restructuring</h3>
           <p className="text-[18px] leading-[29.25px] mb-4">
@@ -238,13 +239,20 @@ export function OthainPage() {
             <li>Established a logical content hierarchy with clearer page relationships and user flows.</li>
             <li>Made key actions, such as contacting the company, more visible and accessible across the site.</li>
           </ul>
-          <ZoomableImage src={imgContentAuditSitemap} alt="Content audit and sitemap" className="mb-10 h-auto w-full rounded-[20px]" onZoom={setZoomImage} />
+          <ZoomableImage src={imgContentAuditSitemap} alt="Content audit and sitemap" className="mb-10 h-auto w-full" onZoom={setZoomImage} />
 
           <h3 className="mb-4 text-[30px] font-bold leading-[47.406px]">Visual Identity</h3>
           <p className="mb-8 text-[18px] leading-[29.25px]">
             I established a visual design system by refining the existing logos, defining a typography scale, introducing a modern color palette, and standardizing reusable UI components. These foundations improved consistency, readability, and scalability while ensuring both brands maintained a cohesive and recognizable identity across their digital experiences.
           </p>
-          <ZoomableImage src={imgVisualIdentityReference} alt="Visual identity reference board" className="mb-10 mx-auto w-full max-w-[1024px] rounded-[20px]" onZoom={setZoomImage} />
+          <div className="mb-10 grid grid-cols-1 gap-3 md:grid-cols-2">
+            <div className="h-[320px] md:h-[380px] w-full overflow-hidden bg-white">
+              <ZoomableImage src={imgVisualIdentityOne} alt="Visual identity board one" className="h-full w-full object-cover object-top" onZoom={setZoomImage} />
+            </div>
+            <div className="h-[320px] md:h-[380px] w-full overflow-hidden bg-white">
+              <ZoomableImage src={imgVisualIdentityTwo} alt="Visual identity board two" className="h-full w-full object-contain object-center" onZoom={setZoomImage} />
+            </div>
+          </div>
 
           <h3 className="mb-4 text-[30px] font-bold leading-[47.406px]">Rapid Prototyping with AI</h3>
           <ul className="mb-8 list-disc pl-7 text-[18px] leading-[29.25px]">
@@ -258,8 +266,8 @@ export function OthainPage() {
             Outcome: AI accelerated ideation and feedback, while Figma enabled the level of craftsmanship and refinement needed for the final design.
           </p>
           <div className="grid grid-cols-1 gap-6">
-            <ZoomableImage src={imgRapidProtoOne} alt="Rapid prototype set one" className="h-auto w-full rounded-[20px]" onZoom={setZoomImage} />
-            <ZoomableImage src={imgRapidProtoTwo} alt="Rapid prototype set two" className="h-auto w-full rounded-[20px]" onZoom={setZoomImage} />
+            <ZoomableImage src={imgRapidProtoOne} alt="Rapid prototype set one" className="h-auto w-full" onZoom={setZoomImage} />
+            <ZoomableImage src={imgRapidProtoTwo} alt="Rapid prototype set two" className="h-auto w-full" onZoom={setZoomImage} />
           </div>
         </RevealBlock>
       </section>
@@ -269,12 +277,12 @@ export function OthainPage() {
           <p className="text-[16px] uppercase tracking-[2px]">deliverable</p>
           <div className="mb-8 mt-2 h-[2px] w-8 bg-[#7c5cbf]" />
           <h2 className="mb-10 text-[45px] font-bold leading-[47.406px]">From Brand System to Implementation</h2>
-          <ZoomableImage src={imgDeliverableOne} alt="Brand system deliverable" className="mb-10 h-auto w-full rounded-[20px]" onZoom={setZoomImage} />
+          <ZoomableImage src={imgDeliverableOne} alt="Brand system deliverable" className="mb-10 h-auto w-full" onZoom={setZoomImage} />
           <h3 className="mb-4 text-[30px] font-bold leading-[47.406px]">Scaling the Design Across Both Brands (Othain & Jersey Tech Partners)</h3>
           <p className="mb-8 text-[18px] leading-[29.25px]">
             I established a visual design system by refining the existing logos, defining a typography scale, introducing a modern color palette, and standardizing reusable UI components. These foundations improved consistency, readability, and scalability while ensuring both brands maintained a cohesive and recognizable identity across their digital experiences.
           </p>
-          <ZoomableImage src={imgDeliverableTwo} alt="Implemented design recording" className="h-auto w-full rounded-[20px]" onZoom={setZoomImage} />
+          <ZoomableImage src={imgDeliverableTwo} alt="Implemented design recording" className="h-auto w-full" onZoom={setZoomImage} />
         </RevealBlock>
       </section>
 
@@ -324,7 +332,7 @@ export function OthainPage() {
             <motion.img
               src={zoomImage.src}
               alt={zoomImage.alt}
-              className="max-h-[92vh] max-w-[92vw] rounded-[14px] object-contain"
+              className="max-h-[92vh] max-w-[92vw] object-contain"
               initial={{ scale: 0.95, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.96, opacity: 0 }}
