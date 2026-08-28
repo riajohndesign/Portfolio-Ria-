@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, Outlet, useLocation } from "react-router";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, Lock } from "lucide-react";
 import { CustomCursor } from "./CustomCursor";
 import { useTheme } from "../contexts/ThemeContext";
 
@@ -73,15 +73,14 @@ export function Layout() {
             >
               LinkedIn <ArrowUpRight className="w-3 h-3" />
             </a>
-            <a
-              href="/ria-ann-john-service-designer-resume.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-sm transition-opacity hover:opacity-60 inline-flex items-center gap-1"
-              style={{ color: "var(--fg-2)" }}
+            <span
+              aria-disabled="true"
+              title="Resume coming soon"
+              className="text-sm inline-flex items-center gap-1.5 cursor-not-allowed select-none"
+              style={{ color: "var(--fg-2)", opacity: 0.55 }}
             >
-              Resume <ArrowUpRight className="w-3 h-3" />
-            </a>
+              Resume <Lock className="w-3 h-3" />
+            </span>
 
           </div>
 
@@ -135,15 +134,14 @@ export function Layout() {
             <a href="https://www.linkedin.com/in/riaannjohn/" className="text-sm" style={{ color: "var(--fg-2)" }}>
               LinkedIn
             </a>
-            <a
-              href="/ria-ann-john-service-designer-resume.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-sm inline-flex items-center gap-1"
-              style={{ color: "var(--fg-2)" }}
+            <span
+              aria-disabled="true"
+              title="Resume coming soon"
+              className="text-sm inline-flex items-center gap-1.5 cursor-not-allowed select-none"
+              style={{ color: "var(--fg-2)", opacity: 0.55 }}
             >
-              Resume <ArrowUpRight className="w-3 h-3" />
-            </a>
+              Resume <Lock className="w-3 h-3" />
+            </span>
           </div>
         </div>
       </nav>
